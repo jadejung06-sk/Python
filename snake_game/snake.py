@@ -15,14 +15,19 @@ class Snake:
     ##### make a snake with some self.new_segments
     def create_snake(self):
         for position in STARTING_POSITIONS:
-            self.new_segment = Turtle()
-            self.new_segment.speed("fastest")
-            self.new_segment.color('white')
-            self.new_segment.shape("square")
-            self.new_segment.penup()
-            self.new_segment.goto(position)
-            self.segments.append(self.new_segment)
-    #############################################
+            self.add_segment(position)
+    
+    def add_segment(self, position):
+        self.new_segment = Turtle()
+        self.new_segment.speed("fastest")
+        self.new_segment.color('white')
+        self.new_segment.shape("square")
+        self.new_segment.penup()
+        self.new_segment.goto(position)
+        self.segments.append(self.new_segment)
+
+    def extend(self):
+        self.add_segment(self.segments[-1].position())
 
     ##### animate the snake
     def move(self):
