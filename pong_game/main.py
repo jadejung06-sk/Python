@@ -11,8 +11,8 @@ screen.title("My Pong Game")
 screen.tracer(0) # turn off the animation
 
 ##### makes two paddles
-r_paddle = Paddle((380,0))  # ★
-l_paddle = Paddle((-380,0))
+r_paddle = Paddle((350,0))  # ★
+l_paddle = Paddle((-350,0))
 ball = Ball()
 
 ##### controls the paddles
@@ -28,19 +28,18 @@ while game_is_on:
     screen.update()
     ball.move()
     if ball.ycor() > 280 or ball.ycor() < -280:
-        ball.bounce()
-
-        
-
-    # if r_paddle.distance(ball) < 15:
-        
-        
-
+        ball.bounce_y()
+    ##### r_paddle misses a ball    
+    elif ball.xcor() > 400:
+        ball.reset_position()
+    ##### l_paddle misses a ball
+    elif ball.xcor() < - 400:
+        ball.reset_position()
+    ##### detects collision with paddles       
+    elif ball.distance(r_paddle) < 50 and ball.xcor() > 340 or ball.distance(l_paddle) < 50 and ball.xcor() < -340:
+        ball.bounce_x()    
 
 screen.exitonclick()
 
-
-##### draws a line in the middle of center
 ##### two scoreboards
-##### needs a moving ball
-##### detect when paddle misses
+
