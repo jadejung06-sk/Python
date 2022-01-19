@@ -11,7 +11,7 @@ class Scoreboard(Turtle):
         self.update()
 
     def update(self):
-        self.write(f'score : {self.score}', align = 'left', font = FONT)
+        self.write(f'LEVEL : {self.score}', align = 'left', font = FONT)
 
     def get_score(self):
         self.score += 1
