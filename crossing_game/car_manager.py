@@ -3,11 +3,11 @@ import random
 COLORS = ["red", "orange", "yellow", "green", "blue", "purple"]
 STARTING_MOVE_DISTANCE = 5
 MOVE_INCREMENT = 10
-
 class CarManager(Turtle):
     
     def __init__(self):
         super().__init__()
+        self.hideturtle()
         self.all_cars = [] # ★
 
     def create_car(self):
@@ -21,11 +21,12 @@ class CarManager(Turtle):
             random_y = random.randint(-250,250)
             new_car.goto(300, random_y)
             self.all_cars.append(new_car)
+    
+    def increased_speed(self, level): 
+        self.speed = STARTING_MOVE_DISTANCE + (MOVE_INCREMENT * level) # ★
 
-    def race(self):
+    def race(self, level): 
+        self.increased_speed(level) # ★
         for car in self.all_cars:
-            self.new_x = car.xcor() - STARTING_MOVE_DISTANCE
-            car.goto(self.new_x, car.ycor())
-
-    def difficulty(self, level):
-        self.new_x = self.xcor() - (STARTING_MOVE_DISTANCE + MOVE_INCREMENT * level)
+            car.backward(self.speed) # ★
+    
