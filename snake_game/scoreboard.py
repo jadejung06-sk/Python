@@ -2,12 +2,14 @@ from re import L
 from turtle import Turtle
 ALIGNMENT = 'center'
 FONT = ("Arial", 12, "normal")
+
 class Scoreboard(Turtle):
 
     def __init__(self):
         super().__init__()
         self.score = 0
-        self.highscore = 0
+        with open('./snake_game/data.txt', mode = 'r') as data: # ★
+            self.highscore = int(data.read())
         self.hideturtle()
         self.penup()
         self.color("white")
@@ -21,6 +23,8 @@ class Scoreboard(Turtle):
     def reset(self):
         if self.score > self.highscore:
             self.highscore = self.score
+            with open('./snake_game/data.txt', mode = 'w') as data:
+                data.write(f'{self.highscore}')
         self.score = 0 # ★
         self.update_score()
   
