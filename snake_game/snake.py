@@ -8,6 +8,7 @@ RIGHT = 0
 
 class Snake:
     def __init__(self):
+        super().__init__()
         self.segments = []
         self.create_snake() # ★ 
         self.head = self.segments[0]
@@ -28,6 +29,10 @@ class Snake:
 
     def extend(self):
         self.add_segment(self.segments[-1].position())
+
+    ##### after reseting
+
+    # def start_snake(self):
 
     ##### animate the snake
     def move(self):
