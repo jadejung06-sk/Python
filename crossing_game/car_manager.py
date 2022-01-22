@@ -8,6 +8,7 @@ class CarManager(Turtle):
     
     def __init__(self):
         super().__init__()
+        self.hideturtle()
         self.all_cars = [] # ★
 
     def create_car(self):
@@ -20,14 +21,10 @@ class CarManager(Turtle):
             new_car.color(random.choice(COLORS))
             random_y = random.randint(-250,250)
             new_car.goto(300, random_y)
-<<<<<<< HEAD
             self.all_cars.append(new_car) # ★
     
     def increased_speed(self, level): 
         self.speed = STARTING_MOVE_DISTANCE + (MOVE_INCREMENT * level) # ★
-=======
-            self.all_cars.append(new_car)
->>>>>>> parent of c118090 (all done)
 
     def race(self):
         for car in self.all_cars:
