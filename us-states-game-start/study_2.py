@@ -21,11 +21,7 @@ while len(guessed_states) < 50:
     prompt = "Please type the name of states :").title() # ★
 
     if answer_state == 'Exit':
-        for correct_state in all_states:
-            if correct_state in guessed_states:
-                pass
-            else:
-                missed_states.append(correct_state)
+        missed_states = [correct_state for correct_state in all_states if correct_state not in guessed_states]
         new_data = pd.DataFrame( {'state' : missed_states})
         new_data.to_csv("./us-states-game-start/states_to_learn.csv", header = None)
         break
@@ -39,7 +35,4 @@ while len(guessed_states) < 50:
         t.goto(int(state_data.x), int(state_data.y))
         t.write(state_data.state.item())
     
-# new_data = pd.DataFrame( {'States' : missed_states})
-# print(new_data)
-
 
