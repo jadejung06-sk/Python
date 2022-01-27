@@ -46,3 +46,28 @@ data_dict = {
 }
 new_data2 = pd.DataFrame(data_dict)
 print(new_data2)
+
+# ### study 2
+# import pandas as pd
+# num_list = [5,5,5,0,0,0,1,1,1,4,4,4,5,5,5]
+# data =pd.DataFrame({'num': num_list})
+# print(data.drop_duplicates(keep=False))
+
+# x = np.array([5, 5, 5, 0, 0, 0, 1, 1, 1, 4, 4, 4, 5, 5, 5, 4, 4, 4, 0, 0 ])
+# result = []
+# for i in range(len(x)):
+#     if i==0:
+#         result += [x[i]]
+#         temp = x[i]
+#     else:
+#         if temp == x[i]:
+#             pass
+#         else:
+#             result += [x[i]]
+#             temp = x[i]
+# print(result)
+# import numpy as np
+# import time
+# x = np.array([5, 5, 5, 0, 0, 0, 1, 1, 1, 4, 4, 4, 5, 5, 5])
+# print(np.insert(x[1:][np.diff(x) != 0], 0, x[0]))
+# np.diff(x) the next num - the num 
