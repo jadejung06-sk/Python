@@ -1,7 +1,5 @@
 from tkinter import *
 
-from numpy import pad
-
 '''
 learns how to use a grid function.
 '''
