@@ -40,12 +40,10 @@ reset_btn.grid(column= 2, row = 2)
 
 ### tomato timer
 file = './pomodoro-start/tomato.png'
-img = ImageTk.PhotoImage(Image.open(file))
-panel = tk.Label(window, image= img).grid(column=1, row=1) # ★
-panel = tk.Label(text="test", fg='black', font = 200).grid(column=1, row=1) 
-
-
-
-
+canvas = tk.Canvas(width=200, height= 224)
+tomato_img = tk.PhotoImage(file = file)
+canvas.create_image(103, 112, image = tomato_img)
+canvas.create_text(103, 112, text = f'00:00')
+canvas.grid(column=1, row=1)
 
 window.mainloop()
