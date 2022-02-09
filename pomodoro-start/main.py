@@ -17,6 +17,15 @@ def start_btn_clicked():
     count_down(5 * 60)
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+# 25 min work
+# 5 min break
+# 25 work
+# 5 b
+# 25 w
+# 5 b
+# 25 w
+# 20 break
+
 def count_down(count):
     count_min = math.floor(count/60)
     count_sec = count % 60
@@ -66,6 +75,9 @@ canvas.grid(column=1, row=1)
 check_marks = "✔"
 check_label = tk.Label(text = check_marks, bg = YELLOW, fg = GREEN,  font = (FONT_NAME, 15, 'bold'))
 check_label.grid(column = 1, row = 3 )
-count_down(5 * 60)
+
+### work - ing - 
+for tm in [WORK_MIN, SHORT_BREAK_MIN, WORK_MIN, SHORT_BREAK_MIN, WORK_MIN, SHORT_BREAK_MIN, WORK_MIN, LONG_BREAK_MIN]:
+    count_down(tm * 60)
 
 window.mainloop()
