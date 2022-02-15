@@ -1,6 +1,22 @@
+import string
 import tkinter as tk
 from tkinter import messagebox
+import random
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def generator():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+    nr_letters = random.randint(8,10)
+    nr_numbers = random.randint(2,4)
+    nr_symbols = random.randint(2,4)
+    password_list = [ random.choice(letters) for _ in range(nr_letters) ]
+    password_list += [random.choice(numbers) for _ in range(nr_numbers)]
+    password_list += [random.choice(symbols) for _ in range(nr_symbols)]
+    random.shuffle(password_list)
+    password = ''.join(password_list)
+    pw_list.insert(0, string = password)
+    # print(f"Your password is: {password}")
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
@@ -46,7 +62,7 @@ pw_label.grid(column=0, row=3)
 
 add_btn = tk.Button(text="Add", width = 35, command=save)
 add_btn.grid(column=1, row=4, columnspan=2)
-gen_pw_btn = tk.Button(text = "Generate Password")
+gen_pw_btn = tk.Button(text = "Generate Password", command = generator)
 gen_pw_btn.grid(column=2, row=3)
 
 window.mainloop()
