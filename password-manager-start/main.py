@@ -33,6 +33,16 @@ def save():
             pw_list.delete(0, 'end')
     else:
         messagebox.showwarning(title= 'Oops', message = f"Please don't leave any fields empty!")
+# ---------------------------- SEARCH ------------------------------- #
+def search():
+    webname = web_list.get()
+    path = './password-manager-start/data.txt'
+    with open(path, 'r') as data_file:
+        for line in data_file:
+            if line.split('|')[0].strip() == webname:
+                email = line.split('|')[1].strip()
+                pw = line.split('|')[2].strip()
+                messagebox.showwarning(title= f"{webname}", message = f"Email: {email}\nPassword: {pw}")
 # ---------------------------- UI SETUP ------------------------------- #
 window = tk.Tk()
 window.title("Password Manager")
@@ -45,9 +55,11 @@ canvas.grid(column=1, row=0)
 
 web_label = tk.Label(text = "Website: ")
 web_list = tk.Entry(window, width = 35)
+search_btn = tk.Button(text = "Search", command = search)
 web_list.focus()
 web_list.grid(column=1, row =1, columnspan=2) # ★
 web_label.grid(column=0, row=1)
+search_btn.grid(column= 2, row = 1)
 
 email_label = tk.Label(text = "Email/Username: ")
 email_list = tk.Entry(width=35)
@@ -56,7 +68,7 @@ email_list.grid(column=1, row= 2, columnspan=2)
 email_label.grid(column=0, row=2)
 
 pw_label = tk.Label(text = "Password: ")
-pw_list = tk.Entry(window, width = 19, show="*")
+pw_list = tk.Entry(window, width = 20, show="*")
 pw_list.grid(column=1, row=3)
 pw_label.grid(column=0, row=3)
 
