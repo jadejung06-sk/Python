@@ -1,7 +1,7 @@
-import string
 import tkinter as tk
 from tkinter import messagebox
 import random
+import pyperclip
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generator():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -16,8 +16,8 @@ def generator():
     random.shuffle(password_list)
     password = ''.join(password_list)
     pw_list.insert(0, string = password)
+    pyperclip.copy(password)
     # print(f"Your password is: {password}")
-
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
     webname = web_list.get()
