@@ -46,25 +46,25 @@ def search():
 # ---------------------------- UI SETUP ------------------------------- #
 window = tk.Tk()
 window.title("Password Manager")
-window.config(padx=50, pady=50)
+window.config(padx=80, pady=50)
 file = './password-manager-start/logo.png'
 canvas = tk.Canvas(width=200, height= 200)
 logo_img = tk.PhotoImage(file = file) # ★
-canvas.create_image(100, 100, image = logo_img)
-canvas.grid(column=1, row=0)
+canvas.create_image(60, 100, image = logo_img)
+canvas.grid(column=1, row=0, columnspan=3)
 
 web_label = tk.Label(text = "Website: ")
-web_list = tk.Entry(window, width = 35)
-search_btn = tk.Button(text = "Search", command = search)
+web_list = tk.Entry(window, width = 20)
+search_btn = tk.Button(text = "Search", command = search, width = 14)
 web_list.focus()
-web_list.grid(column=1, row =1, columnspan=2) # ★
+web_list.grid(column=1, row =1, columnspan=2, sticky='w') # ★
 web_label.grid(column=0, row=1)
 search_btn.grid(column= 2, row = 1)
 
 email_label = tk.Label(text = "Email/Username: ")
-email_list = tk.Entry(width=35)
+email_list = tk.Entry(width=36)
 email_list.insert(0, "jjs0615@naver.com")
-email_list.grid(column=1, row= 2, columnspan=2)
+email_list.grid(column=1, row= 2, columnspan=2, sticky='w')
 email_label.grid(column=0, row=2)
 
 pw_label = tk.Label(text = "Password: ")
