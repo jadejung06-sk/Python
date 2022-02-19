@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generator():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -23,14 +24,33 @@ def save():
     webname = web_list.get()
     mail = email_list.get()
     password = pw_list.get()
+    new_data = {
+        webname: {
+        "email": mail,
+        "password": password,
+    }}
     if len(webname) > 0 and len(password) > 0 :
         is_ok = messagebox.askokcancel(title= webname, message=f'There are the details entered: \nEmail: {mail}\nPassword: {password}\nIs it ok to save?')
         if is_ok:
-            path = './password-manager-start/data.txt'
-            with open(path, 'a') as data_file:
-                data_file.write(f'{webname} | {mail} | {password}\n')
-            web_list.delete(0, 'end')
-            pw_list.delete(0, 'end')
+            path = './password-manager-start/data.json'
+            try:
+                with open(path, 'r') as data_file:
+                    # json.dump(new_data, data_file, indent=4) # ★
+                    ## Reading old data
+                    data = json.load(data_file)
+                    ## Updating old data with new data
+                    data.update(new_data) # ★
+            except FileNotFoundError:
+                with open(path, "w") as data_file:
+                    ## Saving updated data
+                    json.dump(new_data, data_file, indent=4)
+            else:
+                with open(path, "w") as data_file:
+                    json.dump(data, data_file, indent = 4)
+                    # data_file.write(f'{webname} | {mail} | {password}\n')
+            finally:
+                web_list.delete(0, 'end')
+                pw_list.delete(0, 'end')
     else:
         messagebox.showwarning(title= 'Oops', message = f"Please don't leave any fields empty!")
 # ---------------------------- SEARCH ------------------------------- #
