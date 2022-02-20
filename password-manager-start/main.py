@@ -56,13 +56,27 @@ def save():
 # ---------------------------- SEARCH ------------------------------- #
 def search():
     webname = web_list.get()
-    path = './password-manager-start/data.txt'
-    with open(path, 'r') as data_file:
-        for line in data_file:
-            if line.split('|')[0].strip() == webname:
-                email = line.split('|')[1].strip()
-                pw = line.split('|')[2].strip()
+    # path = './password-manager-start/data.txt'
+    path = './password-manager-start/data.json'
+    try :
+        with open(path, 'r') as data_file:
+            ### method 1
+            data = json.load(data_file)
+            try:
+                email = data[webname]['email']
+                pw = data[webname]['password']
                 messagebox.showwarning(title= f"{webname}", message = f"Email: {email}\nPassword: {pw}")
+            except KeyError:
+                messagebox.showwarning(title= 'Error', message = f"No details for this website exists.")
+    except FileNotFoundError:
+        messagebox.showwarning(title= 'Error', message = f"No Data File Found.")  
+
+        ### method 2
+        # for line in data_file:
+            # if line.split('|')[0].strip() == webname:
+                # email = line.split('|')[1].strip()
+                # pw = line.split('|')[2].strip()
+                # messagebox.showwarning(title= f"{webname}", message = f"Email: {email}\nPassword: {pw}")
 # ---------------------------- UI SETUP ------------------------------- #
 window = tk.Tk()
 window.title("Password Manager")
@@ -75,7 +89,7 @@ canvas.grid(column=1, row=0, columnspan=3)
 
 web_label = tk.Label(text = "Website: ")
 web_list = tk.Entry(window, width = 20)
-search_btn = tk.Button(text = "Search", command = search, width = 14)
+search_btn = tk.Button(text = "Search", command = search, width = 14, bg= "white")
 web_list.focus()
 web_list.grid(column=1, row =1, columnspan=2, sticky='w') # ★
 web_label.grid(column=0, row=1)
@@ -94,7 +108,7 @@ pw_label.grid(column=0, row=3)
 
 add_btn = tk.Button(text="Add", width = 35, command=save)
 add_btn.grid(column=1, row=4, columnspan=2)
-gen_pw_btn = tk.Button(text = "Generate Password", command = generator)
+gen_pw_btn = tk.Button(text = "Generate Password", command = generator, bg= "white")
 gen_pw_btn.grid(column=2, row=3)
 
 window.mainloop()
