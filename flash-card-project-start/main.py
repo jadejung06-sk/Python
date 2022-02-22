@@ -33,12 +33,11 @@ def next_card():
     return french_word
 
 ### btns
-
 correct_btn = tkt.Button(window, image = CORRECT, command=next_card)
 wrong_btn = tkt.Button(window, image = WRONG, command = next_card)
 # french_wd = random_word()
 canvas.create_text(400,150, text = f'French', font=("Ariel", 40, "italic"))
-canvas.create_text(400,260, text = f'{french_word}', font=("Ariel", 60, "bold"))
+canvas.create_text(400,260, text = f'', font=("Ariel", 60, "bold"))
 
 ### grid
 canvas.grid(row=0, column=0, columnspan=2)
