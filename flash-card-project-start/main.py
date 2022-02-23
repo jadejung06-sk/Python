@@ -1,6 +1,20 @@
 import tkinter as tkt
 import pandas as pd
 import random
+
+def next_card():
+    current_card = random.choice(to_learn)
+    print(current_card["French"])
+    canvas.itemconfig(card_title, text = "French") # ★
+    canvas.itemconfig(card_word, text = current_card["French"])
+
+def flip_card():
+    current_card = random.choice(to_learn)
+    canvas.itemconfig(card_title, text = "English", fill = "white") # ★
+    canvas.itemconfig(card_word, text = current_card["English"], fill="white")
+    canvas.itemconfig(card_image, image = CARD_BACK)
+
+
 BACKGROUND_COLOR = "#B1DDC6"
 window = tkt.Tk()
 window.title("Flashy")
@@ -12,9 +26,10 @@ CARD_BACK = tkt.PhotoImage(file = "./flash-card-project-start/images/card_back.p
 CARD_FRONT = tkt.PhotoImage(file = "./flash-card-project-start/images/card_front.png")
 CORRECT = tkt.PhotoImage(file = "./flash-card-project-start/images/right.png")
 WRONG = tkt.PhotoImage(file = "./flash-card-project-start/images/wrong.png")
-WORDS =  pd.read_csv("./flash-card-project-start/data/french_words.csv")
+data =  pd.read_csv("./flash-card-project-start/data/french_words.csv")
+to_learn = data.to_dict(orient="records")
 canvas = tkt.Canvas(window, width = WIDTH, height= HEIGHT, bg=BACKGROUND_COLOR, highlightthickness=0) # ★
-canvas.create_image(WIDTH/2,HEIGHT/2, image = CARD_FRONT)
+card_image = canvas.create_image(WIDTH/2,HEIGHT/2, image = CARD_FRONT)
 # canvas.create_image(550,720, image = CORRECT)
 # canvas.create_image(250,720, image = WRONG)
 
@@ -26,23 +41,22 @@ canvas.create_image(WIDTH/2,HEIGHT/2, image = CARD_FRONT)
 # canvas.create_text(400,260, text = f'{french_word[num]}', font=("Ariel", 60, "bold"))
 
 ## words method 2
-def next_card():
-    num = random.randint(0,WORDS.shape[0])
-    words = WORDS.to_dict(orient='records')
-    french_word = words[num]['French']
-    return french_word
+
 
 ### btns
 correct_btn = tkt.Button(window, image = CORRECT, command=next_card)
 wrong_btn = tkt.Button(window, image = WRONG, command = next_card)
 # french_wd = random_word()
-canvas.create_text(400,150, text = f'French', font=("Ariel", 40, "italic"))
-canvas.create_text(400,260, text = f'', font=("Ariel", 60, "bold"))
+card_title = canvas.create_text(400,150, text = f'', font=("Ariel", 40, "italic"))
+card_word = canvas.create_text(400,260, text = f'', font=("Ariel", 60, "bold"))
 
 ### grid
 canvas.grid(row=0, column=0, columnspan=2)
 wrong_btn.grid(row= 1, column = 0)
 correct_btn.grid(row = 1, column = 1)
 
+next_card()
+window.after(ms=3000)
+flip_card()
 
 window.mainloop()
