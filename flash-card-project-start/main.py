@@ -12,17 +12,11 @@ def next_card():
     flip_timer = window.after(3000, func = flip_card)
 
 def remove_card():
-    canvas.itemconfig(card_image, image = CARD_FRONT)
-    global current_card, flip_timer, data
-    window.after_cancel(flip_timer)
-    current_card = random.choice(to_learn)
-    canvas.itemconfig(card_title, text = "French", fill = 'black') # ★
-    canvas.itemconfig(card_word, text = current_card["French"], fill= 'black')
-    flip_timer = window.after(3000, func = flip_card)
-    # print(current_card["French"].index)
+    global data
     index_names = data[data.French == current_card["French"]].index
     data.drop(index_names, inplace= True)
     data.to_csv("./flash-card-project-start/data/words_to_learn.csv", index= False)
+    next_card()
 
 def flip_card():
     canvas.itemconfig(card_title, text = "English", fill = "white") # ★
