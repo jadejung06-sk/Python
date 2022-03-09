@@ -3,17 +3,19 @@ import pandas as pd
 import random
 
 def next_card():
+    canvas.itemconfig(card_image, image = CARD_FRONT)
     current_card = random.choice(to_learn)
     print(current_card["French"])
-    canvas.itemconfig(card_title, text = "French") # ★
-    canvas.itemconfig(card_word, text = current_card["French"])
-
+    canvas.itemconfig(card_title, text = "French", fill = 'black') # ★
+    canvas.itemconfig(card_word, text = current_card["French"], fill= 'black')
+    window.after_cancel(window)
+    window.after(3000, flip_card)
+    
 def flip_card():
     current_card = random.choice(to_learn)
     canvas.itemconfig(card_title, text = "English", fill = "white") # ★
     canvas.itemconfig(card_word, text = current_card["English"], fill="white")
     canvas.itemconfig(card_image, image = CARD_BACK)
-
 
 BACKGROUND_COLOR = "#B1DDC6"
 window = tkt.Tk()
@@ -42,7 +44,6 @@ card_image = canvas.create_image(WIDTH/2,HEIGHT/2, image = CARD_FRONT)
 
 ## words method 2
 
-
 ### btns
 correct_btn = tkt.Button(window, image = CORRECT, command=next_card)
 wrong_btn = tkt.Button(window, image = WRONG, command = next_card)
@@ -50,13 +51,12 @@ wrong_btn = tkt.Button(window, image = WRONG, command = next_card)
 card_title = canvas.create_text(400,150, text = f'', font=("Ariel", 40, "italic"))
 card_word = canvas.create_text(400,260, text = f'', font=("Ariel", 60, "bold"))
 
+
 ### grid
 canvas.grid(row=0, column=0, columnspan=2)
 wrong_btn.grid(row= 1, column = 0)
 correct_btn.grid(row = 1, column = 1)
 
 next_card()
-window.after(ms=3000)
-flip_card()
 
 window.mainloop()
