@@ -10,7 +10,20 @@ def next_card():
     canvas.itemconfig(card_title, text = "French", fill = 'black') # ★
     canvas.itemconfig(card_word, text = current_card["French"], fill= 'black')
     flip_timer = window.after(3000, func = flip_card)
- 
+
+def remove_card():
+    canvas.itemconfig(card_image, image = CARD_FRONT)
+    global current_card, flip_timer, data
+    window.after_cancel(flip_timer)
+    current_card = random.choice(to_learn)
+    canvas.itemconfig(card_title, text = "French", fill = 'black') # ★
+    canvas.itemconfig(card_word, text = current_card["French"], fill= 'black')
+    flip_timer = window.after(3000, func = flip_card)
+    # print(current_card["French"].index)
+    index_names = data[data.French == current_card["French"]].index
+    data.drop(index_names, inplace= True)
+    data.to_csv("./flash-card-project-start/data/words_to_learn.csv", index= False)
+
 def flip_card():
     canvas.itemconfig(card_title, text = "English", fill = "white") # ★
     canvas.itemconfig(card_word, text = current_card["English"], fill="white")
@@ -29,7 +42,12 @@ CARD_BACK = tkt.PhotoImage(file = "./flash-card-project-start/images/card_back.p
 CARD_FRONT = tkt.PhotoImage(file = "./flash-card-project-start/images/card_front.png")
 CORRECT = tkt.PhotoImage(file = "./flash-card-project-start/images/right.png")
 WRONG = tkt.PhotoImage(file = "./flash-card-project-start/images/wrong.png")
-data =  pd.read_csv("./flash-card-project-start/data/french_words.csv")
+
+try:
+    data =  pd.read_csv("./flash-card-project-start/data/words_to_learn.csv")
+except FileNotFoundError:
+    data =  pd.read_csv("./flash-card-project-start/data/french_words.csv")
+
 to_learn = data.to_dict(orient="records")
 current_card = {}
 canvas = tkt.Canvas(window, width = WIDTH, height= HEIGHT, bg=BACKGROUND_COLOR, highlightthickness=0) # ★
@@ -46,8 +64,8 @@ card_image = canvas.create_image(WIDTH/2,HEIGHT/2, image = CARD_FRONT)
 
 ## words method 2
 ### btns
-correct_btn = tkt.Button(window, image = CORRECT, command=next_card)
-wrong_btn = tkt.Button(window, image = WRONG, command = next_card)
+correct_btn = tkt.Button(window, image = CORRECT, command=remove_card)
+wrong_btn = tkt.Button(window, image = WRONG, command=next_card)
 # french_wd = random_word()
 card_title = canvas.create_text(400,150, text = f'', font=("Ariel", 40, "italic"))
 card_word = canvas.create_text(400,260, text = f'', font=("Ariel", 60, "bold"))
