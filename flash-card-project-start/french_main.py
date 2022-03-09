@@ -15,7 +15,7 @@ def remove_card():
     global data
     index_names = data[data.French == current_card["French"]].index
     data.drop(index_names, inplace= True)
-    data.to_csv("./flash-card-project-start/data/words_to_learn.csv", index= False)
+    data.to_csv("./flash-card-project-start/data/words_to_learn_french.csv", index= False)
     next_card()
 
 def flip_card():
@@ -38,7 +38,7 @@ CORRECT = tkt.PhotoImage(file = "./flash-card-project-start/images/right.png")
 WRONG = tkt.PhotoImage(file = "./flash-card-project-start/images/wrong.png")
 
 try:
-    data =  pd.read_csv("./flash-card-project-start/data/words_to_learn.csv")
+    data =  pd.read_csv("./flash-card-project-start/data/words_to_learn_french.csv")
 except FileNotFoundError:
     data =  pd.read_csv("./flash-card-project-start/data/french_words.csv")
 
