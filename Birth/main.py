@@ -6,8 +6,8 @@ import datetime as dt
 def login_email(msg):
     # msg = "Subject:Hello.\n\nThis is the body of my email"
     my_naver = "jjs0615@naver.com"
-    my_gmail = "jongseok.test.01@gmail.com"
-    gmail_password = "sktest01!"
+    my_gmail = "j1@gmail.com"
+    gmail_password = "s"
 
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()

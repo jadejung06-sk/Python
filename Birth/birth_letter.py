@@ -14,8 +14,8 @@ def read_file():
 
 ##### send an e-mail
 def login_email(to_address ,msg):
-    my_gmail = "jongseok.test.01@gmail.com"
-    gmail_password = "sktest01!"
+    my_gmail = "j1@gmail.com"
+    gmail_password = "s"
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
         connection.login(user= my_gmail, password= gmail_password)
