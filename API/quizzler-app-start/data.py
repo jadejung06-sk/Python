@@ -1,3 +1,14 @@
+import requests
+
+GAME_URL = "https://opentdb.com/api.php?amount=10&category=11&type=boolean"
+
+'''
+1. get question_data from the game_url (ing)
+2. make the data in the same structure
+3. run the main.py and check it right
+'''
+
+
 question_data = [
     {
         "category": "Science: Computers",
