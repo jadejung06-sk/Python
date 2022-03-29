@@ -1,4 +1,6 @@
 import tkinter
+from quiz_brain import QuizBrain
+
 # from main import quiz
 # from data import question_data
 THEME_COLOR = "#375362"
@@ -8,7 +10,8 @@ class QuizInterface:
     https://076923.github.io/posts/Python-tkinter-15/
     """
 
-    def __init__(self):
+    def __init__(self, quiz_brain: QuizBrain):
+        self.quiz = quiz_brain
         self.window = tkinter.Tk()   
     # window 4(3) x 2(1) or 3 x 2 : quizzler
         self.window.title(string = "quizzler")
@@ -24,11 +27,14 @@ class QuizInterface:
         self.score_label = tkinter.Label(self.window, text=f"score : {self.score}", fg = 'white', bg = THEME_COLOR)
     # quiz canvas
         self.canvas = tkinter.Canvas(self.window, height=250, width=300)
-        self.text = self.canvas.create_text(150, 125, text = "quiz", font=('Arial', 20, "italic"), fill = THEME_COLOR)
+        self.question_text = self.canvas.create_text(150, 125, width = 280, text = "quiz", font=('Arial', 20, "italic"), fill = THEME_COLOR)
 
-        def ok_status():
-            # question = quiz_brain.next_question()
-            self.canvas.itemconfig(self.text, text = f"change" )
+        def ok_status(self):
+            q_text = self.quiz.next_question()
+
+
+
+            self.canvas.itemconfig(self.question_text, text = q_text)
             print("ok")
 
         # v check box in the left side
@@ -42,4 +48,10 @@ class QuizInterface:
         self.v_button.grid(row=2, column=0, pady=20)
         self.x_button.grid(row=2, column=1, pady=20)
 
+        self.get_next_question()
+
         self.window.mainloop()
+
+    def get_next_question(self):
+        q_text = self.quiz.next_question()
+        self.canvas.itemconfig(self.question_text, text = q_text)

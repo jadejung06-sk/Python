@@ -1,3 +1,22 @@
+
+age: int
+name: str
+height: float
+is_humna: bool
+def police_check(age: int):
+    if age > 18:
+        can_drive = True
+    else:
+        can_drive = False
+    return can_drive
+
+if police_check():
+    print("You may pass.")
+else:
+    print("Pay a fine.")
+
+
+
 ### keyword
 # try
 # except
@@ -26,21 +45,21 @@
 ## KeyError
 # a_dictionary = {"key":"value"}
 # value = a_dictionary["non_existent_key"]
-facebook_posts = [
-    {'Likes': 21, 'Comments': 2}, 
-    {'Likes': 13, 'Comments': 2, 'Shares': 1}, 
-    {'Likes': 33, 'Comments': 8, 'Shares': 3}, 
-    {'Comments': 4, 'Shares': 2}, 
-    {'Comments': 1, 'Shares': 1}, 
-    {'Likes': 19, 'Comments': 3}]
-total_likes = 0
-for post in facebook_posts:
-    try:
-        total_likes = total_likes + post['Likes'] # ★
-    except KeyError:
-        total_likes += 0
-        # pass
-print(total_likes)
+# facebook_posts = [
+#     {'Likes': 21, 'Comments': 2}, 
+#     {'Likes': 13, 'Comments': 2, 'Shares': 1}, 
+#     {'Likes': 33, 'Comments': 8, 'Shares': 3}, 
+#     {'Comments': 4, 'Shares': 2}, 
+#     {'Comments': 1, 'Shares': 1}, 
+#     {'Likes': 19, 'Comments': 3}]
+# total_likes = 0
+# for post in facebook_posts:
+#     try:
+#         total_likes = total_likes + post['Likes'] # ★
+#     except KeyError:
+#         total_likes += 0
+#         # pass
+# print(total_likes)
 
 
 
