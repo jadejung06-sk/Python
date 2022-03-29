@@ -24,23 +24,32 @@ class QuizInterface:
 
     # score_label
         self.score = 0
-        self.score_label = tkinter.Label(self.window, text=f"score : {self.score}", fg = 'white', bg = THEME_COLOR)
+        self.score_label = tkinter.Label(self.window, text=f"score : {self.score}", fg = 'white', bg = THEME_COLOR, font = ('Arial', 12, "bold"))
     # quiz canvas
         self.canvas = tkinter.Canvas(self.window, height=250, width=300)
         self.question_text = self.canvas.create_text(150, 125, width = 280, text = "quiz", font=('Arial', 20, "italic"), fill = THEME_COLOR)
 
-        def ok_status(self):
+        def True_btn():
             q_text = self.quiz.next_question()
-
-
-
+            self.user_answer = "True"
+            self.quiz.check_answer(self.user_answer)  
             self.canvas.itemconfig(self.question_text, text = q_text)
-            print("ok")
+            # self.canvas.itemconfig(self.window, fill = 'green')
+            self.score_label.config(text=f"score : {self.quiz.score}", font = ('Arial', 12, "bold"))
+            # print("ok")
+
+        def False_btn():
+            q_text = self.quiz.next_question()
+            self.user_answer = "False"
+            self.quiz.check_answer(self.user_answer)  
+            self.canvas.itemconfig(self.question_text, text = q_text)
+            self.score_label.config(text=f"score : {self.quiz.score}", font = ('Arial', 12, "bold"))
+            # print("False")
 
         # v check box in the left side
-        self.v_button = tkinter.Button(self.window, command = ok_status, image= self.v_img)
+        self.v_button = tkinter.Button(self.window, command = True_btn, image= self.v_img)
         # x check box on the right side
-        self.x_button = tkinter.Button(self.window, command= ok_status, image = self.x_img)
+        self.x_button = tkinter.Button(self.window, command= False_btn, image = self.x_img)
 
     # grid some items
         self.score_label.grid(row= 0,column=1, pady=20)
@@ -49,7 +58,6 @@ class QuizInterface:
         self.x_button.grid(row=2, column=1, pady=20)
 
         self.get_next_question()
-
         self.window.mainloop()
 
     def get_next_question(self):
