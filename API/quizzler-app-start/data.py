@@ -9,7 +9,6 @@ GAME_URL = "https://opentdb.com/api.php"
 2. make the data in the same structure
 3. run the main.py and check it right
 '''
-
 status = requests.get(url= GAME_URL, params=params).status_code
 if status:
     # print(status)
