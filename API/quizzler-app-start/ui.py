@@ -12,7 +12,7 @@ class QuizInterface:
 
     def __init__(self, quiz_brain: QuizBrain):
         self.quiz = quiz_brain
-        self.window = tkinter.Tk()   
+        self.window = tkinter.Tk()
     # window 4(3) x 2(1) or 3 x 2 : quizzler
         self.window.title(string = "quizzler")
         # self.window.geometry("500x500")
@@ -29,22 +29,35 @@ class QuizInterface:
         self.canvas = tkinter.Canvas(self.window, height=250, width=300)
         self.question_text = self.canvas.create_text(150, 125, width = 280, text = "quiz", font=('Arial', 20, "italic"), fill = THEME_COLOR)
 
+        def give_feedback(is_right):
+            if is_right == True:
+                print("if ok")
+                self.window.after(1000, lambda : self.canvas.config(bg = 'green'))
+            else:
+                print("else ok")
+                self.window.after(1000, lambda : self.canvas.config(bg = 'red'))
+
         def True_btn():
             q_text = self.quiz.next_question()
             self.user_answer = "True"
-            self.quiz.check_answer(self.user_answer)  
+            self.is_right = self.quiz.check_answer(self.user_answer)
+            print(self.is_right)
             self.canvas.itemconfig(self.question_text, text = q_text)
-            # self.canvas.itemconfig(self.window, fill = 'green')
+            # self.canvas.config(bg = 'green') # ★
+            self.give_feedback(self.is_right)
             self.score_label.config(text=f"score : {self.quiz.score}", font = ('Arial', 12, "bold"))
             # print("ok")
 
         def False_btn():
             q_text = self.quiz.next_question()
             self.user_answer = "False"
-            self.quiz.check_answer(self.user_answer)  
+            self.quiz.check_answer(self.user_answer)
             self.canvas.itemconfig(self.question_text, text = q_text)
+            self.canvas.config(bg = 'red')
             self.score_label.config(text=f"score : {self.quiz.score}", font = ('Arial', 12, "bold"))
             # print("False")
+
+
 
         # v check box in the left side
         self.v_button = tkinter.Button(self.window, command = True_btn, image= self.v_img)
