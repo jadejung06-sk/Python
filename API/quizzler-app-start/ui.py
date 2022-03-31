@@ -28,41 +28,10 @@ class QuizInterface:
     # quiz canvas
         self.canvas = tkinter.Canvas(self.window, height=250, width=300)
         self.question_text = self.canvas.create_text(150, 125, width = 280, text = "quiz", font=('Arial', 20, "italic"), fill = THEME_COLOR)
-
-        def give_feedback(is_right):
-            if is_right == True:
-                print("if ok")
-                self.window.after(1000, lambda : self.canvas.config(bg = 'green'))
-            else:
-                print("else ok")
-                self.window.after(1000, lambda : self.canvas.config(bg = 'red'))
-
-        def True_btn():
-            q_text = self.quiz.next_question()
-            self.user_answer = "True"
-            self.is_right = self.quiz.check_answer(self.user_answer)
-            print(self.is_right)
-            self.canvas.itemconfig(self.question_text, text = q_text)
-            # self.canvas.config(bg = 'green') # ★
-            self.give_feedback(self.is_right)
-            self.score_label.config(text=f"score : {self.quiz.score}", font = ('Arial', 12, "bold"))
-            # print("ok")
-
-        def False_btn():
-            q_text = self.quiz.next_question()
-            self.user_answer = "False"
-            self.quiz.check_answer(self.user_answer)
-            self.canvas.itemconfig(self.question_text, text = q_text)
-            self.canvas.config(bg = 'red')
-            self.score_label.config(text=f"score : {self.quiz.score}", font = ('Arial', 12, "bold"))
-            # print("False")
-
-
-
-        # v check box in the left side
-        self.v_button = tkinter.Button(self.window, command = True_btn, image= self.v_img)
-        # x check box on the right side
-        self.x_button = tkinter.Button(self.window, command= False_btn, image = self.x_img)
+    # v check box in the left side
+        self.v_button = tkinter.Button(self.window, command = self.True_btn, image= self.v_img)
+    # x check box on the right side
+        self.x_button = tkinter.Button(self.window, command= self.False_btn, image = self.x_img)
 
     # grid some items
         self.score_label.grid(row= 0,column=1, pady=20)
@@ -72,6 +41,34 @@ class QuizInterface:
 
         self.get_next_question()
         self.window.mainloop()
+
+    def give_feedback(self, is_right):
+        if is_right == True:
+            print("if ok")
+            self.window.after(1000, self.canvas.config(bg = 'green'))
+        else:
+            print("else ok")
+            self.window.after(1000, self.canvas.config(bg = 'red'))
+
+    def True_btn(self):
+        q_text = self.quiz.next_question()
+        self.user_answer = "True"
+        self.is_right = self.quiz.check_answer(self.user_answer)
+        # print(self.is_right)
+        self.canvas.itemconfig(self.question_text, text = q_text)
+        # self.canvas.config(bg = 'green') # ★
+        self.give_feedback(self.is_right)
+        self.score_label.config(text=f"score : {self.quiz.score}", font = ('Arial', 12, "bold"))
+        # print("ok")
+
+    def False_btn(self):
+        q_text = self.quiz.next_question()
+        self.user_answer = "False"
+        self.is_right = self.quiz.check_answer(self.user_answer)
+        self.canvas.itemconfig(self.question_text, text = q_text)
+        self.give_feedback(self.is_right)
+        self.score_label.config(text=f"score : {self.quiz.score}", font = ('Arial', 12, "bold"))
+        # print("False")
 
     def get_next_question(self):
         q_text = self.quiz.next_question()
