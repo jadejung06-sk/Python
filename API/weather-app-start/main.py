@@ -1,17 +1,36 @@
 import requests
+from twilio.rest import Client 
+
+
 '''
 https://openweathermap.org/api/one-call-api
 https://www.latlong.net/
 parameters exclude : It should be a comma-delimited list (without spaces). # ★
 '''
-city_name = 'icheon'
-lat = 37.271996
-lon = 127.434822
+## a city
+city_name = "icheon"
+# lat = 37.271996
+# lon = 127.434822
+## rainy city
+# lat = 35.689487
+# lon = 139.691711
+## Pyeongtek
+lat = 37.056981
+lon = 127.052946
+
 API_key = "d5cb186b7ada6023a3a24d4b1b6cafa4" # ★
 
-OWN_Endpoint = 'https://api.openweathermap.org/data/2.5/onecall'
-basic_api = f'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}'
-city_api = f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}'
+## twilio 
+account_sid = "AC0bd2928a5eb6edb1e2252288e6ac8369" 
+auth_token = "978c044bb35b015f1b9cfa7c52992e57"
+client = Client(account_sid, auth_token) 
+message = client.messages.create(body=f"It's going to rain today. Remember to bring an umbrella", from_ = "+13156591997", to='+821090378136' )
+print(message.sid) 
+# print(message.sid)
+
+OWN_Endpoint ="https://api.openweathermap.org/data/2.5/onecall"
+basic_api = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"
+city_api = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}"
 
 weather_params = {
     "lat":lat
@@ -34,7 +53,7 @@ if response.status_code == 200:
 # for weather in hourly_weather[0:11]:
     # print(weather)
     for hour, data_weather in enumerate(hourly_weather[0:11]):
-        weather_id = data_weather['weather'][0]['id']
+        weather_id = data_weather["weather"][0]["id"]
         # print(hour, f"id : {weather_id}")
         if weather_id < 700:
             will_rain = True
