@@ -23,9 +23,7 @@ API_key = "d5cb186b7ada6023a3a24d4b1b6cafa4" # ★
 ## twilio 
 account_sid = "AC0bd2928a5eb6edb1e2252288e6ac8369" 
 auth_token = "978c044bb35b015f1b9cfa7c52992e57"
-client = Client(account_sid, auth_token) 
-message = client.messages.create(body=f"It's going to rain today. Remember to bring an umbrella", from_ = "+13156591997", to='+821090378136' )
-print(message.sid) 
+
 # print(message.sid)
 
 OWN_Endpoint ="https://api.openweathermap.org/data/2.5/onecall"
@@ -64,6 +62,9 @@ if response.status_code == 200:
 ## if it rains, print out!
 if will_rain:
     print(f"Bring your umbrella!")
+    client = Client(account_sid, auth_token) 
+    message = client.messages.create(body=f"It's going to rain today. Remember to bring an umbrella", from_ = "+13156591997", to='+821090378136' )
+    print(message.sid) 
 else:
     print("Happy day! Good weather.")
 
