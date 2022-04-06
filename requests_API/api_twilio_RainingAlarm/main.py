@@ -1,6 +1,6 @@
 import requests
 from twilio.rest import Client 
-
+import os
 
 '''
 https://openweathermap.org/api/one-call-api
@@ -18,15 +18,16 @@ city_name = "icheon"
 lat = 37.056981
 lon = 127.052946
 
+# export OWM_API_KEY="d5cb186b7ada6023a3a24d4b1b6cafa4"
+# os.environ['OWM_API_KEY'] = 'd5cb186b7ada6023a3a24d4b1b6cafa4'
 API_key = "d5cb186b7ada6023a3a24d4b1b6cafa4" # ★
+# print(os.getenv("OWM_API_KEY"))
 
 ## twilio 
 account_sid = "AC0bd2928a5eb6edb1e2252288e6ac8369" 
 auth_token = "978c044bb35b015f1b9cfa7c52992e57"
 
-# print(message.sid)
-
-OWN_Endpoint ="https://api.openweathermap.org/data/2.5/onecall"
+OWM_Endpoint ="https://api.openweathermap.org/data/2.5/onecall"
 basic_api = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"
 city_api = f"https://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_key}"
 
@@ -37,7 +38,7 @@ weather_params = {
     ,"exclude":"current,minutely,daily"
 }
 
-response = requests.get(url= OWN_Endpoint, params=weather_params)
+response = requests.get(url= OWM_Endpoint, params=weather_params)
 response.raise_for_status()
 # print(response.status_code)
 list_weather = []
