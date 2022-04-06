@@ -20,15 +20,13 @@ lon = 127.052946
 
 # export OWM_API_KEY="d5cb186b7ada6023a3a24d4b1b6cafa4"
 # os.environ['OWM_API_KEY'] = 'd5cb186b7ada6023a3a24d4b1b6cafa4'
-# API_key = "d5cb186b7ada6023a3a24d4b1b6cafa4" # ★
-API_key =os.getenv("OWM_API_KEY")
-print(API_key)
+API_key = "d5cb186b7ada6023a3a24d4b1b6cafa4" # ★
+# API_key =os.getenv("OWM_API_KEY")
 
 ## twilio 
 account_sid = "AC0bd2928a5eb6edb1e2252288e6ac8369" 
-# auth_token = "978c044bb35b015f1b9cfa7c52992e57"
-auth_token = os.getenv("OWM_AUTH_TOKEN")
-
+auth_token = "978c044bb35b015f1b9cfa7c52992e57"
+# auth_token = os.getenv("OWM_AUTH_TOKEN")
 
 OWM_Endpoint ="https://api.openweathermap.org/data/2.5/onecall"
 basic_api = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_key}"
@@ -53,7 +51,6 @@ if response.status_code == 200:
     # print(len(hourly_weather))
 ## next 12 hours
 # for weather in hourly_weather[0:11]:
-    # print(weather)
     for hour, data_weather in enumerate(hourly_weather[0:11]):
         weather_id = data_weather["weather"][0]["id"]
         # print(hour, f"id : {weather_id}")
@@ -71,4 +68,3 @@ if will_rain:
     print(message.sid) 
 else:
     print("Happy day! Good weather.")
-
