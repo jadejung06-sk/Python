@@ -1,4 +1,5 @@
 import requests
+import datetime
 
 ## id
 #  https://pixe.la/@jadejungtest
@@ -9,7 +10,7 @@ GRAPH_ID = "graph123412"
 ## endpoints
 pixela_endpoint = "https://pixe.la/v1/users"
 graph_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs"
-graph_value_endpoint = f"{graph_endpoint}/{GRAPH_ID}"
+pixela_creation_endpoint = f"{graph_endpoint}/{GRAPH_ID}"
 
 ## configs
 user_params = {"token": TOKEN
@@ -24,13 +25,13 @@ graph_config = {"id": GRAPH_ID,
 headers = {
     "X-USER-TOKEN" : TOKEN
 }
-daily_config = {"date":"20220413",
+pixela_data = {"date":"20220413",
 "quantity":"2"}
 
 ## post
 # https://pixe.la/v1/users/jadejungtest/graphs/graph123412.html
 # response = requests.post(url = pixela_endpoint, json = user_params)
 graph = requests.post(url = graph_endpoint, json = graph_config, headers=headers)
-graph_point = requests.post(url=graph_value_endpoint, json = daily_config, headers=headers)
+graph_point = requests.post(url=pixela_creation_endpoint, json = pixela_data, headers=headers)
 # print(graph.text, graph_endpoint)
 print(graph_point.text)
