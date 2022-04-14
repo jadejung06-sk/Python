@@ -5,6 +5,8 @@ from datetime import datetime
 GPT3_APP_ID = "79185132"
 GPT3_APP_KEY = "7b377a808d7b2c7ce0679090fb8da0bc"
 SHEET_USERNAME = "1afdc9861c39d7aea3407072f386921c"
+SHEET_AUTH_ID = "jadejung"
+
 
 GENDER = "male"
 AGE = "35"
@@ -17,7 +19,8 @@ excercise_endpoint = f"https://trackapi.nutritionix.com/v2/natural/exercise"
 sheety_endopoint = f"https://api.sheety.co/{SHEET_USERNAME}/workoutTracking/workouts"
 
 headers = {"x-app-id" : GPT3_APP_ID,
-"x-app-key" : GPT3_APP_KEY}
+"x-app-key" : GPT3_APP_KEY
+}
 
 excercise_params = {
  "query":input("Tell me which excerciese you did: ")
@@ -39,6 +42,11 @@ calories_exercising = exercising["nf_calories"]
 #####################################
 
 ##### Input some data in the sheet.
+
+sheety_header = { 
+"Authorization" : "Basic amFkZWp1bmc6c2t0ZXN0MDEwMjAzMDQwNQ=="
+}
+
 sheety_params = {
   "workout": 
     {
@@ -52,6 +60,6 @@ sheety_params = {
 # print(sheety_params)
 # sheety_get = requests.get(url= sheety_endopoint)
 # print(sheety_get.text)
-sheety_input = requests.post(url = sheety_endopoint, json = sheety_params)
+sheety_input = requests.post(url = sheety_endopoint, json = sheety_params, headers=sheety_header)
 print(sheety_input.text)
 #########################
