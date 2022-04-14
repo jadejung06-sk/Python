@@ -1,18 +1,25 @@
 import requests
-import datetime
+from datetime import datetime
 
-## id
+##### id
 #  https://pixe.la/@jadejungtest
 USERNAME = "jadejungtest"
 TOKEN = "j0a6d3e4y5y1s8pp3da4"
 GRAPH_ID = "graph123412"
+TODAY = datetime.now().strftime("%Y%m%d") # 20220414 
 
-## endpoints
+
+##### input
+changed_date = datetime(year = 2022, month=4, day= 13).strftime("%Y%m%d")
+###########
+
+##### endpoints
 pixela_endpoint = "https://pixe.la/v1/users"
 graph_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs"
 pixela_creation_endpoint = f"{graph_endpoint}/{GRAPH_ID}"
+update_endpoint = f"{graph_endpoint}/{GRAPH_ID}/{changed_date}"
 
-## configs
+##### configs
 user_params = {"token": TOKEN
 , "username": USERNAME
 , "agreeTermsOfService":"yes"
@@ -25,13 +32,19 @@ graph_config = {"id": GRAPH_ID,
 headers = {
     "X-USER-TOKEN" : TOKEN
 }
-pixela_data = {"date":"20220413",
-"quantity":"2"}
+pixela_data = {"date":TODAY,
+"quantity": input("How many liters did you drink today?")}
 
-## post
+pixela_changed_data = {
+"quantity":"2" }
+
+##### post / put / delete
 # https://pixe.la/v1/users/jadejungtest/graphs/graph123412.html
 # response = requests.post(url = pixela_endpoint, json = user_params)
-graph = requests.post(url = graph_endpoint, json = graph_config, headers=headers)
+# graph = requests.post(url = graph_endpoint, json = graph_config, headers=headers)
 graph_point = requests.post(url=pixela_creation_endpoint, json = pixela_data, headers=headers)
+# graph_updation = requests.put(url=update_endpoint, json = pixela_changed_data, headers=headers)
+# delete_pixel = requests.delete(url=update_endpoint, headers=headers)
 # print(graph.text, graph_endpoint)
 print(graph_point.text)
+# print(delete_pixel.text)
