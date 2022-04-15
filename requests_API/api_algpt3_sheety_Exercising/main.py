@@ -1,4 +1,3 @@
-from sqlite3 import Date
 import requests
 from datetime import datetime
 import os
@@ -7,16 +6,6 @@ GPT3_APP_ID = "79185132"
 GPT3_APP_KEY = "7b377a808d7b2c7ce0679090fb8da0bc"
 SHEET_USERNAME = "1afdc9861c39d7aea3407072f386921c"
 SHEET_AUTH_ID = "jadejung"
-
-os.environ["APP_ID"] = "79185132"
-os.environ["API_KEY"] = "7b377a808d7b2c7ce0679090fb8da0bc"
-
-print(os.environ.get("APP_ID"), os.environ.get("API_KEY"))
-
-# APP_ID = os.environ["APP_ID"]
-# API_KEY = os.environ["API_KEY"]
-# APP_ID = os.environ.get("APP_ID")
-# API_KEY = os.environ.get("API_KEY")
 
 GENDER = "male"
 AGE = "35"
