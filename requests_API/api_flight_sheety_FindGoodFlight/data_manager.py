@@ -14,10 +14,10 @@ class DataManager(FlightSearch):
         # self.post_params = {"price" : {"city":"Test",
         # "iataCode":"TST", "lowestPrice":0}}
         # self.response_post = requests.post(url = self.sheety_endpoint, json = self.post_params)
+        self.response_get = requests.get(url = self.sheety_endpoint)
         super().__init__()
 
-    def update_sheet(self):
-        self.response_get = requests.get(url = self.sheety_endpoint)
+    def __update_IATA(self):
         self.sheet_name = self.response_get.json()["prices"]
         self.city_list = []
         for self.data in self.sheet_name:
@@ -35,8 +35,8 @@ class DataManager(FlightSearch):
            self.response_put = requests.put(url = f"{self.sheety_put_endpoint}{obj_id}", json =self.put_params)
         return self.response_put
 
-if __name__=="__main__":
-    debug = DataManager()
-    # print(debug.response_get.json()["prices"])
-    print(debug.update_sheet())
-    # print(debug.response_post.json())
+# if __name__=="__main__":
+#     debug = DataManager()
+#     # print(debug.response_get.json()["prices"])
+#     print(debug.__update_IATA())
+#     # print(debug.response_post.json())
