@@ -1,6 +1,5 @@
 import requests
 
-
 class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
     '''https://tequila.kiwi.com/portal/docs/tequila_api/search_api'''

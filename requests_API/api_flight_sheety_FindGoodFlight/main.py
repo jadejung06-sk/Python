@@ -15,9 +15,12 @@ for city in city_list:
 # print(IATA_list)
 # print(sheet_name)
 
+##### New sheet
 ### method 1 : put into a dic 
 # for row in sheet_name:
 #     row['iataCode'] = 'Testing'
 # print(sheet_name)
-
-dict(zip())
+### method 2 : put into a dic
+for idx, row in enumerate(sheet_name):
+    row['iataCode'] = IATA_list[idx]
+print(sheet_name)
