@@ -30,8 +30,19 @@ print(IATA_list)
 
 ##### get the lowest prices
 flight_data = FlightData()
+flight_info = {}
 for iata in IATA_list:
     try:
         print(f"{iata} : {flight_data.search_lowest(iata)}")
+        flight_info[iata] = flight_data.search_lowest(iata)
     except IndexError:
-        print(f"{iata} : No Fligts")
+        print(f"{iata} : No Flights")
+        flight_info[iata] = int(0)
+print(flight_info)
+'''
+{'PAR': 2176218, 'BER': 0, 'SYD': 2359728, 'NYC': 2701093, 'SFO': 1963813, 'SEL': 0, 'GMP': 0, 'ICN': 0, 'ROM': 0, 'ZRH': 0, 'BUH': 0}
+'''
+if flight_info["PAR"] > 0:
+    print("higher")
+else:
+    print("lower")
