@@ -35,8 +35,14 @@ class DataManager(FlightSearch):
            self.response_put = requests.put(url = f"{self.sheety_put_endpoint}{obj_id}", json =self.put_params)
         return self.response_put
 
+    def update_price(self, obj_id, lowest_price): 
+        self.put_params = {"price" : {"lowestPrice" : lowest_price}} # ★
+        self.response_put = requests.put(url = f"{self.sheety_put_endpoint}{obj_id}", json =self.put_params)
+        return self.response_put
+
 # if __name__=="__main__":
 #     debug = DataManager()
 #     # print(debug.response_get.json()["prices"])
-#     print(debug.__update_IATA())
+#     # print(debug.__update_IATA())
+#     print(debug.update_price(2))
 #     # print(debug.response_post.json())

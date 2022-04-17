@@ -8,15 +8,18 @@ data_mg = DataManager()
 flight_search = FlightSearch()
 sheet_name = data_mg.response_get.json()["prices"]
 city_list = []
+original_data = {}
 for data in sheet_name:
+    print(data)
     city_list.append(data["city"])
+    original_data[data["iataCode"]] = (data["lowestPrice"], data['id']) # ★
+# print(original_data) 
+# >>> {'PAR': (9999999, 2), 'BER': (9999999, 3), 'SYD': (9999999, 4), 'NYC': (9999999, 5), 'SFO': (9999999, 6), 'SEL': (9999999, 7), 'GMP': (9999999, 8), 'ICN': (9999999, 9), 'ROM': (9999999, 10), 'ZRH': (9999999, 11), 'BUH': (9999999, 12)}
 # print(city_list)
 IATA_list = []
 for city in city_list:
     IATA = flight_search.get_IATA_cd(city)
     IATA_list.append(IATA)
-print(IATA_list)
-# print(sheet_name)
 
 ##### New sheet
 ### method 1 : put into a dic 
@@ -28,21 +31,17 @@ print(IATA_list)
 #     row['iataCode'] = IATA_list[idx]
 # print(sheet_name)
 
+######################## ing
 ##### get the lowest prices
 flight_data = FlightData()
 flight_info = {}
 for iata in IATA_list:
     try:
-        print(f"{iata} : {flight_data.search_lowest(iata)}")
+        # print(f"{iata} : {flight_data.search_lowest(iata)}")
         flight_info[iata] = flight_data.search_lowest(iata)
+        if flight_info[iata] < original_data[iata][0]:
+            # print(iata, flight_info[iata], "Lowest")
+            data_mg.update_price(obj_id = original_data[iata][1], lowest_price = flight_info[iata]) # ★
     except IndexError:
-        print(f"{iata} : No Flights")
-        flight_info[iata] = int(0)
-print(flight_info)
-'''
-{'PAR': 2176218, 'BER': 0, 'SYD': 2359728, 'NYC': 2701093, 'SFO': 1963813, 'SEL': 0, 'GMP': 0, 'ICN': 0, 'ROM': 0, 'ZRH': 0, 'BUH': 0}
-'''
-if flight_info["PAR"] > 0:
-    print("higher")
-else:
-    print("lower")
+        # print(f"{iata} : No Flights")
+        flight_info[iata] = int(9999999)
