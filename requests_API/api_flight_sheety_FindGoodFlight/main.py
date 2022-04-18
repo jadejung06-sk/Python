@@ -2,6 +2,7 @@
 from data_manager import DataManager
 from flight_search import FlightSearch
 from flight_data import FlightData
+from notification_manager import NotificationManager
 
 ##### get IATA 
 data_mg = DataManager()
@@ -33,15 +34,26 @@ for city in city_list:
 
 ######################## ing
 ##### get the lowest prices
+##### send a message
 flight_data = FlightData()
+
+send_msg = NotificationManager()
 flight_info = {}
 for iata in IATA_list:
     try:
         # print(f"{iata} : {flight_data.search_lowest(iata)}")
-        flight_info[iata] = flight_data.search_lowest(iata)
+        flight_info[iata] = int(flight_data.search_lowest(iata)["price"])
+        data = flight_data.search_lowest(iata)
         if flight_info[iata] < original_data[iata][0]:
             # print(iata, flight_info[iata], "Lowest")
             data_mg.update_price(obj_id = original_data[iata][1], lowest_price = flight_info[iata]) # ★
+            send_msg.send_msg(price =flight_info[iata], to_city = data["cityFrom"], to_iata = data["flyFrom"], from_date = data["local_departure"], to_date = data["local_arrival"])
     except IndexError:
         # print(f"{iata} : No Flights")
         flight_info[iata] = int(9999999)
+
+# self.flight_info_dict["flyFrom"] = self.response_data.json()["data"][0]["flyFrom"]
+# self.flight_info_dict["cityFrom"] = self.response_data.json()["data"][0]["cityFrom"]
+# self.flight_info_dict["price"] = self.response_data.json()["data"][0]["price"]
+# self.flight_info_dict["local_arrival"] = self.response_data.json()["data"][0]["local_arrival"]
+# self.flight_info_dict["local_departure"] = self.response_data.json()["data"][0]["local_departure"]
