@@ -1,43 +1,71 @@
 import requests
 from bs4 import BeautifulSoup
 import datetime
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+
+CLIENT_ID = "03f6bf8e61be4f80986d5facbee40f8e"
+CLIENT_SECRET = "6d83afb77a764a489dbdf0320c154ac7"
+REDIRECT_URL = "https://example.com"
+
+# ★
+def login_spotipy():
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CLIENT_ID, 
+    client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URL, scope="playlist-modify-private", show_dialog= True, cache_path="./bs4_website/bs4_songs/token.txt"))
+    user_id = sp.current_user()["id"]
 
 
-time = input("Which year do you want to travel to? Type the date in this format like 20000812:")
-THETIME = datetime.datetime.strptime(time, "%Y%m%d").date()
-# THETIME = "2000-08-12"
-# print(THETIME)
+def get_songs():
+    ### real
+    time = input("Which year do you want to travel to? Type the date in this format like 20000812:")
+    THETIME = datetime.datetime.strptime(time, "%Y%m%d").date()
+    ### test
+    # THETIME = "2000-08-12"
+    # print(THETIME)
+    #########
 
-URL = f"https://www.billboard.com/charts/hot-100/{THETIME}/"
-response = requests.get(URL)
-HTML = response.text
+    URL = f"https://www.billboard.com/charts/hot-100/{THETIME}/"
+    response = requests.get(URL)
+    HTML = response.text
+    soup = BeautifulSoup(HTML, "html.parser")
+    ### test
+    # test = soup.find("h3", attrs = {"id":"title-of-a-story", "class": "c-title"})
+    song_list = []
+    title_text = soup.select("h3#title-of-a-story.c-title.a-no-trucate.a-font-primary-bold-s.u-letter-spacing-0021")
+    for num in range(len(title_text)):
+        # print(num+1, test[num].get_text().strip('\n\t'))
+        songs = title_text[num].get_text().strip('\n\t')
+        song_list.append(songs)
+    return song_list
 
-soup = BeautifulSoup(HTML, "parser.html")
-soup.find()
+if __name__ == "__main__":
+    # song_list = get_songs()
+    uri_query = {"track":"Wifey", 'year':2000}
+    import spotipy
 
+    urn = 'spotify:artist:3jOstUTkEu2JkjvRdBA5Gu'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CLIENT_ID, 
+    client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URL, scope="playlist-modify-private", show_dialog= True, cache_path="./bs4_website/bs4_songs/token.txt"))
+    user_id = sp.current_user()["id"]
 
-### examples
-''' h3 id="title-of-a-story" class="c-title a-no-trucate a-font-primary-bold-s u-letter-spacing-0021 ~~
-title 1 
-<h3 id="title-of-a-story" class="c-title  a-no-trucate a-font-primary-bold-s u-letter-spacing-0021 u-font-size-23@tablet lrv-u-font-size-16 u-line-height-125 u-line-height-normal@mobile-max a-truncate-ellipsis u-max-width-245 u-max-width-230@tablet-only u-letter-spacing-0028@tablet">
-Incomplete</h3>
+    artist = sp.artist(urn)
+    print("artist:", artist)
 
-title 2
-<h3 id="title-of-a-story" class="c-title  a-no-trucate a-font-primary-bold-s u-letter-spacing-0021 lrv-u-font-size-18@tablet lrv-u-font-size-16 u-line-height-125 u-line-height-normal@mobile-max a-truncate-ellipsis u-max-width-330 u-max-width-230@tablet-only">
-Bent		
-</h3>
-''' 
+    user = sp.user(user_id)
+    print("user:", user)
 
-'''
-singer 1 span class="c-label a-no-truncate a-font-primary-s ~~
-<span class="c-label  a-no-trucate a-font-primary-s lrv-u-font-size-14@mobile-max u-line-height-normal@mobile-max u-letter-spacing-0021 lrv-u-display-block a-truncate-ellipsis-2line u-max-width-330 u-max-width-230@tablet-only u-font-size-20@tablet">
-Sisqo
-</span>
+    from spotipy.oauth2 import SpotifyClientCredentials
+    import spotipy
+    import sys
+    import pprint
 
-singer 2
-<span class="c-label  a-no-trucate a-font-primary-s lrv-u-font-size-14@mobile-max u-line-height-normal@mobile-max u-letter-spacing-0021 lrv-u-display-block a-truncate-ellipsis-2line u-max-width-330 u-max-width-230@tablet-only">
-matchbox twenty
-</span>
+    if len(sys.argv) > 1:
+        search_str = sys.argv[1]
+    else:
+        search_str = {"track":"Wifey", 'year':2000, 'is_playable': True}
 
-'''
-
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CLIENT_ID, 
+    client_secret=CLIENT_SECRET, redirect_uri=REDIRECT_URL, scope="playlist-modify-private", show_dialog= True, cache_path="./bs4_website/bs4_songs/token.txt"))
+    
+    result = sp.search(search_str, limit=1, type='track')
+    pprint.pprint(result)
