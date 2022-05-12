@@ -45,9 +45,10 @@ for upncoming_event in upcoming_events:
         else:
             name_list.append(upcoming)
 for idx in range(len(time_list)):
-    upcoming_dict[idx] = {}
-    upcoming_dict[idx]["time"] = time_list[idx]
-    upcoming_dict[idx]["name"] = name_list[idx]
+    upcoming_dict[idx] = {
+    "time" : time_list[idx],
+    "name" : name_list[idx]
+    }
 print(upcoming_dict)
 driver.quit() 
 
