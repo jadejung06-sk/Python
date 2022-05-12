@@ -33,19 +33,30 @@ URL = "https://www.python.org/"
 driver.get(url=URL)
 upcoming_events = driver.find_elements_by_xpath('//*[@id="content"]/div/section/div[3]/div[2]/div/ul')
 # print(upcoming_events)
+time_list = []
+name_list = []
 upcoming_dict = {}
 for upncoming_event in upcoming_events:
     upcoming_list = upncoming_event.text.split('\n')
-    print(upcoming_list)
+    # print(upcoming_list)
     for idx, upcoming in enumerate(upcoming_list):
         if idx % 2 == 0:
-            print(idx)
+            time_list.append(upcoming)
         else:
-            print("else", idx)
+            name_list.append(upcoming)
+for idx in range(len(time_list)):
+    upcoming_dict[idx] = {}
+    upcoming_dict[idx]["time"] = time_list[idx]
+    upcoming_dict[idx]["name"] = name_list[idx]
 print(upcoming_dict)
 driver.quit() 
 
 '''
+##### an example
+# Dict['Dict1'] = {}
+# # Adding elements one at a time
+# Dict['Dict1']['name'] = 'Bob'
+# Dict['Dict1']['age'] = 21
 {0 : {'time': '2020-08-28', 'name': 'Django Girls Malabo' }
 1 : ~~
 }
