@@ -60,18 +60,14 @@ class InstaFollower:
 
     def follow(self):
         time.sleep(5)
-
-        #scroll down the page
-        # for i in range(int(allfoll/2)):
-        #     driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", dialog)
-        #     time.sleep(random.randint(500,1000)/1000)
-        #     print("Extracting friends %",round((i/(allfoll/2)*100),2),"from","%100")
-
-        # self.popup_followrs = self.driver.find_element(By.CLASS_NAME, 'div.isgrP')
-        # self.popup_followrs.send_keys(Keys.END)
-        # self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", self.popup_followrs)
-        # print("follow")
-        pass
+        all_buttons = self.driver.find_elements_by_css_selector("li button")
+        for button in all_buttons:
+            try:
+                button.click()
+                time.sleep(1)
+            except :
+                cancel_button = self.driver.find_element_by_xpath('/html/body/div[5]/div/div/div/div[3]/button[2]')
+                cancel_button.click()
 
 # 'li.wo9IH'
 # 'div._7UhW9.xLCgt.qyrsm.uL8Hv.T0kll'
@@ -85,8 +81,6 @@ class InstaFollower:
     #     driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", dialog)
     #     time.sleep(random.randint(500,1000)/1000)
     #     print("Extracting friends %",round((i/(allfoll/2)*100),2),"from","%100")
-
-
 
 if __name__=="__main__":
     instagram = InstaFollower(CHROME_DRIVER_PATH)
