@@ -7,7 +7,7 @@ import time
 
 INS_URL = "https://www.instagram.com/"
 CHROME_DRIVER_PATH = "C:\Development\chromedriver.exe"
-SIMILAR_ACCOUNT = "chefsteps"
+SIMILAR_ACCOUNT = "https://www.instagram.com/chefsteps/"
 USERNAME = "j-j-s07@hanmail.net"
 PASSWORD = input("Type your password:")
 
@@ -29,26 +29,64 @@ class InstaFollower:
         self.facebook_login = self.driver.find_element(By.NAME, 'login')
         self.facebook_login.click()
         time.sleep(10)
-        try:
-            self.alarm_btn = self.driver.find_element(By.CLASS_NAME, 'button.aOOlW.HoLwm')
-            self.alarm_btn.click()
-        except NoSuchElementException:
-            time.sleep(2)
-            print("There is no element.")
-            self.alarm_btn = self.driver.find_element(By.CLASS_NAME, 'button.aOOlW.HoLwm')
-            self.alarm_btn.click()     
+        # try:
+        #     self.alarm_btn = self.driver.find_element(By.CLASS_NAME, 'button.aOOlW.HoLwm')
+        #     self.alarm_btn.click()
+        # except NoSuchElementException:
+        #     print("There is no element.")
+        #     time.sleep(5)
+        # finally:
+        #     print("Final trial")
+        #     self.alarm_btn = self.driver.find_element(By.XPATH, '/html/body/div[5]/div/div/div/div[3]/button[2]')
+        #     self.alarm_btn.click()     
         
     def find_followers(self):
-        self.search_bar = self.driver.find_element(By.CLASS_NAME, 'input.XTCLo.d_djL.DljaH')
-        self.search_bar.send_keys(SIMILAR_ACCOUNT)
-        time.sleep(1)
-        self.search_bar.send_keys(Keys.ENTER)
-        print("find")
-        pass
+        time.sleep(5)
+        self.driver.get(SIMILAR_ACCOUNT)
+
+        time.sleep(2)
+        followers = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/div/header/section/ul/li[2]/a')
+        followers.click()
+
+        time.sleep(2)
+        modal = self.driver.find_element_by_xpath('/html/body/div[4]/div/div/div[2]')
+        for i in range(10):
+            #In this case we're executing some Javascript, that's what the execute_script() method does. 
+            #The method can accept the script as well as a HTML element. 
+            #The modal in this case, becomes the arguments[0] in the script.
+            #Then we're using Javascript to say: "scroll the top of the modal (popup) element by the height of the modal (popup)"
+            self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", modal)
+            time.sleep(2)
 
     def follow(self):
-        print("follow")
+        time.sleep(5)
+
+        #scroll down the page
+        # for i in range(int(allfoll/2)):
+        #     driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", dialog)
+        #     time.sleep(random.randint(500,1000)/1000)
+        #     print("Extracting friends %",round((i/(allfoll/2)*100),2),"from","%100")
+
+        # self.popup_followrs = self.driver.find_element(By.CLASS_NAME, 'div.isgrP')
+        # self.popup_followrs.send_keys(Keys.END)
+        # self.driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", self.popup_followrs)
+        # print("follow")
         pass
+
+# 'li.wo9IH'
+# 'div._7UhW9.xLCgt.qyrsm.uL8Hv.T0kll'
+# 'button.sqdOP.L3NKy.y3zKF'     
+    # #find the followers window
+    # dialog = driver.find_element_by_xpath('/html/body/div[2]/div/div[2]/div/div[2]')
+    # #find number of followers
+    # allfoll=int(driver.find_element_by_xpath("//li[2]/a/span").text) 
+    # #scroll down the page
+    # for i in range(int(allfoll/2)):
+    #     driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", dialog)
+    #     time.sleep(random.randint(500,1000)/1000)
+    #     print("Extracting friends %",round((i/(allfoll/2)*100),2),"from","%100")
+
+
 
 if __name__=="__main__":
     instagram = InstaFollower(CHROME_DRIVER_PATH)
