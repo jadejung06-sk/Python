@@ -7,20 +7,30 @@ def hello_world():
         '<p>This is a paragraph.</p>'\
             '<img src="https://media.giphy.com/media/Puc4FZWExJc0E/giphy.gif" width=200>'
 
-### trial 3
 def make_bold(function):
-    function()
-    return f"<b></b>"
-
-@app.route("/bye")
+    def wrapper():
+        return "<b>" + function() + "</b>"
+    return wrapper
+@app.route('/bye')
 @make_bold
 def bye():
     return "Bye!"
 
+### trial 3
+# def make_bold(function):
+#     text = function()
+#     return f"<b>{text[0]}</b>"
+
+
+# @make_bold
+# @app.route("/bye")
+# def bye():
+#     return "Bye!"
+
 # @app.route("/username/<name>/<int:number>")
-@app.route("/<name>/<int:number>")
-def greet(name, number):
-    return f"Hello there {name}, you are {number} years old!"
+# @app.route("/<name>/<int:number>")
+# def greet(name, number):
+    # return f"Hello there {name}, you are {number} years old!"
 
 
 ### trial 1
