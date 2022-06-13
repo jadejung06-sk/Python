@@ -2,10 +2,10 @@ import requests
 from datetime import datetime
 import os
 
-GPT3_APP_ID = "79185132"
-GPT3_APP_KEY = "7b377a808d7b2c7ce0679090fb8da0bc"
-SHEET_USERNAME = "1afdc9861c39d7aea3407072f386921c"
-SHEET_AUTH_ID = "jadejung"
+GPT3_APP_ID = ""
+GPT3_APP_KEY = ""
+SHEET_USERNAME = ""
+SHEET_AUTH_ID = ""
 
 GENDER = "male"
 AGE = "35"
@@ -43,7 +43,7 @@ calories_exercising = exercising["nf_calories"]
 ##### Input some data in the sheet.
 
 sheety_header = { 
-"Authorization" : "Basic amFkZWp1bmc6c2t0ZXN0MDEwMjAzMDQwNQ=="
+"Authorization" : "Basic "
 }
 
 sheety_params = {

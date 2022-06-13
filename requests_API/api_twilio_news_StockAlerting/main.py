@@ -63,7 +63,7 @@ def get_news(news_param):
     for news in top3_news:
         print(f"TSLA: {percent[0]}%\nHeadline: {news[news_headline]}\nBrief: {news[news_brief]}\nor\n")
 
-NEWS_API_KEY = "41feb7f101bf466abf8307456c09b49b"
+NEWS_API_KEY = ""
 news_param = {
     "q":"tesla",
     "from":"2022-04-06",

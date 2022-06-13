@@ -4,7 +4,7 @@ from datetime import datetime
 ##### id
 #  https://pixe.la/@jadejungtest
 USERNAME = "jadejungtest"
-TOKEN = "j0a6d3e4y5y1s8pp3da4"
+TOKEN = ""
 GRAPH_ID = "graph123412"
 TODAY = datetime.now().strftime("%Y%m%d") # 20220414 
 
