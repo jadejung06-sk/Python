@@ -23,7 +23,6 @@ def contact():
 def get_post(number):
     return render_template("post.html", all_posts=posts, number = number, date = date)
 
-
 if __name__=="__main__":
     app.run(debug=True)
 
