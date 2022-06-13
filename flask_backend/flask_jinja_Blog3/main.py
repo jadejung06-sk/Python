@@ -4,14 +4,14 @@ import smtplib
 
 def _send_email(msg):
     # msg = "Subject:Hello.\n\nThis is the body of my email"
-    my_naver = "jjs0615@naver.com"
+    # my_naver = "jjs0615@naver.com"
     my_gmail = "jongseok.test.01@gmail.com"
     gmail_password = input("Type your password:")
 
     with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
         connection.login(user= my_gmail, password= gmail_password)
-        connection.sendmail(from_addr=my_gmail, to_addrs=my_naver, msg=f"Subject:New Message\n\n{msg}")
+        connection.sendmail(from_addr=my_gmail, to_addrs=my_gmail, msg=f"Subject:New Message\n\n{msg}")
 
 
 
