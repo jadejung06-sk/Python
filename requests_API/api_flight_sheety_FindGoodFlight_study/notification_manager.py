@@ -3,8 +3,8 @@ from twilio.rest import Client
 class NotificationManager:
     #This class is responsible for sending notifications with the deal flight details.
     def __init__(self):
-        self.account_sid = "AC0bd2928a5eb6edb1e2252288e6ac8369"
-        self.auth_token = "d045e3b86326a31caa06310945183bde"
+        self.account_sid = ""
+        self.auth_token = ""
         # self.account_sid = os.environ['TWILIO_ACCOUNT_SID']
         # self.auth_token = os.environ['TWILIO_AUTH_TOKEN']
         self.client = Client(self.account_sid, self.auth_token)

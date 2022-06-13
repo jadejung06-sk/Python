@@ -4,7 +4,7 @@ class FlightSearch:
     #This class is responsible for talking to the Flight Search API.
     '''https://tequila.kiwi.com/portal/docs/tequila_api/search_api'''
     def __init__(self):
-        self.flightsearch_api = "1GL3D1WH9uJ0PSa6JweEAfbmD9THOv5m"
+        self.flightsearch_api = ""
         self.flightsearch_endpoint = "https://tequila-api.kiwi.com/"
         self.dateformat = "%d/%m/%Y"
         self.flightlocation_endpoint = f"{self.flightsearch_endpoint}locations/query?"

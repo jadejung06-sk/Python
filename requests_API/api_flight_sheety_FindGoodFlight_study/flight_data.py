@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 class FlightData:
     #This class is responsible for structuring the flight data.
     def __init__(self):
-        self.flight_data_api = "1GL3D1WH9uJ0PSa6JweEAfbmD9THOv5m"
+        self.flight_data_api = ""
         self.flight_data_endpoint = "https://tequila-api.kiwi.com/v2/search?"
         self.dateformat = "%d/%m/%Y"
         self.today = datetime.now()
