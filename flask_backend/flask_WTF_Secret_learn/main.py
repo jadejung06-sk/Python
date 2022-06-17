@@ -2,14 +2,16 @@ from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email
+from flask_bootstrap import Bootstrap
 
 class LoginForm(FlaskForm):
-    email = StringField(label = 'Email', validators=[DataRequired(), Email(check_deliverability=True)], )
+    email = StringField(label = 'Email', validators=[DataRequired(), Email()])
     password = PasswordField(label = 'Password', validators=[DataRequired(), Length(min=8)])
     submit = SubmitField(label="Log In")
 
 app = Flask(__name__)
 app.secret_key = 'lajdfjaiojfojaoi'
+Bootstrap(app)
 
 @app.route("/")
 def home():
@@ -25,6 +27,11 @@ def login():
         else :
             return render_template('denied.html')
     return render_template('login.html', form = login_form)
+
+# @app.route("/cafes", methods=['GET', 'POST'])
+# def cafes():
+#     return render_template("cafes.html")
+
 
 if __name__ == '__main__':
     app.run(debug=True)
