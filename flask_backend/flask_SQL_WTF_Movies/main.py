@@ -2,7 +2,6 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from h11 import Data
 from wtforms import StringField, SubmitField, IntegerField
 from wtforms.validators import DataRequired
 import requests
@@ -21,8 +20,8 @@ class Movie(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     moviename = db.Column(db.String(80), unique=True, nullable=False)
     movierating = db.Column(db.Integer)
-    moviereview = db.Column(db.string(120), unique=True, nullalbe=False)
-    moviestory = db.Column(db.string(120), unique=True, nullable=False)
+    moviereview = db.Column(db.String(120), unique=True, nullable=False)
+    moviestory = db.Column(db.String(120), unique=True, nullable=False)
     def __repr__(self):
         return '<Movie %r>' % self.moviename
 
@@ -36,6 +35,8 @@ def home():
 def edit():
     movieform = MovieForm()
     return render_template("edit.html", form = movieform)
+
+    
 
 @app.route("/add")
 def add():
