@@ -3,13 +3,14 @@ from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, IntegerField
-from wtforms.validators import DataRequired
+from wtforms import StringField, SubmitField, FloatField
+from wtforms.validators import DataRequired, NumberRange
 import requests
 
 class RateMovieForm(FlaskForm):
-    rating = IntegerField(label='Your Rating Out of 10 e.g. 7.5', validators=[DataRequired()])
+    rating = FloatField(label='Your Rating Out of 10 e.g. 7.5', validators=[DataRequired(), NumberRange(min=0, max=10)])
     review = StringField(label='Your Review', validators=[DataRequired()])
+    submit = SubmitField('Done')
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///movie-collection.db"
@@ -52,12 +53,17 @@ def home():
     all_movies = Movie.query.all()
     return render_template("index.html", movies = all_movies)
 
-# @app.route("/edit", methods = ['GET', 'POST'])
-# def edit():
-#     # if 
-#     request.get()
-#     movieform = RateMovieForm()
-#     return render_template("edit.html", form = movieform)  
+@app.route("/edit", methods = ['GET', 'POST'])
+def edit():
+    movieform = RateMovieForm()
+    movie_id = request.args.get('id')
+    movie_selected = Movie.query.get(movie_id)
+    if request.method == 'POST' and movieform.validate_on_submit():
+        db.update(Movie).where(Movie.id)
+        return redirect(url_for('home'))
+    # return render_template('edit.html')
+    
+    return render_template("edit.html", form = movieform, movie = movie_selected)  
 
 @app.route("/add")
 def add():
