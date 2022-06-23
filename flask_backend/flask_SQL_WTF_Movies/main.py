@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, NumberRange
 import requests
 
 class RateMovieForm(FlaskForm):
-    rating = FloatField(label='Your Rating Out of 10 e.g. 7.5', validators=[DataRequired(), NumberRange(min=0, max=10)])
+    rating = StringField(label='Your Rating Out of 10 e.g. 7.5', validators=[DataRequired()])
     review = StringField(label='Your Review', validators=[DataRequired()])
     submit = SubmitField('Done')
 
@@ -54,17 +54,18 @@ def home():
     return render_template("index.html", movies = all_movies)
 
 @app.route("/edit", methods = ['GET', 'POST'])
-def edit():
+def rate_movie():
     movieform = RateMovieForm()
-    movie_id = request.args.get('id')
-    movie_selected = Movie.query.get(movie_id)
-    if request.method == 'POST' and movieform.validate_on_submit():
-        db.update(Movie).where(Movie.id)
+    movie_id = request.args.get("id")
+    movie = Movie.query.get(movie_id)
+    if movieform.validate_on_submit():
+        ### update the table
+        movie.rating = float(movieform.rating.data)
+        movie.review = movieform.review.data
+        db.session.commit()
         return redirect(url_for('home'))
-    # return render_template('edit.html')
+    return render_template('edit.html', form = movieform, movie=movie)
     
-    return render_template("edit.html", form = movieform, movie = movie_selected)  
-
 @app.route("/add")
 def add():
     return render_template("add.html")

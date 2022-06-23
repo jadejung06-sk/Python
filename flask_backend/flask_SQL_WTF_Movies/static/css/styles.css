@@ -213,3 +213,8 @@
  .release_date {
 	 font-weight: normal;
 }
+
+.form {
+	margin: 0 250px;
+	width: 20%;
+}
