@@ -5,12 +5,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired, NumberRange
-import requests
+from data import search_movies
 
 class RateMovieForm(FlaskForm):
     rating = StringField(label='Your Rating Out of 10 e.g. 7.5', validators=[DataRequired()])
     review = StringField(label='Your Review', validators=[DataRequired()])
     submit = SubmitField('Done')
+
+class AddForm(FlaskForm):
+    title = StringField(label='Movie Title',validators=[DataRequired()], id = 'movie_title' )
+    submit = SubmitField('Add Movie')
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///movie-collection.db"
@@ -56,7 +61,7 @@ def home():
 @app.route("/edit", methods = ['GET', 'POST'])
 def rate_movie():
     movieform = RateMovieForm()
-    movie_id = request.args.get("id")
+    movie_id = int(request.args.get("id"))
     movie = Movie.query.get(movie_id)
     if movieform.validate_on_submit():
         ### update the table
@@ -66,9 +71,19 @@ def rate_movie():
         return redirect(url_for('home'))
     return render_template('edit.html', form = movieform, movie=movie)
     
-@app.route("/add")
+@app.route('/delete')
+def delete_movie():
+    movie_id = request.args.get('id')
+    # DELETE A RECORD BY ID
+    movie_to_delete = Movie.query.get(movie_id)
+    db.session.delete(movie_to_delete)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+@app.route("/add", methods=['GET', 'POST'])
 def add():
-    return render_template("add.html")
+    add_form = AddForm()
+    return render_template("add.html", add_form = add_form)
 
 @app.route("/select")
 def select():
