@@ -9,9 +9,11 @@ def search_movies(title):
     data_list = data['results']
     movie_titles = [title['original_title'] for title in data_list]
     release_dates = [date['release_date'] for date in data_list]
-    print(len(data['results']))
-    print()
+    # print(len(data['results']))
+    # print()
+    select_movies = []
     for movie_title, release_date in zip(movie_titles, release_dates):
         if release_date != '':
-            select_movies = f'{movie_title} - {release_date}'
-            return select_movies
+            select_movies.append(f'{movie_title} - {release_date}')
+            # print(select_movies)
+    return select_movies
