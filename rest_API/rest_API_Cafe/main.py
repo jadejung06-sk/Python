@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 import random
+import requests
 
 app = Flask(__name__)
 
@@ -43,7 +44,28 @@ def get_random_cafe():
     can_take_calls = random_cafe.can_take_calls,
     coffee_price =random_cafe.coffee_price))
   
+@app.route('/all')
+def get_all_cafes():
+    cafes = db.session.query(Cafe).all()
+    cafe_list = []
+    for ca in cafes:
+        cafe_list.append(dict(id = ca.id, name = ca.name, map_url = ca.map_url, 
+    img_url = ca.img_url,
+    location = ca.location,
+    seats = ca.seats,
+    has_toilet = ca.has_toilet,
+    has_wifi = ca.has_wifi,
+    has_sockets = ca.has_sockets,
+    can_take_calls = ca.can_take_calls,
+    coffee_price = ca.coffee_price))
+    return jsonify(cafe = cafe_list)
 
+### trial 1
+# @app.route('/search')
+# def  get_cafe_at_location():
+#     params = {'lat' : , 'lon' : }
+#     request.get('http://api.open-notify.org/iss-pass.json', params=params)
+#     return redirect(url_for('search_loc', loc = ))
 
 
 ## HTTP POST - Create Record
