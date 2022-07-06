@@ -10,7 +10,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-
 ##Cafe TABLE Configuration
 class Cafe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -68,6 +67,25 @@ def get_all_cafes():
 #     return redirect(url_for('search_loc', loc = ))
 
 
+### trial 2
+# @app.route('/search')
+# def  get_cafe_at_location():
+#     params = {'lat' : 50, 'lon': -5}
+#     response = requests.get('http://api.open-notify.org/iss-pass.json', params=params)
+#     if response.json()['message'] == 'failure':
+#         return jsonify(error = {'Not Found' : "Sorry, we don't have a cafe at that location."})
+#     return response.json()
+
+### trial 3
+@app.route('/search')
+def get_cafe_at_location():
+    query_location = request.args.get('loc')
+    cafe = db.session.query(Cafe).filter_by(location=query_location).first()
+    if cafe:
+        return jsonify(cafe=cafe.to_dict())
+    else:
+        return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."})
+
 ## HTTP POST - Create Record
 
 ## HTTP PUT/PATCH - Update Record
@@ -77,3 +95,6 @@ def get_all_cafes():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    # params = {'lat' : 50, 'lon': -500}
+    # response = requests.get('http://api.open-notify.org/iss-pass.json', params=params)
+    # print(response.json()['message'] == 'failure')
