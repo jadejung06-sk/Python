@@ -80,15 +80,55 @@ def get_all_cafes():
 @app.route('/search')
 def get_cafe_at_location():
     query_location = request.args.get('loc')
-    cafe = db.session.query(Cafe).filter_by(location=query_location).first()
-    if cafe:
-        return jsonify(cafe=cafe.to_dict())
+    first_cafe = db.session.query(Cafe).filter_by(location=query_location).first()
+    if first_cafe:
+        return jsonify(cafe = dict(id = first_cafe.id, name = first_cafe.name, map_url = first_cafe.map_url, 
+    img_url = first_cafe.img_url,
+    location = first_cafe.location,
+    seats = first_cafe.seats,
+    has_toilet = first_cafe.has_toilet,
+    has_wifi = first_cafe.has_wifi,
+    has_sockets = first_cafe.has_sockets,
+    can_take_calls = first_cafe.can_take_calls,
+    coffee_price =first_cafe.coffee_price))
     else:
         return jsonify(error={"Not Found": "Sorry, we don't have a cafe at that location."})
 
 ## HTTP POST - Create Record
+@app.route('/add', methods= ['POST'])
+def post_new_cafe():
+    new_cafe = Cafe(
+        name = request.form.get('name'),
+        map_url = request.form.get('map_url'),
+        img_url = request.form.get('img_url'),
+        location=request.form.get("loc"),
+        has_sockets = bool(request.form.get('sockets')),
+        has_toilet=bool(request.form.get("toilet")),
+        has_wifi=bool(request.form.get("wifi")),
+        can_take_calls=bool(request.form.get("calls")),
+        seats=request.form.get("seats"),
+        coffee_price=request.form.get("coffee_price"))
+    db.session.add(new_cafe)
+    db.session.commit()
+    return jsonify(response = {'success' : 'Successfully added the new cafe.'})
 
 ## HTTP PUT/PATCH - Update Record
+@app.route('/update-price/<cafe_id>')
+def patch_cafe(cafe_id):
+    # search id
+    id = db.session.query(Cafe).filter_by(location=cafe_id)
+    # update coffee price
+    modified_cafe = 
+    db.session.update(modified_cafe)
+    db.session.commit()
+    return jsonify({"Sucesss" : "Successfully updated the price."})
+    
+    # No id
+    # status 404
+    return jsonify(error = {'Not Found' : 'Sorry a cafe with that id was not found in the database.'})
+
+
+
 
 ## HTTP DELETE - Delete Record
 
