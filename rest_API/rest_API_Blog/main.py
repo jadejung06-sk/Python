@@ -64,10 +64,16 @@ def contact():
 # def edit_post(post_id):
 #     return render_template('make-post.html', post_id = post_id, contents = 'Edit Post')
 
+## 2nd trial 
 @app.route("/edit-post/<int:post_id>", methods= ['GET', 'POST'])
 def edit_post(post_id):
     post=BlogPost.query.get(post_id)
-    edit_form = CreatePostForm()
+    edit_form = CreatePostForm(
+    title=post.title,
+    subtitle=post.subtitle,
+    img_url=post.img_url,
+    author=post.author,
+    body=post.body)
     return render_template('make-post.html', form=edit_form, is_edit=True)
 
 @app.route('/new-post')
