@@ -1,3 +1,4 @@
+from click import edit
 from flask import Flask, render_template, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -57,6 +58,22 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
+
+### 1st trial
+# @app.route('/edit-post/<int:post_id>')
+# def edit_post(post_id):
+#     return render_template('make-post.html', post_id = post_id, contents = 'Edit Post')
+
+@app.route("/edit-post/<int:post_id>", methods= ['GET', 'POST'])
+def edit_post(post_id):
+    post=BlogPost.query.get(post_id)
+    edit_form = CreatePostForm()
+    return render_template('make-post.html', form=edit_form, is_edit=True)
+
+@app.route('/new-post')
+def new_post():
+    edit_form = CreatePostForm()
+    return render_template('make-post.html', form = edit_form)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
