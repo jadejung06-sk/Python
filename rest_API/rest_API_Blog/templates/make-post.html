@@ -34,7 +34,8 @@
           {{ wtf.form_field(form.author) }}
           {{ wtf.form_field(form.img_url) }}
           {{ wtf.form_field(form.body) }}
-          <input type=submit class='btn btn-warning btn-block'>Submit
+          {{ ckeditor.config(name='Body') }}
+          <input type=submit class='btn btn-warning btn-block'>
         </form>
       </div>
     </div>

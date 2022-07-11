@@ -1,5 +1,4 @@
-from click import edit
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
@@ -38,6 +37,7 @@ class CreatePostForm(FlaskForm):
     author = StringField("Your Name", validators=[DataRequired()])
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
     body = StringField("Blog Content", validators=[DataRequired()])
+    # body = ckeditor
     submit = SubmitField("Submit Post")
 
 @app.route('/')
@@ -74,12 +74,28 @@ def edit_post(post_id):
     img_url=post.img_url,
     author=post.author,
     body=post.body)
+    if edit_form.validate_on_submit():
+        post.title = edit_form.title.data
+        post.subtitle =  edit_form.subtitle.data
+        post.img_url = edit_form.img_url.data
+        post.author =  edit_form.author.data
+        post.body = edit_form.body.data
+        db.session.commit()
+        return redirect(url_for('show_post', post_id = post_id))
     return render_template('make-post.html', form=edit_form, is_edit=True)
+    
 
 @app.route('/new-post')
 def new_post():
     edit_form = CreatePostForm()
     return render_template('make-post.html', form = edit_form)
+
+
+@app.route('/delete/<int:post_id>')
+def delete_post(post_id):
+    BlogPost.query.filter_by(id=post_id).delete()
+    db.session.commit()
+    return redirect(url_for('get_all_posts'))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
