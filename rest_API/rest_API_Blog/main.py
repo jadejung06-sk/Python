@@ -37,13 +37,12 @@ class CreatePostForm(FlaskForm):
     subtitle = StringField("Subtitle", validators=[DataRequired()])
     author = StringField("Your Name", validators=[DataRequired()])
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    body = StringField("Blog Content", validators=[DataRequired()])
+    body = CKEditorField("Blog Content", validators=[DataRequired()])
     submit = SubmitField("Submit Post")
 
 @app.route('/')
 def get_all_posts():
     posts = db.session.query(BlogPost).all()
-    print(posts)
     return render_template("index.html", all_posts=posts)
 
 @app.route("/post/<int:index>")
@@ -91,7 +90,8 @@ def new_post():
     if form.validate_on_submit():
         time_format = '%B %d, %Y'
         new_date = datetime.datetime.now().strftime(time_format)
-        new_post= BlogPost(title = form.title.data,
+        new_post= BlogPost(
+            title = form.title.data,
             subtitle = form.subtitle.data,
             date = new_date,
             body = form.body.data,
