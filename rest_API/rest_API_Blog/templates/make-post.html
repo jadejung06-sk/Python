@@ -26,18 +26,20 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <form action="" method="post" class="form" role="form">
+        <!-- <form action="" method="post" class="form" role="form"> -->
           {{ form.csrf_token() }}
           <!-- This is where the form will go -->
-          {{ wtf.form_field(form.title) }}
-          {{ wtf.form_field(form.subtitle) }}
-          {{ wtf.form_field(form.author) }}
-          {{ wtf.form_field(form.img_url) }}
-          {{ wtf.form_field(form.body) }}
-          {{ ckeditor.config(name='Body') }}
-          {{ wtf.quick_form(form, extra_classes = 'btn',button_map={'submit': 'primary'}) }}
-          <!-- <input type=submit class='btn btn-warning btn-block'> -->
-        </form>
+  
+          {{ ckeditor.load() }}
+          {{ ckeditor.config(name='body') }}
+          {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+          <!-- <textarea name="text" id="editor"></textarea> -->
+          <!-- <input type=submit value='SUBMIT POST' class='btn btn-block'> -->
+          <!-- <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script> -->
+          <!-- <script> -->
+            <!-- ClassicEditor.create( document.querySelector( '#editor' ) ); -->
+          <!-- </script> -->
+        <!-- </form> -->
       </div>
     </div>
   </div>

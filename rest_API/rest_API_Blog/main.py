@@ -5,6 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
+import datetime
 
 ## Delete this code:
 # import requests
@@ -37,7 +38,6 @@ class CreatePostForm(FlaskForm):
     author = StringField("Your Name", validators=[DataRequired()])
     img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
     body = StringField("Blog Content", validators=[DataRequired()])
-    # body = ckeditor
     submit = SubmitField("Submit Post")
 
 @app.route('/')
@@ -81,14 +81,32 @@ def edit_post(post_id):
         post.author =  edit_form.author.data
         post.body = edit_form.body.data
         db.session.commit()
-        return redirect(url_for('show_post', post_id = post_id))
+        return redirect(url_for('show_post', index = post_id))
     return render_template('make-post.html', form=edit_form, is_edit=True)
     
 
-@app.route('/new-post')
+@app.route('/new-post', methods = ['GET','POST'])
 def new_post():
-    edit_form = CreatePostForm()
-    return render_template('make-post.html', form = edit_form)
+    form = CreatePostForm()
+    if form.validate_on_submit():
+        time_format = '%B %d, %Y'
+        new_date = datetime.datetime.now().strftime(time_format)
+        new_post= BlogPost(title = form.title.data,
+            subtitle = form.subtitle.data,
+            date = new_date,
+            body = form.body.data,
+            author = form.author.data,
+            img_url = form.img_url.data)
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(url_for('get_all_posts'))
+    return render_template('make-post.html', form = form)
+
+        # {{ wtf.form_field(form.title) }}
+        #   {{ wtf.form_field(form.subtitle) }}
+        #   {{ wtf.form_field(form.author) }}
+        #   {{ wtf.form_field(form.img_url) }}
+        #   {{ wtf.form_field(form.body) }}
 
 
 @app.route('/delete/<int:post_id>')
