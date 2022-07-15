@@ -4,21 +4,30 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 import os
 
+
 app = Flask(__name__)
+login_manager = LoginManager()
 
 app.config['SECRET_KEY'] = 'any-secret-key-you-choose'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+login_manager.init_app(app)
 
 ##CREATE TABLE IN DB
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(100))
+    password = db.Column(db.String(250))
     name = db.Column(db.String(1000))
+    is_authenticated = db.Column(db.Boolean, default=False, nullable=False)
 #Line below only required once, when creating DB. 
 # db.create_all()
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
 
 
 @app.route('/')
@@ -28,10 +37,12 @@ def home():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        no_hashed_password = request.form.get('password')
+        hashed_password = generate_password_hash(no_hashed_password, method='pbkdf2:sha256', salt_length=8)
         new_user = User(
         name = request.form.get('name'),
         email = request.form.get('email'),
-        password = request.form.get('password')
+        password = hashed_password
         )
         db.session.add(new_user)
         db.session.commit()
@@ -66,3 +77,5 @@ def download():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
