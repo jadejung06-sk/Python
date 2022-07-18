@@ -33,12 +33,10 @@ class BlogPost(db.Model):
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
-db.create_all()
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True)
+    email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
 db.create_all()
@@ -62,20 +60,28 @@ def register():
             name = form.name.data)
         db.session.add(new_user)
         db.session.commit()
+        login_user(new_user)
         return redirect(url_for('get_all_posts'))
     return render_template("register.html", form=form)
 
 
 @login_manager.user_loader
 def user_loader(user_id):
-    return User.query.get(user_id)
+    return User.query.get(int(user_id))
     
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect(url_for('get_all_posts'))
+        form_email = form.email.data
+        user = User.query.filter_by(email = form_email).first()
+        if user:
+            if check_password_hash(user.password ,form.password.data):
+                login_user(user)
+                return redirect(url_for('get_all_posts'))
+        # else:
+        #    return redirect(url_for('register'))
     return render_template("login.html", form = form)
 
 
