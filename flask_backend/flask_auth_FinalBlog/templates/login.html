@@ -18,7 +18,16 @@
       </div>
     </div>
   </header>
-
+  <!-- Flash Msg -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li class="msg">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
   <div class="container">
     <div class="row">
 

@@ -41,12 +41,10 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(100))
 db.create_all()
 
-
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
     return render_template("index.html", all_posts=posts)
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -58,10 +56,15 @@ def register():
             email = form.email.data,
             password = hashed_password,
             name = form.name.data)
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user)
-        return redirect(url_for('get_all_posts'))
+        # print('query', User.query.filter_by(email = form.email.data).first().id)
+        # print('form', form.email.data)
+        if User.query.filter_by(email = form.email.data).first().id > 0:
+            return redirect(url_for('login'))
+        else:
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user)
+            return redirect(url_for('get_all_posts'))
     return render_template("register.html", form=form)
 
 
