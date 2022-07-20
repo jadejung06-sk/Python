@@ -21,11 +21,9 @@
   <!-- Flash Msg -->
   {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
-    <ul class=flashes>
     {% for message in messages %}
-      <li class="msg">{{ message }}</li>
+      <p>{{ message[-1] }}</p>
     {% endfor %}
-    </ul>
   {% endif %}
 {% endwith %}
   <div class="container">

@@ -41,6 +41,10 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(100))
 db.create_all()
 
+@login_manager.user_loader
+def user_loader(user_id):
+    return User.query.get(int(user_id))
+
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
@@ -59,6 +63,7 @@ def register():
         # print('query', User.query.filter_by(email = form.email.data).first().id)
         # print('form', form.email.data)
         if User.query.filter_by(email = form.email.data).first().id > 0:
+            flash("You've already signed up with that email. Log in instead.") # ('message', "You've already signed up with that email. Log in instead.")
             return redirect(url_for('login'))
         else:
             db.session.add(new_user)
@@ -68,11 +73,6 @@ def register():
     return render_template("register.html", form=form)
 
 
-@login_manager.user_loader
-def user_loader(user_id):
-    return User.query.get(int(user_id))
-    
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -81,8 +81,10 @@ def login():
         user = User.query.filter_by(email = form_email).first()
         if user:
             if check_password_hash(user.password ,form.password.data):
-                login_user(user)
+                login_user(user) # True
                 return redirect(url_for('get_all_posts'))
+                # return render_template('index.html', visible= False)
+                # return redirect(url_for('get_all_posts', visible = False)) # Wrong
         # else:
         #    return redirect(url_for('register'))
     return render_template("login.html", form = form)
