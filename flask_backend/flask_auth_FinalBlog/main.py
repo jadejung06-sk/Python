@@ -65,11 +65,10 @@ def register():
         if User.query.filter_by(email = form.email.data).first().id > 0:
             flash("You've already signed up with that email. Log in instead.") # ('message', "You've already signed up with that email. Log in instead.")
             return redirect(url_for('login'))
-        else:
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user)
-            return redirect(url_for('get_all_posts'))
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user)
+        return redirect(url_for('get_all_posts'))
     return render_template("register.html", form=form)
 
 
@@ -83,7 +82,7 @@ def login():
             if check_password_hash(user.password ,form.password.data):
                 login_user(user) # True
                 return redirect(url_for('get_all_posts'))
-                # return render_template('index.html', visible= False)
+                # return render_template('index.html', visible= False) # Wrong
                 # return redirect(url_for('get_all_posts', visible = False)) # Wrong
         # else:
         #    return redirect(url_for('register'))
@@ -91,7 +90,9 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
+    logout_user()
     return redirect(url_for('get_all_posts'))
 
 
