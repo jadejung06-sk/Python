@@ -48,7 +48,7 @@ def user_loader(user_id):
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
-    return render_template("index.html", all_posts=posts)
+    return render_template("index.html", all_posts=posts, current_user=current_user)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -69,7 +69,7 @@ def register():
         db.session.commit()
         login_user(new_user)
         return redirect(url_for('get_all_posts'))
-    return render_template("register.html", form=form)
+    return render_template("register.html", form=form, current_user=current_user)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -84,13 +84,17 @@ def login():
                 return redirect(url_for('get_all_posts'))
                 # return render_template('index.html', visible= False) # Wrong
                 # return redirect(url_for('get_all_posts', visible = False)) # Wrong
-        # else:
+            else:
+                flash("Password incorrect. Please try again.") # ('message', "You've already signed up with that email. Log in instead.")
+                return redirect(url_for('login'))
+        else:
         #    return redirect(url_for('register'))
-    return render_template("login.html", form = form)
+            flash("That email does not exist. Please try again.") # ('message', "You've already signed up with that email. Log in instead.")
+            return redirect(url_for('login'))
+    return render_template("login.html", form = form, current_user=current_user)
 
 
 @app.route('/logout')
-@login_required
 def logout():
     logout_user()
     return redirect(url_for('get_all_posts'))
@@ -104,12 +108,12 @@ def show_post(post_id):
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("about.html", current_user=current_user)
 
 
 @app.route("/contact")
 def contact():
-    return render_template("contact.html")
+    return render_template("contact.html", current_user=current_user)
 
 
 @app.route("/new-post")
@@ -127,10 +131,11 @@ def add_new_post():
         db.session.add(new_post)
         db.session.commit()
         return redirect(url_for("get_all_posts"))
-    return render_template("make-post.html", form=form)
+    return render_template("make-post.html", form=form, current_user=current_user)
 
 
-@app.route("/edit-post/<int:post_id>")
+@app.route("/edit-post/<int:post_id>", methods=['GET', 'POST'])
+@login_required
 def edit_post(post_id):
     post = BlogPost.query.get(post_id)
     edit_form = CreatePostForm(
@@ -149,7 +154,7 @@ def edit_post(post_id):
         db.session.commit()
         return redirect(url_for("show_post", post_id=post.id))
 
-    return render_template("make-post.html", form=edit_form)
+    return render_template("make-post.html", form=edit_form, is_edit=True, current_user=current_user)
 
 
 @app.route("/delete/<int:post_id>")
