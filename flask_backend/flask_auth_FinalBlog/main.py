@@ -62,7 +62,7 @@ def register():
             name = form.name.data)
         # print('query', User.query.filter_by(email = form.email.data).first().id)
         # print('form', form.email.data)
-        if User.query.filter_by(email = form.email.data).first().id > 0:
+        if User.query.filter_by(email = form.email.data).first(): # <user 1> 
             flash("You've already signed up with that email. Log in instead.") # ('message', "You've already signed up with that email. Log in instead.")
             return redirect(url_for('login'))
         db.session.add(new_user)
@@ -103,7 +103,7 @@ def logout():
 @app.route("/post/<int:post_id>")
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
-    return render_template("post.html", post=requested_post)
+    return render_template("post.html", post=requested_post, current_user=current_user)
 
 
 @app.route("/about")
