@@ -138,10 +138,19 @@ def show_post(post_id):
     form = CommentForm()
     if form.validate_on_submit():
         new_comment = Comment(
-        text = form.commnet_text.data
+        text = form.commnet_text.data,
+        author_id = current_user.id,
+        post_id = post_id
         )
-        db.session.add(new_comment)
-        db.session.commit()
+        if not current_user.is_authenticated:
+            flash("You need to login to register a new comment.")
+            return redirect(url_for('login'))
+        else:
+            db.session.add(new_comment)
+            db.session.commit()
+            comments = Comment.query.filter_by(post_id = post_id).first()
+            print(comments)
+            return render_template("post.html", post=requested_post, current_user=current_user, form = form, comments = comments) 
     return render_template("post.html", post=requested_post, current_user=current_user, form = form)
 
 

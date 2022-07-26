@@ -36,10 +36,9 @@
             {% endif %}
 
 <!-- Comments Area -->
-
 {{ ckeditor.load() }}
 {{ ckeditor.config(name='comment_text') }}
-{{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}          
+{{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}   
 <div class="col-lg-8 col-md-10 mx-auto comment">
               <ul class="commentList">
                 <li>
@@ -47,8 +46,11 @@
                       <!-- <img src="https://pbs.twimg.com/profile_images/744849215675838464/IH0FNIXk.jpg"/> -->
                     </div>
                     <div class="commentText">
-                      <p>Some comment</p>
-                      <span class="date sub-text">comment author name</span>
+                      {% if commnets: %}
+                      {{ comments }}
+                      <p>Some comment{{ comments.commnet_text }}</p>
+                      <span class="date sub-text">comment author name{{ commnets.author_id }}</span>
+                      {% endif %}
                     </div>
                 </li>
               </ul>
