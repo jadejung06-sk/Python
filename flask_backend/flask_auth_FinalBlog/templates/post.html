@@ -1,5 +1,5 @@
 {% include "header.html" %}
-
+{% import "bootstrap/wtf.html" as wtf %}
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('{{post.img_url}}')">
     <div class="overlay"></div>
@@ -10,12 +10,14 @@
             <h1>{{post.title}}</h1>
             <h2 class="subheading">{{post.subtitle}}</h2>
             <span class="meta">Posted by
-              <a href="#">{{post.author}}</a>
+              <a href="#">{{post.author.name}}</a>
               on {{post.date}}</span>
           </div>
         </div>
       </div>
     </div>
+
+    
   </header>
 
   <!-- Post Content -->
@@ -33,13 +35,16 @@
             {% endif %}
             {% endif %}
 
+<!-- Comments Area -->
 
-<!--           Comments Area -->
-          <div class="col-lg-8 col-md-10 mx-auto comment">
+{{ ckeditor.load() }}
+{{ ckeditor.config(name='comment_text') }}
+{{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}          
+<div class="col-lg-8 col-md-10 mx-auto comment">
               <ul class="commentList">
                 <li>
                     <div class="commenterImage">
-                      <img src="https://pbs.twimg.com/profile_images/744849215675838464/IH0FNIXk.jpg"/>
+                      <!-- <img src="https://pbs.twimg.com/profile_images/744849215675838464/IH0FNIXk.jpg"/> -->
                     </div>
                     <div class="commentText">
                       <p>Some comment</p>

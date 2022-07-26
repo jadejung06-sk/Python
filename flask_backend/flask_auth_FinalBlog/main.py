@@ -6,9 +6,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm, RegisterForm, LoginForm
+from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
+
+from sqlalchemy import Table, Column, Integer, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -25,21 +30,26 @@ db = SQLAlchemy(app)
 
 ##CONFIGURE TABLES
 
+class User(UserMixin, db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
+    name = db.Column(db.String(100))
+    posts = relationship("BlogPost", back_populates="author")
+
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
     id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(250), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    author = relationship("User", back_populates= "posts")
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
     date = db.Column(db.String(250), nullable=False)
     body = db.Column(db.Text, nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100))
-    name = db.Column(db.String(100))
+
+# db.drop_all()
 db.create_all()
 
 @login_manager.user_loader
@@ -69,7 +79,7 @@ def register():
             email = form.email.data,
             password = hashed_password,
             name = form.name.data)
-        # print('query', User.query.filter_by(email = form.email.data).first().id)
+        # print('query', User.query.filter_by(email = form.email.data).first().id) # Wrong
         # print('form', form.email.data)
         if User.query.filter_by(email = form.email.data).first(): # <user 1> 
             flash("You've already signed up with that email. Log in instead.") # ('message', "You've already signed up with that email. Log in instead.")
@@ -112,7 +122,8 @@ def logout():
 @app.route("/post/<int:post_id>")
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
-    return render_template("post.html", post=requested_post, current_user=current_user)
+    form = CommentForm()
+    return render_template("post.html", post=requested_post, current_user=current_user, form = form)
 
 
 @app.route("/about")
@@ -125,7 +136,7 @@ def contact():
     return render_template("contact.html", current_user=current_user)
 
 
-@app.route("/new-post")
+@app.route("/new-post", methods=['GET', 'POST'])
 @admin_only
 def add_new_post():
     form = CreatePostForm()
