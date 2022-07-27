@@ -135,8 +135,12 @@ def logout():
 @app.route("/post/<int:post_id>", methods = ['GET', 'POST'])
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
+    comments = Comment.query.filter_by(post_id = post_id).first()
+    print(comments)
+    author = User.query.get(comments.author_id)
     form = CommentForm()
     if form.validate_on_submit():
+
         new_comment = Comment(
         text = form.commnet_text.data,
         author_id = current_user.id,
@@ -150,8 +154,8 @@ def show_post(post_id):
             db.session.commit()
             comments = Comment.query.filter_by(post_id = post_id).first()
             print(comments)
-            return render_template("post.html", post=requested_post, current_user=current_user, form = form, comments = comments) 
-    return render_template("post.html", post=requested_post, current_user=current_user, form = form)
+            return render_template("post.html", post=requested_post, current_user=current_user, form = form, comments = comments, author = author) 
+    return render_template("post.html", post=requested_post, current_user=current_user, form = form, comments = comments, author = author)
 
 
 @app.route("/about")

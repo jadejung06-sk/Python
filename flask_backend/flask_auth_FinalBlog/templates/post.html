@@ -46,12 +46,10 @@
                       <!-- <img src="https://pbs.twimg.com/profile_images/744849215675838464/IH0FNIXk.jpg"/> -->
                     </div>
                     <div class="commentText">
-                      {% if commnets: %}
-                      {{ comments }}
-                      <p>Some comment{{ comments.commnet_text }}</p>
-                      <span class="date sub-text">comment author name{{ commnets.author_id }}</span>
-                      {% endif %}
+                      <p>{{ comments.text|safe }}</p>
+                      <span class="date sub-text">{{ author.name }}</span>
                     </div>
+
                 </li>
               </ul>
             </div>
