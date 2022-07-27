@@ -27,6 +27,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+##GRAVATAR
+gravatar = Gravatar(app,
+                    size=100,
+                    rating='g',
+                    default='retro',
+                    force_default=False,
+                    force_lower=False,
+                    use_ssl=False,
+                    base_url=None)
+
 
 ##CONFIGURE TABLES
 
@@ -135,27 +145,27 @@ def logout():
 @app.route("/post/<int:post_id>", methods = ['GET', 'POST'])
 def show_post(post_id):
     requested_post = BlogPost.query.get(post_id)
-    comments = Comment.query.filter_by(post_id = post_id).first()
-    print(comments)
-    author = User.query.get(comments.author_id)
+    # comments = Comment.query.filter_by(post_id = post_id).first()
+    # print(comments)
+    # author = User.query.get(comments.author_id)
     form = CommentForm()
     if form.validate_on_submit():
-
-        new_comment = Comment(
-        text = form.commnet_text.data,
-        author_id = current_user.id,
-        post_id = post_id
-        )
         if not current_user.is_authenticated:
             flash("You need to login to register a new comment.")
             return redirect(url_for('login'))
-        else:
-            db.session.add(new_comment)
-            db.session.commit()
-            comments = Comment.query.filter_by(post_id = post_id).first()
-            print(comments)
-            return render_template("post.html", post=requested_post, current_user=current_user, form = form, comments = comments, author = author) 
-    return render_template("post.html", post=requested_post, current_user=current_user, form = form, comments = comments, author = author)
+        new_comment = Comment(
+        text = form.commnet_text.data,
+        comment_author = current_user,
+        parent_post = requested_post
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        # else:
+            # comments = Comment.query.filter_by(post_id = post_id).first()
+            # print(comments)
+            # return render_template("post.html", post=requested_post, current_user=current_user, form = form, comments = comments, author = author) 
+    # return render_template("post.html", post=requested_post, current_user=current_user, form = form, comments = comments, author = author)
+    return render_template("post.html", post=requested_post, current_user=current_user, form = form)
 
 
 @app.route("/about")
