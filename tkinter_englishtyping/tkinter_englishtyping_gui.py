@@ -16,8 +16,16 @@ prb_text.pack()
 add_text = Text()
 add_text.pack()
 
+## method 1 : Label
+# typed_string = StringVar()
+# hid_label = Label(textvariable=typed_string)
+## method 2 : Text
+hid_text = Text()
+
+
 def stop_text():
     add_text.pack_forget()
+    # typed_string.set(add_text.get("1.0",END))
     add_label = Label(text = 'End')
     add_label.pack()
 
@@ -27,6 +35,9 @@ def stop_text():
 # add_text.after(5000, get_text)    
 # word = add_text.get("1.0",END)
 window.after(5000, stop_text) # 1 s = 1000 ms
+hid_text.pack()
+
+# print(typed_string)
 # print(word)
 # print(add_text)
 
