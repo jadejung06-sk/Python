@@ -21,10 +21,11 @@ def cal_wpm(input_string):
         if test_word == input_word:
             cnt_correctword += 1
     print(f'Total typed words : {cnt_inputword}, Correct typed words : {cnt_correctword}, Wrong typed words : {cnt_inputword - cnt_correctword} ')
-    end_tm =  time.time() - start_tm 
-    print(f'Time : {end_tm:.2f} s')
+    # end_tm =  time.time() - start_tm 
+    # print(f'Time : {end_tm:.2f} s')
     ##### Calculate words per minute
-    wpm = round(cnt_inputword/end_tm*60, 0)
+    # wpm = round(cnt_inputword/end_tm*60, 0)
+    wpm = round(cnt_correctword, 3)
     print(f'Your Words Per Minute : {wpm}')
     return wpm
 
