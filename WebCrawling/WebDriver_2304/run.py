@@ -5,7 +5,10 @@
 from selenium import webdriver as wd
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
+
 ## 3. Load driver
 # Option : no images, control agent, proxy
 # Check temporary files of driver capacity
@@ -22,10 +25,20 @@ driver.get(MAIN_URL)
 # ID > Class > Paraent > Sibbling
 # ID divHeaderSearch
 # element or elements
-driver.find_element(by = By.ID, value = "divHeaderSearch").click()
-time.sleep(10)
+try:
+    driver.find_element(by = By.ID, value = "divHeaderSearch").click()
+    element = WebDriverWait(driver, 10).until(
+        # wait for the presence of a single element
+        EC.presence_of_element_located((By.ID, "txtHeaderInput"))) # ()
+except Exception as e:
+    print(f'[Error] : divHeaderSearch >>> {e}')
 driver.find_element(by = By.ID, value = "txtHeaderInput").send_keys(keywords[0])
 
+try:
+    driver.find_element(by = By.ID, value = "btnHeaderInput").click()
+except Exception as e:
+    print(f'[Error] : btnHeaderInput >>> {e}')
+driver.find_element(by = By.CSS_SELECTOR, value = '.searchAllBox>.moreBtnWrap>.moreBtn').click()
 ## 6. Click on searching button
 
 ## 7. Wait minutes

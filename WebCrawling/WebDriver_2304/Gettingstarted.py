@@ -23,3 +23,24 @@ driver = wd.Chrome(options=options, executable_path=PATH)
 '''
 from selenium.webdriver.common.by import By
 '''
+## 3.3. wait
+# >>> https://selenium-python.readthedocs.io/waits.html
+'''
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+try:
+    driver.find_element(by = By.ID, value = "divHeaderSearch").click()
+    element = WebDriverWait(driver, 10).until(
+        # wait for the presence of a single element
+        EC.presence_of_element_located((By.ID, "txtHeaderInput"))) # ()
+except Exception as e:
+    print(f'[Error] : {e}')
+driver.find_element(by = By.ID, value = "txtHeaderInput").send_keys(keywords[0])
+'''
+## 3.4 css selector
+# F12 - hover on the element - the Styles
+# Check the css selector of the Styles
+'''
+driver.find_element(by = By.CSS_SELECTOR, value = '.searchAllBox>.moreBtnWrap>.moreBtn').click()
+'''
