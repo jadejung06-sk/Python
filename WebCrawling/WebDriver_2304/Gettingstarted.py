@@ -47,4 +47,16 @@ driver.find_element(by = By.CSS_SELECTOR, value = '.searchAllBox>.moreBtnWrap>.m
 ## 3.5 no class & ID
 # F12 - hover on the elemen - copy - css selector - delete some of css selectors 
 # btn = driver.find_element(by = By.CSS_SELECTOR, value = '.pageNumBox > ul > li:nth-child(2)').click()
-
+## 3.6 several class
+# >>> https://jigeumblog.tistory.com/32
+'''
+.searchAllBox.overseaTravel>.boxList>li'
+'''
+## 3.6 Element.get_attribute()
+# Click on the thumbnail - Check the web page addresses
+'''
+thumbnail = li.find_element(by = By.CSS_SELECTOR, value = 'img').get_attribute('src')
+data_id = li.get_attribute("data-id")
+print(f'Thumbnail : {thumbnail}')
+print(f'Link : https://tour.interpark.com/goods/detail/?BaseGoodsCd={data_id}')
+'''

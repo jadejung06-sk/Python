@@ -47,13 +47,24 @@ for page in range(1, 2): #range(1, 6):
 ## 7. Wait minutes
         time.sleep(2)
 ## 8. Get some information
-        boxItems = driver.find_elements(by = By.CSS_SELECTOR, value = '.searchAllBox>.boxList>li')
-        for li in boxItems:
-            name = li.find_element(by = By.CSS_SELECTOR, value = 'h5.infoTitle').text
-            if len(name) > 0:
-                print(f"Name : {name}")
 # Several sites
 # Name, Thumbnail, comment, range1, range2, price, review, link 
+        boxItems = driver.find_elements(by = By.CSS_SELECTOR, value = '.searchAllBox.overseaTravel>.boxList>li')
+        # print(len(boxItems))
+        for li in boxItems:
+            name = li.find_element(by = By.CSS_SELECTOR, value = 'h5.infoTitle').text
+            thumbnail = li.find_element(by = By.CSS_SELECTOR, value = 'img').get_attribute('src')
+            data_id = li.get_attribute("data-id")
+            comment = li.find_element(by = By.CSS_SELECTOR, value = 'p.infoSubTitle').text
+            price = li.find_element(by = By.CSS_SELECTOR, value = 'strong').text
+            print(f"Item >>> {name}")
+            print(f'Thumbnail : {thumbnail}')
+            print(f'Link : https://tour.interpark.com/goods/detail/?BaseGoodsCd={data_id}')
+            print(f"Sub Title >>> {comment}")
+            print(f"Price >>> {price} won")
+            for info in li.find_elements(by = By.CSS_SELECTOR, value = 'p.info'):
+                print(f'Info >>> {info.text}')
+            print('=' * 100)    
         print(f'Move on {page} Page')
     except Exception as e1:
         print(f'[Error] : NextPage >>> {e1}')
