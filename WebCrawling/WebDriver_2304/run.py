@@ -40,8 +40,22 @@ except Exception as e:
     print(f'[Error] : btnHeaderInput >>> {e}')
 driver.find_element(by = By.CSS_SELECTOR, value = '.searchAllBox>.moreBtnWrap>.moreBtn').click()
 ## 6. Click on searching button
-for i in range(1, 6):
-    btn = driver.find_element(by = By.CSS_SELECTOR, value = f'.pageNumBox > ul > li:nth-child({i})').click()
+# Start 1 Last 5 but Test 6 (OK)
+for page in range(1, 2): #range(1, 6):
+    try:
+        btn = driver.find_element(by = By.CSS_SELECTOR, value = f'.pageNumBox > ul > li:nth-child({page})').click()
 ## 7. Wait minutes
-
+        time.sleep(2)
 ## 8. Get some information
+        boxItems = driver.find_elements(by = By.CSS_SELECTOR, value = '.searchAllBox>.boxList>li')
+        for li in boxItems:
+            name = li.find_element(by = By.CSS_SELECTOR, value = 'h5.infoTitle').text
+            if len(name) > 0:
+                print(f"Name : {name}")
+# Several sites
+# Name, Thumbnail, comment, range1, range2, price, review, link 
+        print(f'Move on {page} Page')
+    except Exception as e1:
+        print(f'[Error] : NextPage >>> {e1}')
+
+
