@@ -44,3 +44,7 @@ driver.find_element(by = By.ID, value = "txtHeaderInput").send_keys(keywords[0])
 '''
 driver.find_element(by = By.CSS_SELECTOR, value = '.searchAllBox>.moreBtnWrap>.moreBtn').click()
 '''
+## 3.5 no class & ID
+# F12 - hover on the elemen - copy - css selector - delete some of css selectors 
+# btn = driver.find_element(by = By.CSS_SELECTOR, value = '.pageNumBox > ul > li:nth-child(2)').click()
+

@@ -40,7 +40,8 @@ except Exception as e:
     print(f'[Error] : btnHeaderInput >>> {e}')
 driver.find_element(by = By.CSS_SELECTOR, value = '.searchAllBox>.moreBtnWrap>.moreBtn').click()
 ## 6. Click on searching button
-
+for i in range(1, 6):
+    btn = driver.find_element(by = By.CSS_SELECTOR, value = f'.pageNumBox > ul > li:nth-child({i})').click()
 ## 7. Wait minutes
 
 ## 8. Get some information
