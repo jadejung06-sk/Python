@@ -73,3 +73,10 @@ pip install bs4
 
 ## 6. MariaDB
 # >>> https://mariadb.com/
+# 10.3.38 1234/1234 utf8
+# >>> Double Click MySQL Client
+# MariaDB [(none)]
+'''
+create database pythonDB;
+''' # Query OK, 1 row affected (0.001 sec)
+# >>> double Click HeidiSQL 

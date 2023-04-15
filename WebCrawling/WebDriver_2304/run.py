@@ -66,8 +66,8 @@ for page in range(1, 2): #range(1, 6):
             print(f"Title : {title}")
             print(f'Thumbnail : {thumbnail}')
             print(f'Link : {link}')
-            print(f"Sub Title >>> {comment}")
-            print(f"Price >>> {price} won")
+            print(f"Sub Title : {comment}")
+            print(f"Price : {price} won")
             for info in li.find_elements(by = By.CSS_SELECTOR, value = 'p.info'):
                 print(f'{info.text}')
             print('=' * 100)
@@ -85,8 +85,11 @@ for page in range(1, 2): #range(1, 6):
 ## 9. beautifulsoup DOM on current page
         soup = bs(driver.page_source, 'html.parser')
         data = soup.select('.tip-cover')
-        print(type(data)) # <class 'bs4.element.ResultSet'>
-## 10. close - page / quit - driver / exit - process
+        print(type(data), len(data)) # <class 'bs4.element.ResultSet'>
+## 10. DB
+
+
+## 11. close - page / quit - driver / exit - process
 driver.close()
 driver.quit()
 import sys
