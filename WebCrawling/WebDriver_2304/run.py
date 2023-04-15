@@ -3,11 +3,13 @@
 # PC web Site or Mobile
 ## 2. pip install selenium
 from selenium import webdriver as wd
+from bs4 import BeautifulSoup as bs
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+from tour import TourInfo
 
 ## 3. Load driver
 # Option : no images, control agent, proxy
@@ -15,6 +17,9 @@ import time
 PATH = './WebCrawling/WebDriver_2304/chromedriver.exe'
 MAIN_URL = 'http://tour.interpark.com/'  # + slash
 keywords = ['로마']
+# Tour info Object list
+tour_list = []
+
 options = wd.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = wd.Chrome(options=options, executable_path=PATH)
@@ -49,24 +54,40 @@ for page in range(1, 2): #range(1, 6):
 ## 8. Get some information
 # Several sites
 # Name, Thumbnail, comment, range1, range2, price, review, link 
+# Class
         boxItems = driver.find_elements(by = By.CSS_SELECTOR, value = '.searchAllBox.overseaTravel>.boxList>li')
-        # print(len(boxItems))
         for li in boxItems:
-            name = li.find_element(by = By.CSS_SELECTOR, value = 'h5.infoTitle').text
+            title = li.find_element(by = By.CSS_SELECTOR, value = 'h5.infoTitle').text
             thumbnail = li.find_element(by = By.CSS_SELECTOR, value = 'img').get_attribute('src')
             data_id = li.get_attribute("data-id")
             comment = li.find_element(by = By.CSS_SELECTOR, value = 'p.infoSubTitle').text
             price = li.find_element(by = By.CSS_SELECTOR, value = 'strong').text
-            print(f"Item >>> {name}")
+            link = f'https://tour.interpark.com/goods/detail/?BaseGoodsCd={data_id}'
+            print(f"Title : {title}")
             print(f'Thumbnail : {thumbnail}')
-            print(f'Link : https://tour.interpark.com/goods/detail/?BaseGoodsCd={data_id}')
+            print(f'Link : {link}')
             print(f"Sub Title >>> {comment}")
             print(f"Price >>> {price} won")
             for info in li.find_elements(by = By.CSS_SELECTOR, value = 'p.info'):
-                print(f'Info >>> {info.text}')
-            print('=' * 100)    
+                print(f'{info.text}')
+            print('=' * 100)
+            # Put info. of tour in tour list title, price, area, link, img):
+            obj = TourInfo(title = title, price = price, area = li.find_elements(by = By.CSS_SELECTOR, value = 'p.info')[1].text, link = link, img = thumbnail )
+            tour_list.append(obj)
         print(f'Move on {page} Page')
     except Exception as e1:
         print(f'[Error] : NextPage >>> {e1}')
-
-
+    # print(tour_list, len(tour_list))
+    for tour in tour_list:
+        # print(type(tour))
+        driver.get(tour.link)
+        time.sleep(1)
+## 9. beautifulsoup DOM on current page
+        soup = bs(driver.page_source, 'html.parser')
+        data = soup.select('.tip-cover')
+        print(type(data)) # <class 'bs4.element.ResultSet'>
+## 10. close - page / quit - driver / exit - process
+driver.close()
+driver.quit()
+import sys
+sys.exit()

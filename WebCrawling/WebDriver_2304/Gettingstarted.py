@@ -60,3 +60,16 @@ data_id = li.get_attribute("data-id")
 print(f'Thumbnail : {thumbnail}')
 print(f'Link : https://tour.interpark.com/goods/detail/?BaseGoodsCd={data_id}')
 '''
+
+## 4. Info Object 
+# class TourInfo:
+
+## 5. Beautiful Soup
+# HTML, XML, DOM
+# >>> https://beautiful-soup-4.readthedocs.io/en/latest/
+'''
+pip install bs4
+'''
+
+## 6. MariaDB
+# >>> https://mariadb.com/
