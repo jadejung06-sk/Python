@@ -2,8 +2,12 @@
 ## 1. Login 
 # PC web Site or Mobile
 ## 2. pip install selenium
+# pip install pymysql
+# pip install bs4
+
 from selenium import webdriver as wd
 from bs4 import BeautifulSoup as bs
+import pymysql as my
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait

@@ -71,7 +71,7 @@ print(f'Link : https://tour.interpark.com/goods/detail/?BaseGoodsCd={data_id}')
 pip install bs4
 '''
 
-## 6. MariaDB
+## 6.1. MariaDB
 # >>> https://mariadb.com/
 # 10.3.38 1234/1234 utf8
 # >>> Double Click MySQL Client
@@ -79,4 +79,30 @@ pip install bs4
 '''
 create database pythonDB;
 ''' # Query OK, 1 row affected (0.001 sec)
-# >>> double Click HeidiSQL 
+# >>> double Click HeidiSQL
+## new table - tbl_keyword - primary key keyword(varchar)
+# new data - new row - 3 keywords
+## new table - tbl_crawlingdata 
+# - primary key id(int, auto_increment), title(varchar), price(varchar), area(varchar)
+# contents(text), keyword(varchar), regdate(timestamp, current_timestamp())
+## send SQL from Database
+# delete - create
+# delete - create
+# delete + insert
+# File Name : db
+# Send
+
+## 6.2. MariaDB python module
+'''
+pip install pymysql
+'''
+
+## 6.3. pymysql
+# >>> https://pypi.org/project/pymysql/
+'''
+connection = pymysql.connect(host='localhost',
+                             user='user',
+                             password='passwd',
+                             database='db',
+                             cursorclass=pymysql.cursors.DictCursor)
+'''
