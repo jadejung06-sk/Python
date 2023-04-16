@@ -7,7 +7,7 @@
 
 from selenium import webdriver as wd
 from bs4 import BeautifulSoup as bs
-import pymysql as my
+from DbMgr import DBHelper as DB
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -18,9 +18,10 @@ from tour import TourInfo
 ## 3. Load driver
 # Option : no images, control agent, proxy
 # Check temporary files of driver capacity
+db = DB()
 PATH = './WebCrawling/WebDriver_2304/chromedriver.exe'
 MAIN_URL = 'http://tour.interpark.com/'  # + slash
-keywords = ['로마']
+keyword = '로마'
 # Tour info Object list
 tour_list = []
 
@@ -41,7 +42,7 @@ try:
         EC.presence_of_element_located((By.ID, "txtHeaderInput"))) # ()
 except Exception as e:
     print(f'[Error] : divHeaderSearch >>> {e}')
-driver.find_element(by = By.ID, value = "txtHeaderInput").send_keys(keywords[0])
+driver.find_element(by = By.ID, value = "txtHeaderInput").send_keys(keyword)
 
 try:
     driver.find_element(by = By.ID, value = "btnHeaderInput").click()
@@ -90,6 +91,16 @@ for page in range(1, 2): #range(1, 6):
         soup = bs(driver.page_source, 'html.parser')
         data = soup.select('.tip-cover')
         print(type(data), len(data)) # <class 'bs4.element.ResultSet'>
+        # content_final = ''
+        # for c in data[0].contents:
+            # content_final = str(c)
+        db.db_insertCrawlingData(
+            tour.title,
+            tour.price,
+            tour.area,
+            data[0].contents,
+            keyword                        
+        )
 ## 10. DB
 
 

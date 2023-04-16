@@ -106,3 +106,11 @@ connection = pymysql.connect(host='localhost',
                              database='db',
                              cursorclass=pymysql.cursors.DictCursor)
 '''
+## 6.3.1. insert pymysql
+"""
+with self.conn.cursor() as cursor:
+    sql = '''insert into `tbl_crawlingdata` (title, price, area, contents, keyword) 
+    values (%s,%s,%s,%s,%s);'''
+    cursor.execute(sql, (title, price, area, contents, keyword)) # Parameters
+self.conn.commit()
+"""

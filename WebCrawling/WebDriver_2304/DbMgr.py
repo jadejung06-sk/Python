@@ -12,7 +12,7 @@ class DBHelper:
                             host='localhost',
                             user='root',
                             password='1234',
-                            database='pythonDB',
+                            database='pythondb',
                             cursorclass=my.cursors.DictCursor
         )
     def db_free(self):
@@ -27,13 +27,18 @@ class DBHelper:
             sql = "select * from tbl_keyword;"
             cursor.execute(sql)
             rows = cursor.fetchall()
-            print(rows)
         return rows
         
     def db_insertCrawlingData(self, title, price, area, contents, keyword):
         with self.conn.cursor() as cursor:
             sql = '''insert into `tbl_crawlingdata` (title, price, area, contents, keyword) 
-            values(%s,%s,%s,%s,%s);'''
+            values (%s,%s,%s,%s,%s);'''
             cursor.execute(sql, (title, price, area, contents, keyword)) # Parameters
-        
-        
+        self.conn.commit()
+
+## Only for Testing Code     
+if __name__=="__main__":
+    db = DBHelper()
+    print(db.db_selectKeyword())
+    db.db_insertCrawlingData('1','2','3','4','5')
+    db.db_free()
