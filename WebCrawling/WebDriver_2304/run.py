@@ -78,6 +78,9 @@ for page in range(1, 2): #range(1, 6):
             print('=' * 100)
             # Put info. of tour in tour list title, price, area, link, img):
             obj = TourInfo(title = title, price = price, area = li.find_elements(by = By.CSS_SELECTOR, value = 'p.info')[1].text, link = link, img = thumbnail )
+            
+            
+            
             tour_list.append(obj)
         print(f'Move on {page} Page')
     except Exception as e1:
@@ -90,15 +93,20 @@ for page in range(1, 2): #range(1, 6):
 ## 9. beautifulsoup DOM on current page
         soup = bs(driver.page_source, 'html.parser')
         data = soup.select('.tip-cover')
-        print(type(data), len(data)) # <class 'bs4.element.ResultSet'>
-        # content_final = ''
-        # for c in data[0].contents:
-            # content_final = str(c)
+        # print(type(data), len(data)) # <class 'bs4.element.ResultSet'>
+        content_final = ''
+        for c in data[0].contents:
+            content_final += str(c)
+            
+        import re
+        content_final = re.sub("'", '"', content_final)
+        content_final = re.sub(re.compile(r'\r\n|\r|\n|\n\r+'), '', content_final)
+       
         db.db_insertCrawlingData(
             tour.title,
             tour.price,
-            tour.area,
-            data[0].contents,
+            tour.area.replace('출발 가능 기간 : ', ''),
+            content_final,
             keyword                        
         )
 ## 10. DB
