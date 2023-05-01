@@ -95,7 +95,7 @@ def work_out_row(row):
                 result[row][col] += matrix_a[row][i] * matrix_b[i][col]
         work_complete.wait()
 
-for row in range(matrix_size):
+for row in range(matrix_size): # Each row, Each thread
     Thread(target = work_out_row, args = ([row])).start()
 start = time.time()
 for t in range(10):
