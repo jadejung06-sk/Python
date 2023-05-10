@@ -54,3 +54,18 @@ soup.select('#img_chart_area')[0]['src']
 import urllib.request 
 urllib.request.urlretrieve(soup.select('#img_chart_area')[0]['src'], 'img.jpg')
 '''
+
+##### unlimited scroll (ajax)
+## pages
+'''
+requests.get('pageurl?page=1')
+requests.get('pageurl?page=2')
+requests.get('pageurl?page=3')
+'''
+## no pages
+# demerit = get only first content
+# have to get more contents
+# Network tap > file Name > Search : short words of title > Headers tap
+'''
+a = request.get('https://s.search.naver.com/p/review/search.naver? ... )
+'''
