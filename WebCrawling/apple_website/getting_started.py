@@ -113,3 +113,26 @@ dict_data['data'][0]['DT']
 time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(1610175600000/1000)) # 13 to 10
 time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(dict_data['data'][0]['DT'])/1000)) # 13 to 10
 '''
+
+##### Multi (No Class version)
+## multi-processing
+# more python cmds
+# a processer locks a variable
+'''
+from multiprocessing import Pool # Processors
+'''
+## multi-threading
+# more cpu threads
+'''
+from multiprocessing.dummy import Pool as ThreadPool # Threads
+pool = ThreadPool(4) # num of threads
+pool.map(func, list) # work the tasks
+pool.close() # stop pooling
+pool.join() # wait for the result (list)
+'''
+## map()
+# work the same task for each in a list
+'''
+def func return i +1
+map(func, list)
+'''
