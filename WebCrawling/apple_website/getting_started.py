@@ -69,3 +69,17 @@ requests.get('pageurl?page=3')
 '''
 a = request.get('https://s.search.naver.com/p/review/search.naver? ... )
 '''
+## back slash (escape)
+'''
+data= request.get('https://s.search.naver.com/p/review/search.naver? ... )
+soup = BeautifulSoup(data.text.replace('\\', ''), 'html.parser')
+txt_list = soup.select('a.api_txt_lines')
+print(txt_list[0].text)
+print(txt_list[0]['href'])
+'''
+## query
+# korean without encoding
+'''
+data = requests.get(https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EC%82%AC%EA%B3%BC)
+data = requests.get(https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=사과)
+'''
