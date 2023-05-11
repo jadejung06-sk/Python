@@ -69,7 +69,7 @@ requests.get('pageurl?page=3')
 '''
 a = request.get('https://s.search.naver.com/p/review/search.naver? ... )
 '''
-## back slash (escape)
+##### back slash (escape)
 '''
 data= request.get('https://s.search.naver.com/p/review/search.naver? ... )
 soup = BeautifulSoup(data.text.replace('\\', ''), 'html.parser')
@@ -77,9 +77,39 @@ txt_list = soup.select('a.api_txt_lines')
 print(txt_list[0].text)
 print(txt_list[0]['href'])
 '''
-## query
-# korean without encoding
+##### query
+## korean without encoding
 '''
 data = requests.get(https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EC%82%AC%EA%B3%BC)
 data = requests.get(https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=사과)
+'''
+
+##### data in chart
+## search the html file
+# Network > Headers or Preview
+# ' ' dic vs. " " json
+# make a json file and change it in format document
+## check what thml files are added
+# Network > Headers
+'''
+import json
+data = requests.get()
+dict_data = json.loads(data.content)
+dict_data['data'][0]['Close']
+dict_data['data'][1]['Close']
+dict_data['data'][2]['Close']
+'''
+
+##### Datetime
+# epoch time 10
+# unix time 10
+# 3 miliseconds
+'''
+import json
+import time
+data = requests.get()
+dict_data = json.loads(data.content)
+dict_data['data'][0]['DT']
+time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(1610175600000/1000)) # 13 to 10
+time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(dict_data['data'][0]['DT'])/1000)) # 13 to 10
 '''
