@@ -101,7 +101,7 @@ dict_data['data'][2]['Close']
 '''
 
 ##### Datetime
-# epoch time 10
+# epoch time 10 19700101~
 # unix time 10
 # 3 miliseconds
 '''
