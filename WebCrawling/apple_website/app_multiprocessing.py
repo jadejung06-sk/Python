@@ -29,4 +29,4 @@ result = pool.map(get_close_price, urls) # list
 pool.close() 
 pool.join() 
 print(result)
-print('Time Taken', time.time() - start)
+print('Time Taken', time.time() - start) # Time Taken 0.2879908084869385
