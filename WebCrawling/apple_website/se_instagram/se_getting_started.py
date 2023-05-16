@@ -10,6 +10,32 @@
 ## need to login
 '''pip install selenium'''
 
+##### No moudle
+## add Upper Folder
+'''
+import sys
+import time
+sys.path.append('D:\\2022\\Python') # Only need
+# print(sys.path)
+from gitignore.personal import Personal
+personal = Personal()
+'''
+
+##### ID / PW
+## https://ddolcat.tistory.com/713
+'''
+pip install cryptography
+from cryptography.fernet import Fernet
+ID, PW = Personal()._info ...
+key = Fernet.generate_key()
+print(f'Key : {key}')
+
+fernet = Fernet(key)
+encrypt_str = fernet.encrypt(PW)
+
+'''
+
+
 ##### driver
 ## driver gets all data including images and texts on this web page.
 '''
