@@ -6,5 +6,7 @@ driver = webdriver.Chrome('./WebCrawling/apple_website/se_instagram/chromedriver
 driver.get('https://instagram.com')
 
 time.sleep(3)
-e = driver.find_element_by_css_selector('div ._aa4u').text
-print(e)
+# e = driver.find_element_by_css_selector('div ._aa4u').text
+# print(e)
+
+##### Instgram
