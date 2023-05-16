@@ -52,3 +52,17 @@ driver.find_element_by_css_selector('.class_name').text
 e = driver.find_element_by_css_selector('._65Bje')
 driver.execute_script('arguments[0].click();', e )
 '''
+
+##### driver Options
+## user-data-dir
+'''
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument(r"user-data-dir=C:\Users\jjs06\AppData\Local\Google\Chrome\User Data\Default")
+driver = webdriver.Chrome('./WebCrawling/apple_website/se_instagram/chromedriver.exe', chrome_options=chrome_options)
+'''
+
+##### copy and paste
+'''
+pip install pyperclip
+pyperclip.copy(str)
+'''
