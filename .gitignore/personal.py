@@ -1,4 +1,6 @@
+import os
 
+print(os.getcwd())
 
 class Personal:
     
