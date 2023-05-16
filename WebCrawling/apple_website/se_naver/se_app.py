@@ -28,3 +28,22 @@ pw_input = driver.find_element(by=By.CSS_SELECTOR, value = '#pw')
 pw_input.send_keys(Keys.CONTROL, 'v')
 time.sleep(1)
 pw_input.send_keys(Keys.ENTER)
+
+
+##### move a page
+time.sleep(2)
+blog_click = driver.find_elements(by = By.CSS_SELECTOR, value = '.sa_mw')[2].click()
+driver.get(r"https://blog.editor.naver.com/editor?deviceType=mobile&returnUrl=https%3A%2F%2Fm.blog.naver.com%2FFeedList.naver&targetCategory=21")
+time.sleep(2)
+
+title_text = driver.find_elements(by = By.CSS_SELECTOR, value = '.se_textarea')[0]
+title_text.send_keys(f"{time.time()}")
+print('title_text', title_text)
+time.sleep(1)
+
+content_text = driver.find_element(by = By.CSS_SELECTOR, value = '.se_editable')
+content_text.send_keys(f"I am happy today, too! \n So do my family memebers!")
+time.sleep(2)
+
+upload_btn = driver.find_element(by = By.CSS_SELECTOR, value = '.btn_applyPost').click()
+time.sleep(2)

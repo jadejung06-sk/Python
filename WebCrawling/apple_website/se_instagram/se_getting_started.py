@@ -66,3 +66,15 @@ driver = webdriver.Chrome('./WebCrawling/apple_website/se_instagram/chromedriver
 pip install pyperclip
 pyperclip.copy(str)
 '''
+
+##### text
+## textarea
+## div contentedtiable
+
+
+##### imgs
+## input 
+## <input type="file">
+'''
+input_div.send_keys(FILE_PATH)
+'''
