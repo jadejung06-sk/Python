@@ -35,7 +35,6 @@ encrypt_str = fernet.encrypt(PW)
 
 '''
 
-
 ##### driver
 ## driver gets all data including images and texts on this web page.
 '''
@@ -46,3 +45,10 @@ driver.find_element_by_css_selector('.class_name').text
 
 ##### css selector
 ## narrow and single css
+
+
+##### use JS
+'''
+e = driver.find_element_by_css_selector('._65Bje')
+driver.execute_script('arguments[0].click();', e )
+'''
