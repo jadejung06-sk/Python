@@ -1,3 +1,8 @@
+##### getting_started
+## naver >> configuration >> CHECK IMAP/SMTP USED >> copy smtp naver address & smtp port (w/ tls)
+##
+
+
 ##### simple
 # import smtplib
 # from email.mime.text import MIMEText
@@ -15,6 +20,7 @@
 # s.login( '네이버아이디' , '비번' ) #네이버로그인
 # s.sendmail( '발송자이메일', '수신자이메일', msg.as_string() )
 # s.close()
+#########################
 
 
 ##### html
@@ -25,6 +31,8 @@
 # msg = MIMEMultipart('alternative')
 # 내용 = """
 # 여기에 HTML로 작성가능
+# <h4>bold title</h4>
+# <button>btn</button>
 # """
 # part1 = MIMEText(내용, "html")
 # msg.attach(part1)
@@ -35,12 +43,12 @@
 # msg['To'] = '받는사람이름이나 이메일'
 # print(msg.as_string())
  
-# s = smtplib.SMTP( '네이버smtp주소' , 포트번호 ) 
+# s = smtplib.SMTP( 'smtp.naver.com' , 587 ) 
 # s.starttls() #TLS 보안 처리
 # s.login( '네이버아이디' , '비번' ) #네이버로그인
 # s.sendmail( '발송자이메일', '수신자이메일', msg.as_string() )
 # s.close()
-
+#########################
 
 ##### attachment
 # import smtplib
