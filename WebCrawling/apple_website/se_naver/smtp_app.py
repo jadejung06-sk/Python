@@ -1,6 +1,6 @@
 ##### getting_started
 ## naver >> configuration >> CHECK IMAP/SMTP USED >> copy smtp naver address & smtp port (w/ tls)
-##
+## https://mail.naver.com/v2/settings/smtp/imap
 
 
 ##### simple
