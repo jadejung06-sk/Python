@@ -2,6 +2,14 @@ import pandas as pd
 import re
 
 
+##### regex
+# a = re.search('^abc', 'dddddabcef')
+# print(a) # None False if False
+# a = re.search('abc', 'dddddabcef')
+# print(a) # Object True if True
+
+
+
 raw = pd.read_excel(r'D:\2022\Python\WebCrawling\apple_website\pandas_excel\product.xlsx', engine = "openpyxl")
 print("org_raw", raw)
 
@@ -14,8 +22,8 @@ print("org_raw", raw)
 # print(raw)
 
 ##### append new data
-def category(x):
-    if "Chair" in str(x):
+def category(x): # x object
+    if "Chair" in str(x): # x string
         return "의자"
     elif "Table" in str(x):
         return "테이블"
