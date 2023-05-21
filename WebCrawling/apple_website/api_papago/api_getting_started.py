@@ -40,3 +40,37 @@ response_body = response.read()
 response_body = json.loads(response_body)
 response_body['message']['result']['translatedText']
 '''
+
+##### change a row of the different column
+## No change
+# row['korean'] = translate(row['english'])
+# >>> https://jimmy-ai.tistory.com/245
+'''
+data.loc[i, 'korean'] = translate(row['english'])
+'''
+
+##### Korean Error
+## data.to_csv(r"D:\2022\Python\WebCrawling\apple_website\api_papago\out.csv")
+## data.to_csv(r"D:\2022\Python\WebCrawling\apple_website\api_papago\out.csv", encoding= 'utf-8')
+'''
+data.to_csv(r"D:\2022\Python\WebCrawling\apple_website\api_papago\out.csv", encoding= 'cp949')
+'''
+
+##### faster
+## than for i, row in data.iterrows()
+# >>> https://ltlkodae.tistory.com/10
+# for tu in data.itertuples()
+# type(tu.korean) # Float
+## AttributeError: can't set attribute
+# for tu in data.itertuples()
+# tu.korean = str(tu.korean)
+# print(tu) # Pandas(Index=0, english='Life begins at the end of your comfort zone.', korean=nan)
+'''
+for tu in data.itertuples():
+    data.loc[tu.Index, 'korean']  = translate(tu.english)
+'''
+'''
+for i, a, b in data.itertuples():
+    data.loc[i, 'korean']  = translate(a)
+
+'''
