@@ -1,3 +1,9 @@
+##### version 23.05
+# pandas (1.3.5)
+# Python 3.10.1
+# yfinance 0.2.18
+# pandas_datareader 0.10.0
+
 ##### stock data
 ## pip install
 '''
@@ -30,4 +36,13 @@ df1 = data.get_data_yahoo('AAPL', '2020-01-01', '2022-01-01')
 # >>> https://wikidocs.net/4370
 '''
 df2 = data.get_data_yahoo('005930.KS', '2020-01-01', '2022-01-01')
+'''
+
+## ImportError: matplotlib is required for plotting when the default backend "matplotlib" is selected.
+# PS D:\2022\Python> pip show matplotlib
+# WARNING: Package(s) not found: matplotlib
+# >>> https://stackoverflow.com/questions/52701688/pandas-importerror-matplotlib-is-required-for-plotting
+'''
+pip install matplotlib
+df2['Close'].plot()
 '''

@@ -6,6 +6,11 @@ from pandas_datareader import data
 
 df1 = data.get_data_yahoo('AAPL', '2020-01-01', '2022-01-01')
 print(df1)
+print(df1['Close'])
+
 
 df2 = data.get_data_yahoo('005930.KS', '2020-01-01', '2022-01-01')
 print(df2)
+print(df2['Close'])
+# df2['Close'].astype(float)
+df2['Close'].plot()
