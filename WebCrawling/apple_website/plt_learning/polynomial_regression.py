@@ -28,7 +28,7 @@ plt.scatter(df.age, df.income)
 x = np.column_stack([df['age'], df['age']**2, np.ones(79)]) # ax + bx^2 + 1
 model = sm.OLS(df["income"], x).fit()
 print(model.summary())
-# plt.show()
+plt.show()
 
 #                  coef    std err          t      P>|t|      [0.025      0.975]
 # ------------------------------------------------------------------------------
@@ -41,5 +41,5 @@ x2 = np.column_stack([df['age'], df['age']**2]) # ax + bx^2  [[ 4. 16.]]
 print(x2)
 model2 = sm.OLS(df["income"], x2).fit()
 print(model2.summary())
-# plt.show()
+plt.show()
 ## overfitting : no prediction only for train dataset
