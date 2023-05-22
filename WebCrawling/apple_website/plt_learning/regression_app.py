@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 from sklearn.linear_model import LinearRegression
 import statsmodels.api as sm
 
@@ -34,3 +35,13 @@ print(model.summary())
 # [0.025      0.975]                        coef  0.390 ~ 0.455
 #                  coef    std err          t      P>|t|      [0.025      0.975]
 # x1             0.4228      0.014     30.603      0.000       0.390       0.455
+
+###### statsmodels and DataFrame
+df = pd.read_csv(r"D:\2022\Python\WebCrawling\apple_website\plt_learning\california_housing.csv")
+
+model_csv = sm.OLS(df["price"], df[['year', 'rooms', 'bedrooms']]).fit()
+print('model_csv', model_csv) # <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x000002637FD59870>
+print('model_csv', model_csv.summary()) 
+csv_pred1 = model_csv.predict([20, 1000, 200])
+csv_pred2= model_csv.predict([[20, 1000, 200], [30, 1000, 200]])
+print(csv_pred1, csv_pred2)
