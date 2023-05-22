@@ -39,7 +39,7 @@ print(model.summary())
 ###### statsmodels and DataFrame
 df = pd.read_csv(r"D:\2022\Python\WebCrawling\apple_website\plt_learning\california_housing.csv")
 
-model_csv = sm.OLS(df["price"], df[['year', 'rooms', 'bedrooms']]).fit()
+model_csv = sm.OLS(df["price"], df[['year', 'rooms', 'bedrooms']]).fit() # y x
 print('model_csv', model_csv) # <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x000002637FD59870>
 print('model_csv', model_csv.summary()) 
 csv_pred1 = model_csv.predict([20, 1000, 200])
