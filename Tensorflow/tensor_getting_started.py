@@ -30,6 +30,9 @@ Radeon > ROCm or directml
 ##### Loss Function (Cost Function)
 ## get the lowest error
 
+##### activation of neural net
+## non-linearity and complexity
+
 ##### w1 = w1 - gredient of w1
 ## get E
 ## w1
@@ -41,4 +44,11 @@ Radeon > ROCm or directml
 ## global minimum
 
 ##### Optimizer of learning rate (Trial and Error) - Adam
+## dynimic learning rate
 ## Adagrad : big different w1 gets smaller,  the small different w1 gets bigger (local minima)
+
+##### back 
+## update 
+# 
+# w6 w5 w4 w3 w2 w1 
+
