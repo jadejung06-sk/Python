@@ -18,5 +18,27 @@ pip install tensorflow
 # cmd > dxdiag > display > name : AMD Radeon RX 6600 
 # > not CUDA but OpenCL 
 '''
-
+Radeon > ROCm or directml
 '''
+
+##### ml
+## get the greatest weight
+
+##### hidden layer
+## place to think 
+
+##### Loss Function (Cost Function)
+## get the lowest error
+
+##### w1 = w1 - gredient of w1
+## get E
+## w1
+## get E
+## w1 
+## get E
+
+##### w1 = w1 - learning rate * gredient of w1 (Trial and Error)
+## global minimum
+
+##### Optimizer of learning rate (Trial and Error) - Adam
+## Adagrad : big different w1 gets smaller,  the small different w1 gets bigger (local minima)
