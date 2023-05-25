@@ -15,7 +15,7 @@ pip install tensorflow
 # >>> https://developer.nvidia.com/cuda-gpus
 ## My Desktop
 # >>> https://gbworld.tistory.com/720
-# cmd > dxdiag > display > name : AMD Radeon RX 6600 
+# cmd > dxdiag > display > name : AMD Radeon RX 6600 (no gpu being used)
 # > not CUDA but OpenCL 
 '''
 Radeon > ROCm or directml
@@ -52,3 +52,23 @@ Radeon > ROCm or directml
 # 
 # w6 w5 w4 w3 w2 w1 
 
+##### + - * / tensors
+## dot product == tf.matmul()
+'''
+tf.add(tensor1, tensor2)
+tf.subtract(tensor1, tensor2)
+tf.divide(tensor1, tensor2)
+tf.multiply(tensor1, tensor2)
+tf.matmul(tensor1, tensor2)
+'''
+
+##### zeros makes the empty tensor
+## [2,2,3] : reversed!! 3 zeros > 2 rows > 2 times
+'''
+tensor6 = tf.zeros(10)
+tensor7 = tf.zeros([2,2])
+tensor8 = tf.zeros([2,2,3])
+print(tensor6) # tf.Tensor([0. 0. 0. 0. 0. 0. 0. 0. 0. 0.], shape=(10,), dtype=float32)
+print(tensor7) # tf.Tensor([[0. 0.] [0. 0.]], shape=(2, 2), dtype=float32)
+print(tensor8) # reversed!! 3 zeros > 2 rows > 2 times
+'''
