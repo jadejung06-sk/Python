@@ -31,3 +31,15 @@ print(tensor2.shape) # (3,) == 3 data
 print(tensor5.shape) # (2,2) == 2 data > 2 rows
 tensor9 = tf.constant([[1,2,3], [4,5,6]])
 print(tensor9.shape) # (2, 3) == 3 data > 2 rows
+
+##### dtype
+tensor10 = tf.constant([3,4,5], tf.float32)
+print(tensor10)
+
+##### weight
+# w0 = tf.Variable() 
+w1 = tf.Variable(1.0)
+print(w1) # <tf.Variable 'Variable:0' shape=() dtype=float32, numpy=1.0>
+print(w1.numpy()) # 1.0
+w1.assign(2)
+print(w1, w1.numpy()) # # <tf.Variable 'Variable:0' shape=() dtype=float32, numpy=2.0>

@@ -72,3 +72,22 @@ print(tensor6) # tf.Tensor([0. 0. 0. 0. 0. 0. 0. 0. 0. 0.], shape=(10,), dtype=f
 print(tensor7) # tf.Tensor([[0. 0.] [0. 0.]], shape=(2, 2), dtype=float32)
 print(tensor8) # reversed!! 3 zeros > 2 rows > 2 times
 '''
+
+##### dtype float32 rather than int32
+## [3.0, 4, 5]
+## [3,4,5], tf.float32
+## tf.cast()
+'''
+tensor10 = tf.constant([3,4,5], tf.float32)
+print(tensor10)
+'''
+
+##### Variable == weight
+## tf.Variable(1).assign(2).numpy()
+'''
+tf.Variable()
+tf.Variable(1.0) <tf.Variable 'Variable:0' shape=() dtype=float32, numpy=1.0>
+print(w.numpy()) # 1.0
+w.assign(2)
+print(w, w.numpy()) # <tf.Variable 'Variable:0' shape=() dtype=float32, numpy=2.0>
+'''
