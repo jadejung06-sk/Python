@@ -43,7 +43,7 @@ model.summary()
 ##### understand the summary 
 ## (None, 28, 128) == very much, 28 rows, 128 data
 ## (None, 28, 10) > (10) 
-# > Flatten 2D, 3D > 1D
+# > Flatten 2D, 3D > 1D, there is a limit of the data that does not look like a image.
 # _________________________________________________________________
 #  Layer (type)                Output Shape              Param #
 # =================================================================
@@ -90,3 +90,31 @@ model.summary()
 '''
 model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics= ['accuracy'] )
 '''
+
+##### solution of the limit of Flatten() == convolutional layer
+## copies 20 images with a kind of feature == feature extraction == important color
+## convolutional layer == feature map
+# kernel > 1 0 -1
+# > Conv2D(16, (3,3)) # 16 copies
+# > Conv2D(32, (3,3)) # 32 copies
+
+'''
+
+## sharpen kernel (clearer)
+-1 -1 -1
+-1  5 -1
+-1 -1 -1
+## gaussian blur kernel (blur)
+1 2 1
+2 4 2
+1 2 1 
+x1/16 (mean)
+## height kernel
+1 0 -1
+1 0 -1
+1 0 -1
+'''
+##### solution of the limit of convolutional layer == pOOLING LAYER
+# Conv2D remembers the position of feature == translation invariance
+# > Pooling layer moves the important features to the center
+# > Max pooling (more usable), Average pooling
