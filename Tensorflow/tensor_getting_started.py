@@ -91,3 +91,50 @@ print(w.numpy()) # 1.0
 w.assign(2)
 print(w, w.numpy()) # <tf.Variable 'Variable:0' shape=() dtype=float32, numpy=2.0>
 '''
+
+
+#####  raise core._status_to_exception(e) from None  # pylint: disable=protected-access   
+# tensorflow.python.framework.errors_impl.InvalidArgumentError: cannot compute MatMul as 
+# input #1(zero-based) was expected to be a int32 tensor but is a float tensor [Op:MatMul]
+### misunderstood Input #1
+## a = tf.Variable(0.1) # 0.1 > Randomize
+## train_x = tf.Variable(train_x )
+## print( tf.matmul(train_x, a) )
+# tensorflow.python.framework.errors_impl.InvalidArgumentError: cannot compute MatMul as 
+# input #1(zero-based) was expected to be a int32 tensor but is a float tensor [Op:MatMul]
+## train_x = tf.Variable(train_x, float )
+## print( tf.matmul(train_x, a) )
+# tensorflow.python.framework.errors_impl.InvalidArgumentError: cannot compute MatMul as 
+# input #1(zero-based) was expected to be a int32 tensor but is a float tensor [Op:MatMul]
+## train_x = tf.Variable(train_x, tf.float32 )
+## print( tf.matmul(train_x, a) )
+
+##### raise core._status_to_exception(e) from None  # pylint: disable=protected-access   
+# tensorflow.python.framework.errors_impl.InvalidArgumentError: {{function_node __wrapped__MatMul_device_/job:localhost/replica:0/task:0/device:CPU:0}} In[0] and In[1] has different ndims: [7] vs. [] [Op:MatMul]
+## a = tf.Variable(1) # 0.1 > Randomize
+## train_x = tf.Variable(train_x, tf.int32 )
+## print( tf.matmul(train_x, a) )
+##### raise core._status_to_exception(e) from None  # pylint: disable=protected-access   
+# tensorflow.python.framework.errors_impl.InvalidArgumentError: {{function_node __wrapped__MatMul_device_/job:localhost/replica:0/task:0/device:CPU:0}} In[0] and In[1] ndims must be == 2: 1 [Op:MatMul]
+## a = tf.Variable([len(train_x), 1]) # 0.1 > Randomize
+'''
+
+'''
+
+##### TypeError: 'numpy.ndarray' object is not callable
+# y = data['admit'].values() # Err
+# > y = data['admit'].values # <class 'numpy.ndarray'>
+'''
+y = data['admit'].values
+x = [rows['gre'], rows['gpa'], rows['rank'] for i, rows in data.iterrows()]
+'''
+##### ValueError: Failed to find data adapter that can handle input: (<class 'list'> containing values of types {'(<class \'list\'> containing values of types {"<class \'numpy.float64\'>"})'}), <class 'numpy.ndarray'>
+# model.fit(x, y, epochs = 10) # model.fit(x= train_x , y = real_y )
+'''
+model.fit(np.array(x), y, epochs = 10) # model.fit(x= train_x , y = real_y )
+'''
+
+##### Prediction
+## Improvment : preprocessing, hyperparameter, dense, activation, more data 
+# binary_crossentropy - sigmoid
+# categorical_crossentropy - softmax
