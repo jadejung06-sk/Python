@@ -114,7 +114,49 @@ x1/16 (mean)
 1 0 -1
 1 0 -1
 '''
+
+##### 0-255 > 0-1
+'''
+trainX = trainX / 255.0
+testX = testX / 255.0
+'''
+
 ##### solution of the limit of convolutional layer == pOOLING LAYER
 # Conv2D remembers the position of feature == translation invariance
 # > Pooling layer moves the important features to the center
 # > Max pooling (more usable), Average pooling
+# padding keeps the size of images
+# relu does not have negative numbers so it ueses images.
+##### Input 0 of layer "conv2d" is incompatible with the layer: expected min_ndim=4, found ndim=3. Full shape received: (32, 28, 28)
+    # Call arguments received by layer 'sequential' (type Sequential):
+    #   • inputs=tf.Tensor(shape=(32, 28, 28), dtype=uint8)
+    #   • training=True
+    #   • mask=None
+# tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu')
+## conv2D needs data in 4-dimensional space == gray (60000, 28, 28, 1) or color (60000, 28, 28, 3)
+## conv1D, conv2D, conv3D
+# > trainX = trainX.reshape((60000, 28, 28, 1))
+'''
+trainX = trainX.reshape((trainX.shape[0], 28, 28, 1))
+testX = testX.reshape((testX.shape[0], 28, 28, 1))
+tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu' input_shape = (28, 28, 1)),
+'''
+
+##### layers
+# > Conv > Pooling > Flatten > Dense
+##### evaulate
+# Epoch 5/5 (overfitting of training dataset)
+# 1875/1875 [==============================] - 12s 6ms/step - loss: 0.1578 - accuracy: 0.9415
+# 313/313 [==============================] - 1s 2ms/step - loss: 0.2557 - accuracy: 0.9112
+# [0.2557179629802704, 0.9111999869346619]
+## block from overfitting
+# > stop epochs when test or val accracy decreses.
+## more correct
+# model.fit(trainX, trainY, epochs = 5)
+# score = model.evaluate(testX, testY)
+# print(score)
+'''
+model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 5)
+# Epoch 5/5
+# 1875/1875 [==============================] - 12s 6ms/step - loss: 0.1534 - accuracy: 0.9430 - val_loss: 0.2584 - val_accuracy: 0.9149
+'''
