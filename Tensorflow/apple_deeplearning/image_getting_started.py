@@ -172,6 +172,8 @@ model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 5)
 
 ##### image preprocessing 
 ### classify dogs and cats
+## file name : cat1. cat2. cat3 ... 
+# > os.rename()
 ## make dir
 '''
 os.makedirs(r"D:\2022\Python\Tensorflow\apple_deeplearning\kaggle_image_dogscats\dataset\cat")
