@@ -160,3 +160,73 @@ model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 5)
 # Epoch 5/5
 # 1875/1875 [==============================] - 12s 6ms/step - loss: 0.1534 - accuracy: 0.9430 - val_loss: 0.2584 - val_accuracy: 0.9149
 '''
+######################### Dataset
+##### kaggle
+## os.environ['KAGGLE_CONFIG_DIR'] = '/content/
+# !kaggle competitions download -c dogs-vs-cats-redux-kernels-edition
+# !unzip -q train.zip -d .
+
+##### images to numbers
+## 1. opencv
+## 2. tf.keras
+
+##### image preprocessing 
+### classify dogs and cats
+## make dir
+'''
+os.makedirs(r"D:\2022\Python\Tensorflow\apple_deeplearning\kaggle_image_dogscats\dataset\cat")
+os.makedirs(r"D:\2022\Python\Tensorflow\apple_deeplearning\kaggle_image_dogscats\dataset\dog")
+'''
+## move files
+'''
+for i in os.listdir("D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/train/"):
+    if 'cat' in i:
+        shutil.copyfile("D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/train/" + i , "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/train/dataset/cat/" + i)
+    if 'dog' in i:
+        shutil.copyfile("D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/train/" + i , "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/train/dataset/dog/" + i)
+'''
+## tf.keras.preprocessing.image_dataset_from_directory
+# no validation
+'''
+# train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+#     "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/dataset/",
+#     image_size = (64, 64),
+#     batch_size= 64,
+#     seed = 1234)
+'''
+'''
+# train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+#     "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/dataset/",
+#     image_size = (64, 64),
+#     batch_size= 64,
+#     subset = 'training'
+#     validation_split = 0.2)
+
+# val_ds = tf.keras.preprocessing.image_dataset_from_directory(
+#     "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/dataset/",
+#     image_size = (64, 64),
+#     batch_size= 64,
+#     subset = 'validation',
+#     validation_split = 0.2
+#     )
+'''
+#####     raise ValueError(
+# ValueError: If using `validation_split` and shuffling the data, you must provide a `seed` argument, to make sure that there is no overlap between the training and validation subset.
+'''
+train_ds = tf.keras.preprocessing.image_dataset_from_directory(
+    "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/dataset/",
+    image_size = (64, 64),
+    batch_size= 64,
+    subset = 'training'
+    validation_split = 0.2,
+    seed = 1234)
+
+val_ds = tf.keras.preprocessing.image_dataset_from_directory(
+    "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/dataset/",
+    image_size = (64, 64),
+    batch_size= 64,
+    subset = 'validation',
+    validation_split = 0.2,
+    seed = 1234
+    )
+'''
