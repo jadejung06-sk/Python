@@ -289,4 +289,20 @@ val_ds = val_ds.map(standarization)
 # 313/313 [==============================] - 34s 108ms/step - loss: 0.3560 - accuracy: 0.8422 - val_loss: 0.3926 - val_accuracy: 0.8258
 
 ##### save model
-## layers, loss func, optimizer, weights, keep learning
+### method 1 == all data = save()
+# layers, loss func, optimizer, weights, keep learning
+## load model - accuracy 0.01
+'''
+load_model = tf.keras.models.load_model('')
+load_model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics = ['sparse_categorical_accuracy'])
+load_model.evaluate(testX, testY)
+'''
+### method 2 == only weights == checkpoint
+'''
+callback = tf.keras.callbacks.ModelCheckpoint(
+    filepath= r'D:\2022\Python\Tensorflow\apple_deeplearning\checkpoint\mnist',
+    save_weights_only= True,
+    save_freq= 'epoch'
+)
+model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 3, callbacks = [callback])
+'''
