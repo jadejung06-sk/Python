@@ -26,3 +26,5 @@ model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 5)
 # model.fit(trainX, trainY, epochs = 5)
 # score = model.evaluate(testX, testY)
 # print(score)
+
+##### save model

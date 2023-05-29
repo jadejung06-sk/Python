@@ -232,3 +232,61 @@ val_ds = tf.keras.preprocessing.image_dataset_from_directory(
     seed = 1234
     )
 '''
+
+##### Found 25000 files belonging to 3 classes.
+'''
+%rm -rf dataset
+os.mkdir('/content/dataset/')
+os.mkdir('/content/dataset/cat')
+os.mkdir('/content/dataset/dog')
+'''
+
+##### plt.imshow() 
+# Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+# for images, labels in train_ds.take(1):
+# plt.imshow(images[0].numpy()) 
+# plt.show()
+# int8 means 256 integers
+# > unit8 means 0~255
+'''
+plt.imshow(images[0].numpy().astype('unit8'))
+plt.show()
+'''
+
+##### 
+# model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 5)
+'''
+model.fit(train_ds, validation_data = val_ds, epochs = 5)
+'''
+
+#####        return tf.nn.sigmoid_cross_entropy_with_logits(
+#    ValueError: `logits` and `labels` must have the same shape, received ((None, 2) vs (None, 1)).
+##  tf.keras.layers.Dense(2, activation= 'sigmoid') # binary - sigmoid 
+'''
+    tf.keras.layers.Dense(1, activation= 'sigmoid') # binary - sigmoid
+'''
+##### trail and error
+## input_shape, input_shape, no max pooling
+# Epoch 5/5
+# 313/313 [==============================] - 61s 196ms/step - loss: 0.4692 - accuracy: 0.7747 - val_loss: 0.4918 - val_accuracy: 0.7676
+## input_shape, input_shape, maxpooling
+# Epoch 5/5
+# 313/313 [==============================] - 34s 108ms/step - loss: 0.4773 - accuracy: 0.7709 - val_loss: 0.4945 - val_accuracy: 0.7680
+## input_shape
+# Epoch 5/5
+# 313/313 [==============================] - 34s 109ms/step - loss: 0.6942 - accuracy: 0.5025 - val_loss: 0.6924 - val_accuracy: 0.5292
+# Epoch 1/5 0.5 == preprocessing
+
+##### 0~255 to 0~1 
+''' 
+def standarization(images, labels):
+    images = tf.cast(images / 255.0, tf.float32)
+    return images, labels
+train_ds = train_ds.map(standarization)
+val_ds = val_ds.map(standarization)
+'''
+# Epoch 5/5
+# 313/313 [==============================] - 34s 108ms/step - loss: 0.3560 - accuracy: 0.8422 - val_loss: 0.3926 - val_accuracy: 0.8258
+
+##### save model
+## layers, loss func, optimizer, weights, keep learning
