@@ -289,7 +289,7 @@ val_ds = val_ds.map(standarization)
 # 313/313 [==============================] - 34s 108ms/step - loss: 0.3560 - accuracy: 0.8422 - val_loss: 0.3926 - val_accuracy: 0.8258
 
 ##### save model
-### method 1 == all data = save()
+##### method 1 == all data = save()
 # layers, loss func, optimizer, weights, keep learning
 ## load model - accuracy 0.01
 '''
@@ -297,7 +297,8 @@ load_model = tf.keras.models.load_model('')
 load_model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics = ['sparse_categorical_accuracy'])
 load_model.evaluate(testX, testY)
 '''
-### method 2 == only weights == checkpoint
+##### method 2 == save only weights == checkpoint 
+## simple callback overwrite 1 file
 '''
 callback = tf.keras.callbacks.ModelCheckpoint(
     filepath= r'D:\2022\Python\Tensorflow\apple_deeplearning\checkpoint\mnist',
@@ -305,4 +306,48 @@ callback = tf.keras.callbacks.ModelCheckpoint(
     save_freq= 'epoch'
 )
 model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 3, callbacks = [callback])
+'''
+## epoch = 3, 3 files
+'''
+callback = tf.keras.callbacks.ModelCheckpoint(
+    filepath= r'D:\2022\Python\Tensorflow\apple_deeplearning\checkpoint\mnist{epoch}',
+    save_weights_only= True,
+    save_freq= 'epoch'
+)
+model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 3, callbacks = [callback])
+'''
+## max val_acc
+'''
+callback = tf.keras.callbacks.ModelCheckpoint(
+    filepath= r'D:\2022\Python\Tensorflow\apple_deeplearning\checkpoint\mnist',
+    monitor = 'val_acc',
+    mode = 'max',
+    save_weights_only= True,
+    save_freq= 'epoch'
+)
+model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 3, callbacks = [callback])
+'''
+###### load model
+'''
+## if all different data
+trainX = trainX / 255.0
+testY = testX / 255.0
+trainX = trainX.reshape((trainX.shape[0], 28, 28, 1))
+testX = testX.reshape((testX.shape[0], 28, 28, 1))
+## compile == no need callback
+model2 = tf.keras.Sequential([
+    tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu', input_shape = (28, 28, 1)),
+    tf.keras.layers.MaxPooling2D( (2, 2)),
+    # tf.keras.layers.Conv2D(64, (3, 3), padding = "same", activation = 'relu'),#, input_shape = (28, 28, 1)),
+    # tf.keras.layers.MaxPooling2D( (2, 2)),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation= "relu"),
+    tf.keras.layers.Dense(10, activation= 'softmax') # no need to activation, num of categories 10
+])
+model2.summary()
+model2.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics= ['accuracy'] )
+# model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 3) # overwrite
+model2.load_weights(r'D:\2022\Python\Tensorflow\apple_deeplearning\checkpoint\mnist')
+model2.evaluate(testX, testY)
+
 '''
