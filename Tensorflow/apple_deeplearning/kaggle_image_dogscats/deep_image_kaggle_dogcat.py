@@ -51,9 +51,32 @@ val_ds = val_ds.map(standarization)
 #     plt.show()
 
 
-##### modeling
+##### modeling w/o augmentation
+# model = tf.keras.Sequential([
+#     tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu', input_shape = (64, 64, 3)), # color
+#     tf.keras.layers.MaxPooling2D( (2, 2)),
+#     tf.keras.layers.Conv2D(64, (3, 3), padding = "same", activation = 'relu'), # color    
+#     tf.keras.layers.MaxPooling2D( (2, 2)),
+#     tf.keras.layers.Dropout(0.2), # overfitting == drop some of all nodes
+#     tf.keras.layers.Conv2D(128, (3, 3), padding = "same", activation = 'relu'), 
+#     tf.keras.layers.MaxPooling2D( (2, 2)),
+#     tf.keras.layers.Flatten(),
+#     tf.keras.layers.Dense(128, activation= "relu"),
+#     tf.keras.layers.Dropout(0.2), # overfitting == drop some of all nodes
+#     tf.keras.layers.Dense(1, activation= 'sigmoid') # binary - sigmoid
+# ])
+# model.summary()
+# model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics= ['accuracy'] )
+# model.fit(train_ds, validation_data = val_ds, epochs = 5)
+
+##### modeling w/ augmentation every epoch
 model = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu', input_shape = (64, 64, 3)), # color
+
+    tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal', input_shape = (64, 64, 3)), # input_shape
+    tf.keras.layers.experimental.preprocessing.RandomRotation(0.1),
+    tf.keras.layers.experimental.preprocessing.RandomZoom(0.1),
+    
+    tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu'), # input_shape
     tf.keras.layers.MaxPooling2D( (2, 2)),
     tf.keras.layers.Conv2D(64, (3, 3), padding = "same", activation = 'relu'), # color    
     tf.keras.layers.MaxPooling2D( (2, 2)),

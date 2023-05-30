@@ -349,5 +349,61 @@ model2.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', met
 # model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 3) # overwrite
 model2.load_weights(r'D:\2022\Python\Tensorflow\apple_deeplearning\checkpoint\mnist')
 model2.evaluate(testX, testY)
+'''
+##### Augmentation (new)
+### the more input_shape the more accuracy 
+# Epoch 5/5
+# 313/313 [==============================] - 36s 115ms/step - loss: 0.4618 - accuracy: 0.7817 - val_loss: 0.4762 - val_accuracy: 0.7640
+'''
+model = tf.keras.Sequential([
+    tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal', input_shape = (64, 64, 3)), # input_shape
+    tf.keras.layers.experimental.preprocessing.RandomRotation(0.1),
+    tf.keras.layers.experimental.preprocessing.RandomZoom(0.1),    
+    tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu'), # color
+    tf.keras.layers.MaxPooling2D( (2, 2)),
+    tf.keras.layers.Conv2D(64, (3, 3), padding = "same", activation = 'relu'), # color    
+    tf.keras.layers.MaxPooling2D( (2, 2)),
+    tf.keras.layers.Dropout(0.2), # overfitting == drop some of all nodes
+    tf.keras.layers.Conv2D(128, (3, 3), padding = "same", activation = 'relu'), 
+    tf.keras.layers.MaxPooling2D( (2, 2)),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(128, activation= "relu"),
+    tf.keras.layers.Dropout(0.2), # overfitting == drop some of all nodes
+    tf.keras.layers.Dense(1, activation= 'sigmoid') # binary - sigmoid
+])
+'''
+##### augmentation (old)
+'''
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+generator = ImageDataGenerator(
+    rescale = 1./255,
+    rotation_range = 20,
+    zoom_range = 0.15,
+    width_shift_range = 0.2,
+    height_shift_range = 0.2,
+    shear_range = 0.15, # 굴절
+    horizontal_flip = True, # 가로반전
+    fill_mode = 'nearest'
+)
+training = generator.flow_from_directory(
+    '/content/dataset', # /cat and /dog
+    class-mode = 'binary', # binary or categorical
+    shuffle = True,
+    seed = 1234,
+    color_mode = 'rgb',
+    batch_size = 64,
+    target_size = (64, 64)
+)
+generator2 = ImageDataGenerator(rescale = 1./255) # only need to rescaling
+
+validation = generator2.flow_from_directory(
+    '/content/val_dataset', /cat and /dog
+    class_mode = 'binary',
+    shuffle = True, 
+    seed = 1234,
+    color_mode = 'rgb',
+    batch_size = 64
+)
 
 '''
