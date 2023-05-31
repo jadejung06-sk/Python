@@ -17,7 +17,7 @@ import shutil
 #     if 'dog' in i:
 #         shutil.copyfile("D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/train/" + i , "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/dataset/dog/" + i)
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(
-    "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/dataset/",
+    "D:/2022/Python/Tensorflow/apple_deeplearning_image/kaggle_image_dogscats/dataset/",
     image_size = (64, 64),
     batch_size= 64,
     subset = 'training',
@@ -26,7 +26,7 @@ train_ds = tf.keras.preprocessing.image_dataset_from_directory(
     )
 
 val_ds = tf.keras.preprocessing.image_dataset_from_directory(
-    "D:/2022/Python/Tensorflow/apple_deeplearning/kaggle_image_dogscats/dataset/",
+    "D:/2022/Python/Tensorflow/apple_deeplearning_image/kaggle_image_dogscats/dataset/",
     image_size = (64, 64),
     batch_size= 64,
     subset = 'validation',
@@ -40,7 +40,7 @@ def standarization(images, labels):
 train_ds = train_ds.map(standarization)
 val_ds = val_ds.map(standarization)
 
-
+#####################################################
 ##### check batch data
 ## ((xxxxx), (yyyyy)) : y one hot encoding
 # print(train_ds) # 64 batch > 1 image
@@ -70,24 +70,43 @@ val_ds = val_ds.map(standarization)
 # model.fit(train_ds, validation_data = val_ds, epochs = 5)
 
 ##### modeling w/ augmentation every epoch
-model = tf.keras.Sequential([
+# model = tf.keras.Sequential([
 
-    tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal', input_shape = (64, 64, 3)), # input_shape
-    tf.keras.layers.experimental.preprocessing.RandomRotation(0.1),
-    tf.keras.layers.experimental.preprocessing.RandomZoom(0.1),
+#     tf.keras.layers.experimental.preprocessing.RandomFlip('horizontal', input_shape = (64, 64, 3)), # input_shape
+#     tf.keras.layers.experimental.preprocessing.RandomRotation(0.1),
+#     tf.keras.layers.experimental.preprocessing.RandomZoom(0.1),
     
-    tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu'), # input_shape
-    tf.keras.layers.MaxPooling2D( (2, 2)),
-    tf.keras.layers.Conv2D(64, (3, 3), padding = "same", activation = 'relu'), # color    
-    tf.keras.layers.MaxPooling2D( (2, 2)),
-    tf.keras.layers.Dropout(0.2), # overfitting == drop some of all nodes
-    tf.keras.layers.Conv2D(128, (3, 3), padding = "same", activation = 'relu'), 
-    tf.keras.layers.MaxPooling2D( (2, 2)),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(128, activation= "relu"),
-    tf.keras.layers.Dropout(0.2), # overfitting == drop some of all nodes
-    tf.keras.layers.Dense(1, activation= 'sigmoid') # binary - sigmoid
-])
-model.summary()
-model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics= ['accuracy'] )
-model.fit(train_ds, validation_data = val_ds, epochs = 5)
+#     tf.keras.layers.Conv2D(32, (3, 3), padding = "same", activation = 'relu'), # input_shape
+#     tf.keras.layers.MaxPooling2D( (2, 2)),
+#     tf.keras.layers.Conv2D(64, (3, 3), padding = "same", activation = 'relu'), # color    
+#     tf.keras.layers.MaxPooling2D( (2, 2)),
+#     tf.keras.layers.Dropout(0.2), # overfitting == drop some of all nodes
+#     tf.keras.layers.Conv2D(128, (3, 3), padding = "same", activation = 'relu'), 
+#     tf.keras.layers.MaxPooling2D( (2, 2)),
+#     tf.keras.layers.Flatten(),
+#     tf.keras.layers.Dense(128, activation= "relu"),
+#     tf.keras.layers.Dropout(0.2), # overfitting == drop some of all nodes
+#     tf.keras.layers.Dense(1, activation= 'sigmoid') # binary - sigmoid
+# ])
+# model.summary()
+# model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics= ['accuracy'] )
+# model.fit(train_ds, validation_data = val_ds, epochs = 5)
+#####################################################
+
+##### transfer learning
+### model + weights
+# import requests
+# url = 'https://storage.googleapis.com/mledu-datasets-inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
+# r = requests.get(url, allow_redirects=True)
+# open('D:/2022/Python/Tensorflow/apple_deeplearning_image/kaggle_image_dogscats/inception_vs.h5', 'wb').write(r.content)
+
+from keras.applications.inception_v3 import InceptionV3
+#inception_model = InceptionV3(input_shape= (299, 299, 3)) # origin
+### Image Analysis
+inception_model = InceptionV3(input_shape=(150,150,3), include_top= False, weights = None) # top = output layer
+inception_model.load_weights('D:/2022/Python/Tensorflow/apple_deeplearning_image/kaggle_image_dogscats/inception_v3.h5')
+inception_model.summary()
+### no training
+for i in inception_model.layers:
+    i.trainable = False
+### Image Categorization
