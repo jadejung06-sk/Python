@@ -24,7 +24,7 @@ model = tf.keras.Sequential([
 model.summary()
 ##### Tensorboard
 # tensorboard = tf.keras.callbacks.TensorBoard(log_dir='logs/{}'.format('~~' + str(int(time.time()))) )
-# model.fit(어쩌구, callbacks=[tensorboard]) 
+# mogndel.fit(어쩌구, callbacks=[tensorboard]) 
 
 model.compile(loss = 'sparse_categorical_crossentropy', optimizer = 'adam', metrics= ['accuracy'] )
 model.fit(trainX, trainY, validation_data = (testX, testY), epochs = 3)

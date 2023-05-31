@@ -405,5 +405,21 @@ validation = generator2.flow_from_directory(
     color_mode = 'rgb',
     batch_size = 64
 )
+model.summary()
+model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
+model.fit(training, validation_data = validation, epochs = 3 )
 
 '''
+
+#####   raise ValueError(
+'''
+model = tf.keras.Sequential([
+    tf.keras.layers.Flatten(input_shape=(28, 28) ),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10, activation='softmax')
+])
+'''
+
+##### rais ImportError
+# > https://graphviz.gitlab.io/download/
+# download graphviz-8.0.5 (64-bit) EXE installer [sha256]
