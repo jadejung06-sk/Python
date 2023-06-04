@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import tensorflow as tf
 import urllib.request
 ##### get data
 # urllib.request.urlretrieve("https://raw.githubusercontent.com/bab2min/corpus/master/sentiment/naver_shopping.txt", "D:/2022/Python/Tensorflow/apple_deeplearning_seq/cleanbot/shopping.txt")
@@ -28,3 +29,5 @@ unique_text = ''.join(unique_text)
 unique_text = list(set(unique_text))
 unique_text.sort()
 # print(unique_text[:100])
+##### tokenizer
+tokenizer = tf.keras.preprocessing.text.Tokenizer()
