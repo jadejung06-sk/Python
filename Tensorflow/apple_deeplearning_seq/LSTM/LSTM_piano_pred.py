@@ -45,11 +45,15 @@ first_input = tf.expand_dims(first_input, axis = 0)
 music = []
 for i in range(200):
     pred = Pmodel1.predict(first_input)
+    ###############################
+    ### Max
     # pred = np.argmax(pred[0]) #  27 int
     # print(pred, type(pred))
+    ### Random
     pred = np.random.choice(unique_text, 1, p = pred[0])
     pred = text_to_num[str(pred[0])]
     music.append(pred)
+    ################################
     # print(first_input.numpy()[0][1:]) # 25 lists - 24 lists
     next_input = first_input.numpy()[0][1:] # numpy
     one_hot_num = tf.one_hot(pred, 31) # Tensor
@@ -58,7 +62,7 @@ for i in range(200):
     first_input = tf.expand_dims(first_input, axis = 0)
     # print(first_input.shape) # 1 25 31
 # print(first_input)
-# print(music)
+# print(music) 
 
 music_text = []
 for data in music:
