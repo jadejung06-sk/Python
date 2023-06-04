@@ -29,3 +29,29 @@ model = tf.keras.models.Sequential([
     ])
 model.compile(loss = 'categorical_crossentropy', optimizer = 'adam') # one hot encoding == not sparse
 '''
+
+##### raise ValueError(
+# ValueError: Input 0 of layer "sequential" is incompatible with the layer: expected shape=(None, 25, 31), found shape=(None, 31)
+# first_pred = Pmodel1.predict(first_input)
+'''
+first_input = tf.expand_dims(first_input, axis = 0)
+first_pred = Pmodel1.predict(first_input)
+'''
+
+##### TypeError: _vhstack_dispatcher() takes 1 positional argument but 2 were given
+# next_input = first_input.numpy()[0][1:] # numpy
+# one_hot_num = tf.one_hot(pred, 31) # Tensor
+# first_input = np.vstack(next_input, one_hot_num.numpy())
+'''
+first_input = np.vstack([next_input, one_hot_num.numpy()])
+'''
+
+##### prediction randomly
+# pred = Pmodel1.predict(first_input)
+# pred = np.argmax(pred[0])
+# music.append(pred)
+'''
+pred = np.random.choice(unique_text, 1, p = pred[0])
+pred = text_to_num[str(pred[0])]
+music.append(pred)
+'''

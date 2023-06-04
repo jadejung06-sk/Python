@@ -57,5 +57,5 @@ model = tf.keras.models.Sequential([
     ])
 
 model.compile(loss = 'categorical_crossentropy', optimizer = 'adam', metrics = ['accuracy']) # one hot encoding == not sparse
-model.fit(X, Y, batch_size = 64, epochs = 40, verbose = 2) # update weights more frequently ## 40 ~ 100 verbose 2 (print)
+model.fit(X, Y, batch_size = 64, epochs = 100, verbose = 2) # update weights more frequently ## 40 ~ 100 verbose 2 (print)
 model.save(r"D:\2022\Python\Tensorflow\apple_deeplearning_seq\LSTM\model1")
