@@ -41,6 +41,21 @@ for i in range(0, len(numbered_text) - 25): #
 # print(len(X), len(Y)) # 291997 291997
 # print(Y[:5]) # [17, 0, 14, 5, 27]
 ### shape Tensor or np.array()
-print(np.array(X).shape)
+# print(np.array(X).shape)
 
-##### one hot encoding
+##### one hot encoding == unique string 
+X = tf.one_hot(X, 31) # num of unique string
+Y = tf.one_hot(Y, 31)
+print(X[:2]) #  shape=(2, 25, 31)
+### too much unique string == embedding layer
+
+# /*  modeling                  */ #
+### LSTM or GRU
+model = tf.keras.models.Sequential([
+    tf.keras.layers.LSTM(100, input_shape = (25, 31)),
+    tf.keras.layers.Dense(31, activation = 'softmax') # softmax == (sparse_)catogorical_crossentropy
+    ])
+
+model.compile(loss = 'categorical_crossentropy', optimizer = 'adam', metrics = ['accuracy']) # one hot encoding == not sparse
+model.fit(X, Y, batch_size = 64, epochs = 40, verbose = 2) # update weights more frequently ## 40 ~ 100 verbose 2 (print)
+model.save(r"D:\2022\Python\Tensorflow\apple_deeplearning_seq\LSTM\model1")
