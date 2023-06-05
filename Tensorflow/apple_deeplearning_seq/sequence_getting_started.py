@@ -1,7 +1,9 @@
 # 1. vector to sequence (이미지 자동 캡션)
 # 2. sequence to vector (글의 감정분석하기, 악플검사하기)
 # 3. sequence to sequence (번역)
-
+# > http://dmqm.korea.ac.kr/activity/seminar/283 
+# > https://ko.khanacademy.org/math 
+# 선형대수/확률통계 편도
 
 # Simple Recurrent Neural Network (재발하는)
 # : Input – activation – output
@@ -116,3 +118,36 @@ trainX, valX, trainY, valY = train_test_split(X, Y, test_size = 0.2, random_stat
 
 ##### timeseries
 # stationary
+
+#####   ValueError: Exception encountered when calling layer 'dense_features' (type DenseFeatures).
+# Feature (key: Age) cannot have rank 0. Given: Tensor("sequential/dense_features/Cast:0", shape=(), dtype=float32)
+'''
+ds = tf.data.Dataset.from_tensor_slices((dict(data), answer))
+ds_batch = ds.batch(32)
+model.fit(ds_batch, shuffle = True, epochs = 20)
+'''
+
+##### DenseFeatures
+'''
+ds_batch = ds.batch(32)
+# next(iter(ds_batch))[0]
+feature_layer = tf.keras.layers.DenseFeatures(tf.feature_column.numeric_column("Fare"))
+feature_layer(next(iter(ds_batch))[0])
+'''
+
+##### Nomarlizing
+'''
+def normalize(x):
+    min = data['Fare'].min()
+    max = data['Fare'].max()
+    return (x - min) / (max - min) 
+tf.feature_column.numeric_column('Fare', normalizer_fn = normalize)
+'''
+
+##### validation_data
+# model.fit(ds, validation_split = 0.2) # Error
+'''
+from sklearn.preprocessing import Tra
+
+model.fit()
+'''

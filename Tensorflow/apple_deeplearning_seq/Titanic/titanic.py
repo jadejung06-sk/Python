@@ -56,3 +56,15 @@ cat = tf.feature_column.categorical_column_with_vocabulary_list('Ticket', vocab)
 one_hot = tf.feature_column.embedding_column(cat, dimension=9)
 feature_columns.append(one_hot)
 ##############################################
+
+##### modeling
+model = tf.keras.Sequential([
+    tf.keras.layers.DenseFeatures(feature_columns),
+    tf.keras.layers.Dense(128, activation= 'relu'),
+    tf.keras.layers.Dense(64, activation= 'relu'),
+    tf.keras.layers.Dropout(0.2),
+    tf.keras.layers.Dense(1, activation= 'sigmoid')
+])
+model.compile(optimizer='adam', loss = 'binary_crossentropy', metrics = ['acc'])
+ds_batch = ds.batch(32)
+model.fit(ds_batch, shuffle = True, epochs = 20)
