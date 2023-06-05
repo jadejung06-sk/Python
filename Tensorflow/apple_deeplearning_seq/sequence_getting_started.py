@@ -55,3 +55,64 @@ pred = np.random.choice(unique_text, 1, p = pred[0])
 pred = text_to_num[str(pred[0])]
 music.append(pred)
 '''
+
+##### tokenizer
+###
+## char_level True == letter
+## char_level False == word
+### 
+## <OOV> or 없는단어 == no letter preproceesed
+
+'''
+tokenizer = tf.keras.preprocessing.text.Tokenizer(char_level = True, oov_token="<OOV>" )
+tokenizer = Tokenizer( 1000, char_level=True, oov_token="<OOV>") # limit of number
+'''
+
+
+##### duplicated_words 
+# only one word
+'''
+import itertools
+raw['review'] = raw['review'].applymap(lambda x: ''.join(ch for ch, _ in itertools.groupby(x)))
+'''
+'''
+df["Col"] = df["Col"].str.replace(r"\s+(.)\1+\b", "").str.strip()
+'''
+
+##### Korean NLP
+# Hannanum, Kkma, Mecab, Okt
+'''
+from konlpy.tag import Mecab
+mecab = Mecab()
+stopwords = ['는','은','다','을','를']
+raw['tokenized'] = raw['reviews'].apply(mecab.morphs) 
+raw['tokenized'] = raw['tokenized'].apply(lambda x: [item for item in x if item not in stopwords])
+x데이터 = raw['tokenized'].values
+'''
+## Grammer
+'''
+from hanspell import spell_checker
+hangul = "마춤법 검사 하면 문장이 깔끔해지구 학습이 잘됀다"
+hangul2 = spell_checker.check(hangul)
+print(hangul2.checked)
+'''
+
+## same pronunciation but different meaning
+# ELMO
+
+
+##### raise ValueError(
+# ValueError: Failed to find data adapter that can handle input: <class 'numpy.ndarray'>, (<class 'list'> containing values of types {"<class 'int'>"})
+'''
+tokenizer = tf.keras.preprocessing.text.Tokenizer(char_level = True, oov_token= '<OOV>' )
+string_list = raw['review'].tolist()
+tokenizer.fit_on_texts(string_list)
+train_seq = tokenizer.texts_to_sequences(string_list)
+Y = raw['label'].tolist()
+X = tf.keras.preprocessing.sequence.pad_sequences(train_seq, maxlen = 100)
+X = X.tolist()
+trainX, valX, trainY, valY = train_test_split(X, Y, test_size = 0.2, random_state= 42)
+'''
+
+##### timeseries
+# stationary
