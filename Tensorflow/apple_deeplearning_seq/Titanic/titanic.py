@@ -21,18 +21,38 @@ ds = tf.data.Dataset.from_tensor_slices((dict(data), answer))
     # print(i) # {'PassengerId': <tf.Tensor: shape=(), dtype=int64, numpy=1>,  ...
     # print(l) # tf.Tensor(0, shape=(), dtype=int64)
 ##### feature columns (int - int / cat - encoding)
+# > https://www.tensorflow.org/guide/migrate/migrating_feature_columns?hl=ko
 ### int : Fare, Parch SibSp == tf.feature_column.numeric_column
 ### int to cat : Age == tf.feature_column.bucketized_column
 ### cat with few types : Sex Embarked Pclass == tf.feature_column.indicator_column
 ### cat with too many types : Ticket == tf.feature_column.embedding_colum (matrix)
-
 feature_columns = []
-tf.feature_column.numeric_column('Fare')
-tf.feature_column.numeric_column('Parch')
-tf.feature_column.numeric_column('SibSp')
-tf.feature_column.numeric_column('Age')
+feature_columns.append(tf.feature_column.numeric_column('Fare'))
+feature_columns.append(tf.feature_column.numeric_column('Parch'))
+feature_columns.append(tf.feature_column.numeric_column('SibSp'))
+# tf.keras.layers.Normalization(mean=2.0, variance=1.0) 
+# feature_columns.append(tf.feature_column.numeric_column('Age'))
+Age = tf.feature_column.numeric_column('Age')
+feature_columns.append(tf.feature_column.bucketized_column(Age, boundaries=[10, 20, 30, 40, 50, 60]))
+# print(feature_columns)
+## cat with few types
+vocab = data['Sex'].unique()
+cat = tf.feature_column.categorical_column_with_vocabulary_list('Sex', vocab)
+one_hot = tf.feature_column.indicator_column(cat)
+feature_columns.append(one_hot)
 
+vocab = data['Embarked'].unique()
+cat = tf.feature_column.categorical_column_with_vocabulary_list('Embarked', vocab)
+one_hot = tf.feature_column.indicator_column(cat)
+feature_columns.append(one_hot)
 
-
-
+vocab = data['Pclass'].unique()
+cat = tf.feature_column.categorical_column_with_vocabulary_list('Pclass', vocab)
+one_hot = tf.feature_column.indicator_column(cat)
+feature_columns.append(one_hot)
+## embedding
+vocab = data['Ticket'].unique()
+cat = tf.feature_column.categorical_column_with_vocabulary_list('Ticket', vocab)
+one_hot = tf.feature_column.embedding_column(cat, dimension=9)
+feature_columns.append(one_hot)
 ##############################################
