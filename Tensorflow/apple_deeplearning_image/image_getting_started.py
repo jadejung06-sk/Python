@@ -433,3 +433,21 @@ model = tf.keras.Sequential([
 ## GENERATOR VS. DISCRIMINATOR
 # GNEERATOR == INPUT(RANDOM NUMBERS) OUTPUT(IMAGES 64 64 3)
 # DISCRIMINATOR == INPUT(IMAGES 64 64 3) OUTPUT(1 OR 0) DENSE(1, ACTIVATION='SIGMOID')
+# !unzip -q celeba-dataset.zip -d 
+##### PIL or image_dataset_from_directory
+## image_dataset_from_directory (file name : car0001 ok / 0001 err)
+## left top 20 30 - right bottom 160 180
+## color to gray scales
+'''
+numbered_image = Image.open('D:/2022/Python/Tensorflow/apple_deeplearning_image/GAN/dataset/img_align_celeba/img_align_celeba/' + file).crop((20, 30, 160, 180)).convert('L').resize((64,64))
+'''
+## 3 dim to 4 dimentions == Conv2D 
+'''
+##### images (3 dim to 4 dim) == (50000, 64, 64 to 1)
+images = []
+numbered_image = Image.open('D:/2022/Python/Tensorflow/apple_deeplearning_image/GAN/dataset/img_align_celeba/img_align_celeba/' + file).crop((20, 30, 160, 180)).convert('L').resize((64,64))
+images.append(np.array(numbered_image)) 
+images = np.divide(images, 255)
+images = images.reshape(50000, 64, 64, 1)
+# print(images.shape) # (50000, 64, 64, 1)
+'''
