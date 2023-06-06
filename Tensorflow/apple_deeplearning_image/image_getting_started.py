@@ -430,6 +430,8 @@ model = tf.keras.Sequential([
 ### only convD
 
 ##### GAN
+# > https://pseudo-lab.github.io/Tutorial-Book/chapters/GAN/Ch1-Introduction.html
+# 0.5 best
 ## GENERATOR VS. DISCRIMINATOR
 # GNEERATOR == INPUT(RANDOM NUMBERS) OUTPUT(IMAGES 64 64 3)
 # DISCRIMINATOR == INPUT(IMAGES 64 64 3) OUTPUT(1 OR 0) DENSE(1, ACTIVATION='SIGMOID')
@@ -451,3 +453,10 @@ images = np.divide(images, 255)
 images = images.reshape(50000, 64, 64, 1)
 # print(images.shape) # (50000, 64, 64, 1)
 '''
+
+### to do list
+# modify GAN layer 
+# more images or change images
+# label smoothing
+# change noise numbers
+# search recent paper on GAN

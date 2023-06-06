@@ -37,21 +37,72 @@ discriminator = tf.keras.models.Sequential([
     tf.keras.layers.Dense(1, activation = 'sigmoid')
 ])
 
-##### Generator 
+##### Generator 100 random numbers to 1 image
+### Conv2D + upsampling (bigger size of images)
 noise_shape = 100
 
 generator = tf.keras.models.Sequential([
     tf.keras.layers.Dense(4 * 4 * 256, input_shape = (100,)),
-    tf.keras.layers.Reshape((4,4,256)),
-    tf.keras.layers.ConV2DTranspose(256, 3, strides = 2, padding = 'same'),
+    tf.keras.layers.Reshape((4,4,256)), # size of images
+    tf.keras.layers.Conv2DTranspose(256, 3, strides = 2, padding = 'same'), # upsampling two times and Conv
+    tf.keras.layers.LeakyReLU(alpha = 0.2),
+    tf.keras.layers.BatchNormalization(), # covariate shift
+    tf.keras.layers.Conv2DTranspose(128, 3, strides = 2, padding = 'same'), # output size = (input size -1) * strides - 2*padding + (kernel size -1) + 1
     tf.keras.layers.LeakyReLU(alpha = 0.2),
     tf.keras.layers.BatchNormalization(),
-    tf.keras.layers.ConV2DTranspose(256, 3, strides = 2, padding = 'same'),
-    tf.keras.layers.LeakyReLU(alpha = 0.2),
-    tf.keras.layers.BatchNormalization()
-    tf.keras.layers.ConV2DTranspose(256, 3, strides = 2, padding = 'same'),
+    tf.keras.layers.Conv2DTranspose(64, 3, strides = 2, padding = 'same'),
     tf.keras.layers.LeakyReLU(alpha = 0.2),
     tf.keras.layers.BatchNormalization(),
-    tf.keras.layers.ConV2DTranspose(1, 3, strides = 2, padding = 'same', activation = 'sigmoid')
+    tf.keras.layers.Conv2DTranspose(1, 3, strides = 2, padding = 'same', activation = 'sigmoid') # 64 64 1 gray scale
+    # Conv2DTranspose(3, 3, strides=2, padding='same', activation='sigmoid') # color scale
 ])
 
+generator.summary()
+
+##### GAN models and compile
+GAN = tf.keras.models.Sequential([generator, discriminator])
+discriminator.compile(optimizer= 'adam', loss = 'binary_crossentropy') # once
+
+discriminator.trainable = False # discriminator only classified not trained
+# for layer in discriminator.layers: 
+#   layer.trainable = False
+GAN.compile(optimizer='adam', loss = 'binary_crossentropy')
+
+
+##### predictation
+def predict_pic():
+    random_num = np.random.uniform(-1, 1, size = (10, 100)) # 8 sets 100 data
+    pred = generator.predict(random_num)
+    # print(pred.shape, pred) # (8, 64, 64, 1)
+    for i in range(10):
+        plt.subplot(2, 5, i+1)
+        plt.imshow(pred[i].reshape(64, 64), cmap = 'gray') #  color 64 64 3
+        plt.axis('off')
+    plt.tight_layout()
+    plt.show() # save() for local computer 
+###################################
+
+###### 300 epochs
+for _ in range(300):
+    print(f"[Epoch : {_} / 300]")
+    predict_pic()
+    ##### all images training (1 epoch)
+    for i in range(50000//128):
+        if i % 100 == 0:
+            print(f"[Batch : {i}]")
+        ##### Training of discriminator
+        X_data = images
+        real_images = X_data[i*128:(i+1)*128]
+        all_one = np.ones(shape = (128,1))
+        loss1 = discriminator.train_on_batch(real_images, all_one) # real images 1
+        #######################################################
+        random_num128 = np.random.uniform(-1, 1, size = (128, 100))
+        fake_images = generator.predict(random_num128)
+        all_zero = np.zeros(shape = (128,1))
+        loss2 = discriminator.train_on_batch(fake_images, all_zero) # fake images 0
+        ###### training of generator
+        loss3 = GAN.train_on_batch(random_num128, all_one)
+    print(f"[Discriminator loss : {loss1+loss2}] [GAN loss : {loss3}]")
+    
+    
+# [Epoch : 15 / 300] Discriminator loss : 1.2226955890655518] [GAN loss : 1.1557810306549072]
