@@ -30,7 +30,7 @@ if __name__ == "__main__":
     queue = Queue(maxsize=1000)
     processes = []
     for i in range(TOTAL_PROCESS):
-        p = Process(target = find_area, args = (queue))
+        p = Process(target = find_area, args = (queue,)) # TypeError
         processes.append(p)
         p.start()
     f = open('./parallel_compute/multiprocess/polygons.txt')
@@ -38,11 +38,16 @@ if __name__ == "__main__":
     lines = f.read().splitlines()
     start = time.time()
     for line in lines:
-        queue.put(line)
+        queue.put(line) # <multiprocessing.queues.Queue object at 0x0000020A55E5BFD0>
+        # print(queue)
         # find_area(line)
+    for _ in range(TOTAL_PROCESS): queue.put(None)
+    for p in processes: p.join()
     end = time.time()
     print("Time taken", end - start)
-    # Time taken 6.4921441078186035
+    # Time taken 6.4921441078186035  vs. Time taken 2.2295024394989014
+    
+    
     
     ##### txt.splitlines()
     # >>> https://homzzang.com/b/py-197
