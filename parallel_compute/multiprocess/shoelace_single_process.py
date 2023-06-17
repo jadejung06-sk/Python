@@ -9,6 +9,7 @@ def find_area(points_str):
     area = 0.0
     for xy in re.finditer(PTS_REGEX, points_str):
         # print('xy', xy)
+        # print(xy.group(1), xy.group(2)) # 16 73
         points.append((int(xy.group(1)), int(xy.group(2))))
 # xy <re.Match object; span=(1611, 1618), match='(151,1)'>
 
