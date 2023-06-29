@@ -22,5 +22,22 @@ git add .
 #####
 git commit -m "new file"
 git status
-git log --all --oneline
+git log --all --oneline    [q : quit]
+'''
+
+##### git difference
+# > extension : git graph
+'''
+git difftool 558c482c3 [commit id]
+git config --global diff.tool vscode
+git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
+'''
+
+##### before working a copy
+'''
+git branch multiprocessing
+git swich multiprocessing
+git status
+git add .
+git commit -m "multiprocessing"
 '''
