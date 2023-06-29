@@ -16,8 +16,10 @@ git config --global user.name "jjs"
 ### working folder > new terminal
 '''
 git init
+#####
 git add app.txt          [git add file name]
 git add .
+#####
 git commit -m "new file"
 git status
 git log --all --oneline
