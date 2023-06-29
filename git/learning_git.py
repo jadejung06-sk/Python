@@ -36,8 +36,12 @@ git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
 ##### before working a copy
 '''
 git branch multiprocessing
-git swich multiprocessing
+git switch multiprocessing
 git status
 git add .
 git commit -m "multiprocessing"
+git log --all --oneline --graph
 '''
+### merge when a code in the same position is modified
+
+### merge when a code in the different position is modified
