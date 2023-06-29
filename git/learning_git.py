@@ -43,5 +43,19 @@ git commit -m "multiprocessing"
 git log --all --oneline --graph
 '''
 ### merge when a code in the same position is modified
-
+'''
+## multiprocessing
+git switch main
+git merge multiprocessing
+## delete manualy the code
+git add .
+git commit -m "merged"
+'''
 ### merge when a code in the different position is modified
+'''
+## multiprocessing
+git switch main
+git merge multiprocessing
+git add .
+git commit -m "merged"
+'''
