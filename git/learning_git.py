@@ -42,7 +42,7 @@ git add .
 git commit -m "multiprocessing"
 git log --all --oneline --graph
 '''
-### merge when a code in the same position is modified
+## merge when a code in the same position is modified
 '''
 ## multiprocessing
 git switch main
@@ -51,11 +51,29 @@ git merge multiprocessing
 git add .
 git commit -m "merged"
 '''
-### merge when a code in the different position is modified
+## merge when a code in the different position is modified
 '''
 ## multiprocessing
 git switch main
 git merge multiprocessing
 git add .
 git commit -m "merged"
+'''
+## jump and merge
+'''
+git merge -squash multiprocessing
+git add .
+git commit -m "merged"
+'''
+
+############################################################
+
+##### delete branch because branch keeps forever
+## after merging
+'''
+git branch -d multiprocessing
+''' 
+## before merging
+'''
+git branch -D multiprocessing
 '''
