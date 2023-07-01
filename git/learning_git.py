@@ -77,3 +77,51 @@ git branch -d multiprocessing
 '''
 git branch -D multiprocessing
 '''
+
+###########################################################
+
+##### modify commits and make a new commit
+'''
+git restore [filename]
+git resotre --source [commitID]
+'''
+##### modify contents
+'''
+git revert [commitID] [coomitID] [...]
+git revert HEAD
+'''
+
+###########################################################
+
+##### Remote git 
+## change master branch to main branch
+'''
+git branch -M main
+git push -u [https://~.git] [branchname]
+git push -u https://.git main
+'''
+##### set variable
+'''
+git remote add [variable_nm] [https://~.git]
+git remote add origin https://~.git
+git remote -v
+git push -u origin main #branchname
+## after -u oring main
+git push
+'''
+
+##### collaboration
+'''
+git clone https://~.git
+git pull https://~.git
+git push
+'''
+##### new remote branch
+'''
+git branch mining
+git switch mining
+git add .
+git commit -m "remote branch"
+git push origin mining
+## online github > pull request == merge > create pull request > squash
+'''
