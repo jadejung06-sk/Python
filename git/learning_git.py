@@ -111,6 +111,7 @@ git push
 '''
 
 ##### collaboration
+## github > setting > collaborators > add people
 '''
 git clone https://~.git
 git pull https://~.git
@@ -122,6 +123,20 @@ git branch mining
 git switch mining
 git add .
 git commit -m "remote branch"
-git push origin mining
-## online github > pull request == merge > create pull request > squash
+git push origin mining [== branchname]
+git push [== all]
+## online github > pull request == merge > new pull request >
+# create pull request > squash
+'''
+
+###############################################
+
+##### temporary saving
+'''
+git stash
+git stash list
+git stash save 'comment'
+git stash pop (recently)
+git stash drop 0 [number]
+git stash clear [all]
 '''
