@@ -61,7 +61,6 @@ def model(xb):
     return xb @ weights + bias
 print(loss_func(model(xb), yb), accuracy(model(xb), yb)) # ? accuracy
 ############################################################
-
 class Mnist_Logistic(nn.Module):
     def __init__(self):
         super().__init__()
@@ -71,9 +70,7 @@ class Mnist_Logistic(nn.Module):
         return xb @ self.weights + self.bias
     
 model = Mnist_Logistic()
-print(loss_func(model(xb), yb))
-
-    
+print(loss_func(model(xb), yb))   
 ### old version
 # with torch.no_grad():
 #     weights -= weights.grad * lr # ? lr
@@ -84,7 +81,6 @@ print(loss_func(model(xb), yb))
 # with torch.no_grad():
 #     for p in model.parameters(): p -= p.grad * lr # ? lr
 #     model.zero_grad()
-
 def fit():
     for epoch in range(epochs): # ? epochs
         for i in range((n-1) // bs + 1):
