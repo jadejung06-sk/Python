@@ -1,8 +1,8 @@
 from threading import Lock, Thread
 
-from parallel_compute.deadlocks.deadlocks_train.train import *
-from parallel_compute.deadlocks.deadlocks_train.draw_trains import *
-from parallel_compute.deadlocks.deadlocks_train.model import *
+from train import *
+from draw_trains import *
+from model import *
 
 train_length = 200
 

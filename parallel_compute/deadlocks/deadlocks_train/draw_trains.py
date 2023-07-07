@@ -22,10 +22,10 @@ class TrainAnim:
         self.draw_train(win, self.train1, self.colours[1])
         self.draw_train(win, self.train2, self.colours[2])
         self.draw_train(win, self.train3, self.colours[3])
-        self.boxes = [Rectangle((Point(350, 350), Point(360, 360))),
-                      Rectangle((Point(450, 350), Point(440, 360))),
-                      Rectangle((Point(450, 450), Point(440, 440))),
-                      Rectangle((Point(350, 450), Point(360, 440)))
+        self.boxes = [Rectangle(Point(350, 350), Point(360, 360)),
+                      Rectangle(Point(450, 350), Point(440, 360)),
+                      Rectangle(Point(450, 450), Point(440, 440)),
+                      Rectangle(Point(350, 450), Point(360, 440))
                       ]
         for box in self.boxes:
             self.draw_crossing(win, box)
@@ -39,5 +39,21 @@ class TrainAnim:
         current_y = 790 - self.train3.getP2().getY() + self.train_length
         self.train3.move(0, current_y - trains[3].front)
         for i in range(4):
-            if intersections[1].locked_by < 0:
-                self.boxes[1].setFill(color_rgb(185, 185, 185))
+            if intersections[i].locked_by < 0:
+                self.boxes[i].setFill(color_rgb(185, 185, 185))
+            else:
+                self.boxes[i].setFill(self.colours[intersections[i].locked_by])
+
+    def draw_crossing(self, win, box):
+        box.setFill(color_rgb(185, 185, 185))
+        box.draw(win)
+
+    def draw_track(self, win, line):
+        line.setFill(color_rgb(185, 185, 185))
+        line.setWidth(4)
+        line.draw(win)
+
+    def draw_train(self, win, line, colour):
+        line.setFill(colour)
+        line.setWidth(14)
+        line.draw(win)
