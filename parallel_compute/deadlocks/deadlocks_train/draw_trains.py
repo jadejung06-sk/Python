@@ -34,7 +34,7 @@ class TrainAnim:
         self.train0.move(trains[0].front - current_x, 0)
         current_x = 790 - self.train2.getP2().getX() + self.train_length
         self.train2.move(current_x - trains[2].front, 0)
-        current_y = self.train1.getP2().getY() + self.train_length
+        current_y = self.train1.getP2().getY() -10 + self.train_length
         self.train1.move(0, trains[1].front - current_y )
         current_y = 790 - self.train3.getP2().getY() + self.train_length
         self.train3.move(0, current_y - trains[3].front)
