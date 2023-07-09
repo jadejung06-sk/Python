@@ -22,3 +22,9 @@ pip install --upgrade pip
 pip install pendulum # python timestamp
 pip install pytest
 '''
+
+##### vscode windows
+'''
+View > Command Palette > Python : select intepreter
+python/Scripts/python.exe
+'''
