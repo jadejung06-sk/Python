@@ -1,6 +1,7 @@
 from threading import Lock, Thread
 
-from train import *
+# from train import * # hieracy solution
+from arbitrator import * # arbitrator solution 
 from draw_trains import *
 from model import *
 
