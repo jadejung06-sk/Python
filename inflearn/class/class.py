@@ -61,8 +61,8 @@ class Car():
     
     ##### Magic Methods
     
-    # def __str__(self): # for users 
-        # return f'str : {self._company} - {self._details}'
+    def __str__(self): # for users 
+        return f'str : {self._company} - {self._details}'
     
     def __repr__(self): # for developers
         return f'repr : {self._company} - {self._details}'
@@ -84,3 +84,14 @@ print(car1.__dict__)
 print(car2.__dict__)
 print(car3.__dict__)
 print(dir(car1))
+
+car_list = []
+
+car_list.append(car1)
+car_list.append(car2)
+car_list.append(car3)
+
+print(car_list)
+
+for x in car_list:
+    print(x)
