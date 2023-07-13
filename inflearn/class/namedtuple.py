@@ -39,14 +39,31 @@ print(pq1, pq2, pq3, pq4, qp5)
 print(pq1.x + pq2.y)
 x, y = pq2
 print(x, y)
-
+print("*" * 100)
 ##### namedtuple method
-## _make()
+## _make() : make a new object
 temp = [52, 38]
 p4 = Point1._make(temp)
 print(p4)
-## _fields
+## _fields : show keys
 print(pq1._fields, pq2._fields, pq3._fields)
-## _asdict() == OrderedDcit
+## _asdict() == OrderedDcit : change ordered dictionary
 print(pq1._asdict())
 print(p4._asdict())
+## Usage : list list comprehension
+# 20 people, 4 class rooms
+print("*" * 100)
+Classes = namedtuple('Classes', ['rank', 'number'])
+numbers = [str(n) for n in range(1, 21)]
+ranks  = "A B C D".split()
+print(numbers, ranks)
+
+students_1 = [Classes(rank, number) for rank in ranks for number in numbers]
+students = [Classes(rank, number)
+            for rank in ranks
+                for number in [str(n) # TypeError : 'type' object is not subscriptable : str[n]
+                    for n in range(1, 21)]]
+print(len(students))
+
+for s in students:
+    print(s)
