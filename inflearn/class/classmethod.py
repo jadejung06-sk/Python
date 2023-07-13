@@ -45,6 +45,13 @@ class Car():
             return
         cls.price_per_raise = per
         print('Succeed! Price Increased.')
+        
+    ##### Static Method
+    @staticmethod
+    def is_bmw(inst):
+        if inst._company == 'BMW':
+            return f'OK! This car is {inst._company}'
+        return f'Sorry! This car is not BMW.'
     
     
 car1 = Car('Ferrari',  {'color':'White', 'horsepower':400, 'price':8000} )
@@ -65,7 +72,14 @@ print(car2.get_price())
 Car.price_per_raise = 1.4
 print(car1.get_price_culc())
 print(car2.get_price_culc())
-############################## method 2 (class)
+############################## method 2-1 (class)
 Car.raise_price(1.6)
 print(car1.get_price_culc())
 print(car2.get_price_culc())
+############################## method 2-2 (class + static method - not important)
+## instance
+print(car1.is_bmw(car1))
+print(car2.is_bmw(car2))
+## class
+print(Car.is_bmw(car1))
+print(Car.is_bmw(car2))
