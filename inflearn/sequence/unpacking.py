@@ -27,5 +27,25 @@ l *= 2 # same id
 print(t, id(t))
 print(l, id(l)) # 1704727349824 # when the data used, the same id means low memory.
 
-##### sort vs. sorted
+##### sorted vs. sort
 ## reverse, key = len, key= str.lower, key = func
+## sorted : new object
+## sort : origin (low memory)
+# sorted
+f_list = ['orange', 'apple', 'mango', 'papaya', 'lemon', 'strawberry', 'cconut']
+print('sorted - ', sorted(f_list))
+print('sorted - ', sorted(f_list, reverse = True))
+print('sorted - ', sorted(f_list, key = len))
+print('sorted - ', sorted(f_list, key = lambda x: x[-1])) # last alphabet of words
+print('sorted - ', sorted(f_list, key = lambda x: x[-1], reverse = True)) # last alphabet of words
+print('sorted - ', f_list)
+# sort
+print('sort - ', f_list.sort(), f_list)
+print('sort - ', f_list.sort(reverse = True), f_list)
+print('sort - ', f_list.sort(key = len), f_list)
+print('sort - ', f_list.sort(key = lambda x : x[-1]), f_list)
+print('sort - ', f_list.sort(key = lambda x : x[-1], reverse = True), f_list)
+
+##### list vs. array
+## list : several kinds of data types
+## array : number
