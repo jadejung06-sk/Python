@@ -32,3 +32,20 @@ print(new_dict2)
 ## nothing
 new_dict3 = {k : v for k, v in source}
 print(new_dict3) # {'k1': 'val2', 'k2': 'val5'}
+
+
+##### immutable Dict
+## Read only
+from types import MappingProxyType
+d = {'key1': 'value1'}
+d_frozen = MappingProxyType(d)
+print(d, id(d))
+# print(hash(d)) # TypeError: unhashable type: 'dict'
+print(d_frozen, id(d_frozen))
+# print(hash(d_frozen)) # TypeError: unhashable type: 'mappingproxy'
+## mutable
+d['key2'] = 'value2'
+print(d)
+## immutable
+# d_frozen['key2'] = 'value2'
+# print(d_frozen) # TypeError: 'mappingproxy' object does not support item assignment
