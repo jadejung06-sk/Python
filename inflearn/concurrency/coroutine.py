@@ -67,6 +67,7 @@ print(next(t1))
 print(next(t1))
 # print(next(t1)) # StopIteration
 
+## yield from
 t2 = generator1()
 print(list(t2))
 
