@@ -1,7 +1,9 @@
 ##### generator (concurrency)
 ## councurrency : a cpu(a thread) runs several tasks at the same time. == remembers the last thing
 ## parallelism : cpus run several tasks at the same time.
-
+## coroutine : a single thread == asyncronize tasks using stack == start and stop whenever it restarts  
+## thread : os monitoring, CPU core in real time, asyncronize tasks (complex, context swiching overhead)
+## yield : main <-> sub == duplex communication
 def generator_ex1():
     print('Start')
     yield 'A Point' # ----1---- crawling on naver
