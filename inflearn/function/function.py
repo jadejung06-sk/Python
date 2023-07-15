@@ -42,7 +42,7 @@ print(sum(range(1, 11)))
 ## lambda
 print(reduce(lambda x, t : x + t, range(1, 11)))
 
-##### callable : method == function()
+##### callable : method == function() True / False
 print(callable(str), callable(A), callable(var_func), callable(factorial), callable(3.14))
 # str('a')
 # 3.14() # X
@@ -58,3 +58,9 @@ print(mul(10, 10))
 # fixed arg
 five = partial(mul, 5) # 5 * 
 print(five(10))
+print(five(100))
+six = partial(five, 6)
+print(six()) # 30
+# print(six(10)) # TypeError: mul expected 2 arguments, got 3
+print([five(i) for i in range(1, 10)])
+print(list(map(five, range(1, 10))))
