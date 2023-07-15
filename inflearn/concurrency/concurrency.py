@@ -1,4 +1,4 @@
-#####
+##### generator basic
 ## generator returns iterator
 ## iterable == collections, text file, list, dict, set, tuple, unpacking, *args ... == iter(x) 
 
