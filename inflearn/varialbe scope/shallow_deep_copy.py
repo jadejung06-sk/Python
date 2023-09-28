@@ -7,7 +7,7 @@
 ### call by value, call by reference, call by share
 
 ##### Ex 1 - copy (중요)
-## call by reference
+## call by reference (immutal)
 a_list = [1, 2, 3, [4, 5, 6], [7, 8, 9]]
 b_list = a_list
 print('Ex 1 > ', id(a_list), id(b_list))
