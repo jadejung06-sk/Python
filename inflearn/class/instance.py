@@ -28,8 +28,17 @@ class Car():
         print(f"Car Detail Info : {self._company} {self._details.get('price')}")
     
 car1 = Car('Ferrari',  {'color':'White', 'horsepower':400, 'price':8000} )
+print('car1.car_count', car1.car_count)
+print('Car.car_count', Car.car_count)
+print('*' * 20 )
 car2 = Car('BMW',  {'color':'Black', 'horsepower':270, 'price':5000})
+print('car2.car_count', car2.car_count)
+print('Car.car_count', Car.car_count)
+print('*' * 20 )
 car3 = Car('Audi',  {'color':'Silver', 'horsepower':300, 'price':6000})
+print('car3.car_count', car3.car_count)
+print('Car.car_count', Car.car_count)
+print('*' * 20 )
 
 print((id(car1)))
 print((id(car2)))
@@ -62,14 +71,15 @@ car3.detail_info()
 ##### Class
 ## all the same
 print(id(car1.__class__), id(car2.__class__), car3.__class__)
-print(car1.car_count)
-print(car2.car_count)
-print(car3.car_count)
-print(Car.car_count)
+print('car1.car_count', car1.car_count)
+print('car2.car_count', car2.car_count)
+print('car3.car_count', car3.car_count)
+print('Car.car_count', Car.car_count)
 ##### __del__
+print('*' * 20 )
 del car2
-print(car1.car_count)
+print('car1.car_count', car1.car_count)
 # print(car2.car_count)
 ## Variables : Instance(self) -> Class -> Error
-print(car3.car_count)
-print(Car.car_count)
+print('car3.car_count', car3.car_count)
+print('Car.car_count', Car.car_count)
