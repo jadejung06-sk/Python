@@ -45,3 +45,59 @@ print('Ex 1 > ', ChildEx1.__dict__) ## Ex 1 >  {'__module__': '__main__', '__doc
 
 ##### Ex 2 
 ## 기본 overriding 메소드 재정의 예제
+
+class ParentEx2():
+    def __init__(self):
+        self.value = 5
+        
+    def get_value(self):
+        return self.value
+      
+    
+class ChildEx2(ParentEx2):
+    def get_value(self):
+        return self.value * 10
+    
+p2 = ParentEx2()    
+c2 = ChildEx2()
+
+## 동일한 이름의 자식 메소드 재정의 후 호출
+print("Ex 2 > ", c2.get_value())
+print("Ex 2 > ", p2.get_value())
+
+##### Ex 3
+## overridng 다형성 예제
+import datetime
+
+class Logger(object):
+    def log(self, msg):
+        print(msg)
+        
+        
+class TimestampLogger(Logger):
+    def log(self, msg):
+        message = "{ts} {msg}".format(ts = datetime.datetime.now(), msg = msg)
+        ### same methods
+        # super().log(message)
+        super(TimestampLogger, self).log(message)
+        
+        
+class DateLogger(Logger):
+    def log(self, msg):
+        message = "{ts} {msg}".format(ts = datetime.datetime.now().strftime("%Y-%m-%d"), msg = msg)
+        ### same methods
+        # super().log(message)
+        super(DateLogger, self).log(message)
+        
+        
+l = Logger()
+t = TimestampLogger()
+d = DateLogger()
+
+print("Ex 3 > ", l.log('Called logger.'))
+print("Ex 3 > ", t.log('Called timestamp logger.'))
+print("Ex 3 > ", d.log('Called date logger.'))
+
+l.log('test1')
+t.log('test2')
+d.log('test3')
