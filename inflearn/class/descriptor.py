@@ -43,4 +43,31 @@ print('Ex 1 > ', s1.name)
 print("*" * 100)
 
 
-##### Ex 1 - property 클래스 사용
+##### Ex 2 - property 클래스 사용 property(fget = None, fset = None, fdel = None, doc = None)
+class DescriptorEx2(object):
+    def __init__(self, value):
+        self._name = value
+    
+    def getVal(self):
+        return "Get method called. -> self : {}, name : {}".format(self, self._name)
+    
+    def setVal(self, value):
+        print('Set method called.')
+        if isinstance(value, str):
+            self._name = value
+        else:
+            raise TypeError('Name should be string.')
+        
+    def delVal(self):
+        self._name = None
+        
+    name = property(getVal, setVal, delVal, 'property method example')
+    
+##
+s2 = DescriptorEx2('Descriptor Test2')
+print('Ex 2 > ', s2.name)
+s2.name = 'Descrip Test2 Method.'
+# s2.name = 10 ## TypeError: Name should be string.
+print('Ex 2 > ', s2.name)
+del s2.name
+print('Ex 2 > ', DescriptorEx2.name.__doc__)
