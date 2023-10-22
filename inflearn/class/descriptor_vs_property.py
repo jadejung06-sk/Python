@@ -42,3 +42,44 @@ print('Ex 1 > ',s.__dict__) ## namespace
 
 
 ##### Ex 2 - descriptor - logging class
+import logging
+
+logging.basicConfig(
+    format = "%(asctime)s %(message)s",
+    level = logging.INFO,
+    datefmt = "%Y-%m-%d %H:%M:%S"
+)
+
+class LoggedScoreAccess:
+    def __init__(self, value = 50):
+        self.value = value
+    
+    def __get__(self, obj, objtype = None):
+        logging.info("Accessing %r giving %r", "score", self.value)
+        return self.value
+    
+    def __set__(self, obj, value):
+        logging.info("Updating %r giving %r", "score", self.value)
+        self.value = value
+
+class Student(LoggedScoreAccess):
+    # descriptor instance
+    score = LoggedScoreAccess()
+    
+    def __init__(self, name):
+        # regular instance attribute
+        self.name = name
+        
+s1 = Student('Kim')
+s2 = Student('Lee')
+
+print('Ex 2 > s1 :', s1.score)
+s1.score += 20
+print('Ex 2 > s1 :', s1.score)
+
+s2.score += 30
+print('Ex 2 > s2 :', s2.score)
+
+## __dict__ 확인
+print('Ex 2 > ', vars(s1))
+print('Ex 2 > ', vars(s2))
