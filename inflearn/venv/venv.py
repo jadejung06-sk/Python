@@ -2,7 +2,10 @@
 ## activate
 ## deactivate
 '''
+cd \
+python -m venv python_ex
 python -m venv p_study
+cd python_ex
 cd p_study
 cd Scripts
 activate
