@@ -55,8 +55,10 @@ class GifConverter:
         print(self.path_in, self.path_out, self.resize)
         
         img, *images = \
-            [Image.open(f).resize((self.resize), Image.ANTIALIAS) for f in sorted(glob.glob(self.path_in))]
+             [Image.open(f).resize((self.resize), Image.LANCZOS) for f in sorted(glob.glob(self.path_in))]
             
+            # [Image.open(f).resize((self.resize), Image.ANTIALIAS) for f in sorted(glob.glob(self.path_in))]
+                       
         
         try:
             img.save(fp = self.path_out,
@@ -71,7 +73,7 @@ class GifConverter:
 
 if __name__ == '__main__': ## only for developer
     ## class test
-    c = GifConverter('D:/2022/Python/inflearn/jpgTogif/images/*.png', 'D:/2022/Python/inflearn/jpgTogif/output/result.gif', (320, 240))
+    c = GifConverter('D:/2022/Python/inflearn/package/jpgTogif/images/*.png', 'D:/2022/Python/inflearn/package/jpgTogif/output/result.gif', (320, 240))
     c.convert_gif()
     
-    print(GifConverter.convert_gif.__doc__) ##  converts a single gif image
+    # print(GifConverter.convert_gif.__doc__) ##  converts a single gif image

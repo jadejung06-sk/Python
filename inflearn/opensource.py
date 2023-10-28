@@ -25,6 +25,7 @@ setup.py
 >>> https://pypi.org/classifiers/
 
 필수 files
+>>> https://alone-djangonaut.com/a-tour-on-python-packaging#keyring
 0. __init__.py, xxxx.py
 1. LICENSE
 2. setup.py
@@ -33,4 +34,18 @@ setup.py
 1. README.md
 2. requirements.txt
 3. setup.cfg
+    Error ; HTTPError: 401 Unauthorized from https://upload.pypi.org/legacy/
+    User jadejung has two factor auth enabled, an API Token or Trusted Publisher must be used to upload in place of         password.
+    >>> https://khorkeanteng.medium.com/publish-a-packaHTTPError:%20401%20Unauthorized%20from%20https://upload.pypi.org/legacy/%20User%20jadejung%20has%20two%20factor%20auth%20enabled,%20an%20API%20Token%20or%20Trusted%20Publisher%20must%20be%20used%20to%20upload%20in%20place%20of%20%20%20%20%20%20%20%20%20password.ge-on-pypi-ab6de8a0f8d3
+
+    PS D:\2022\Python\inflearn\package\jpgTogif\upload_package> python -m twine upload dist/*
+    Uploading distributions to https://upload.pypi.org/legacy/
+    Enter your username: __token__
+    Enter your password: ctrl + shift + v
+
+PyPI
+your projects -> view -> Download files
+
+
+
 """
