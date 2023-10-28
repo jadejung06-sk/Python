@@ -14,4 +14,23 @@
 6. 복잡하고 다양한 기능 배재하고 처음에는 단 몇 줄이라도 오픈소스 업로드 추천
 7. 효율적인 코드 작성 노하우 향상
 8. 서로 공유하고 돌려주는 문화 체험
+
+다양한 오픈소스 Licenses 종류
+>>> https://www.olis.or.kr/license/compareGuide.do
+ex) mit license file
+>>> https://choosealicense.com/licenses/mit/
+
+setup.py
+1. pypi classifiers 검색
+>>> https://pypi.org/classifiers/
+
+필수 files
+0. __init__.py, xxxx.py
+1. LICENSE
+2. setup.py
+3. MANIFEST.in
+기본 files
+1. README.md
+2. requirements.txt
+3. setup.cfg
 """

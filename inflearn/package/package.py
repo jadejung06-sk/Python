@@ -1,6 +1,8 @@
 """
 PyPI, build, package deploy
-    
+1. PyPI - Register (ID == Username) jadejung
+2. 
+
 """
 
 from jpgTogif.jpytogif import GifConverter as gfc
