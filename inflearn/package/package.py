@@ -14,7 +14,7 @@ PyPI, build, package deploy
   <path of setup.py>
   -> pip install twine 
   -> python -m twine upload dist/*
-  -> jadejung
+  -> jadejungg
   -> type password
   -> verity email and two factor authentication (2FA)
  
@@ -23,6 +23,10 @@ PyPI, build, package deploy
  -> build : dir -> cd <path of setup.py> -> python setup.py sdist bdist_wheel
  -> delete files version 1.0.0
  -> python -m twine upload dist/* 
+
+8. Install my package
+ -> pip install imagestogif_js
+ from imagestogif_js.converter import GifConverter as gfc
 
 """
 
