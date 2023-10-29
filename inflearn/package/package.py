@@ -1,4 +1,5 @@
 """
+######## PyPI 
 PyPI, build, package deploy
 1. PyPI - Register (ID == Username) jadejung
 2. check the structure of the project
@@ -27,10 +28,35 @@ PyPI, build, package deploy
 8. Install my package
  -> pip install imagestogif_js
  from imagestogif_js.converter import GifConverter as gfc
+"""
+
+"""
+######## Github 
+Github, package deploy
+0. pip uninstall imagestogif_js -> pip list
+1. https://github.com - Resgister + extension 
+ -> git config --global user.anem
+ -> git config --global user.email
+ -> git config credential.helper store
+ -> git config --list
+2. check installed git
+3. git add -> commit -> push
+ -> git repository
+ -> git init
+ -> git add .
+ -> git status
+ -> git commit -m "message"
+ -> git remote add origin "your repository http"
+ -> git push origin master
+4. git push PyPI package in your repostory
+5. pip install git+https://your-repository-url
+
+
 
 """
 
-from jpgTogif.jpytogif import GifConverter as gfc
+
+from jpgTogif_forPyPI.jpytogif import GifConverter as gfc
 
 import os
 
