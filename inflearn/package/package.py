@@ -50,9 +50,6 @@ Github, package deploy
  -> git push origin master
 4. git push PyPI package in your repostory
 5. pip install git+https://your-repository-url
-
-
-
 """
 
 
