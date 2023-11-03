@@ -20,3 +20,30 @@ thread synchronization
  세마포어는 리소스에 대한 제한된 수를 동시 엑세스 소비 허용
  세마포어는 뮤텍스를 포괄하지만, 뮤텍스는 그렇지 않음 
 '''
+import logging
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+class FakeDataStore:
+    def __init__(self):
+        self.value = 0
+        
+        
+
+if __name__ == "__main__":
+    ## Logging Format 설정
+    format = "%(asctime)s: %(message)s"
+    logging.basicConfig(format=format, level = logging.INFO, datefmt = "%H:%M:%S")
+    logging.info("Main-Thread: before creating thread")
+    
+    ## 클래스 인스턴스화
+    store = FakeDataStore()
+    
+    logging.info('Testing update. Started value is %d', store.value)
+    
+    ## with Context 시작
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        for n in ['First', 'Second', 'Thrid']:
+            executor.submit(store.update, n)
+            
+    logging.info('Testing update. Finished value is %d', store.value)
