@@ -16,4 +16,49 @@ process vs. thread
 4. 오버헤드 큼 (프로세스), 오버헤드 작음 (스레드)
 5. 생성/소멸 등 다소 느림 (프로세스), 생성/소멸이 다소 빠름 (스레드)
 6. 코드 작성 쉬우나 디버깅 어려움 (프로세스), 코드 작성 어려우나 디버깅도 어려움 (스레드)
+
+terminate
+is_alive
 '''
+
+from multiprocessing import Process
+import time
+import logging
+
+
+def proc_func(name):
+    print('Sub Process : {} : started'.format(name))
+    time.sleep(3)
+    print('Sub Process : {} : finishsed'.format(name))
+
+def main():
+    # Logging format 설정
+    format = "%(asctime)s: %(message)s"
+    logging.basicConfig(format = format , level = logging.INFO, datefmt= "%H:%M:%S")
+
+    ## 함수 인자 확인
+    p = Process(target=proc_func, args = ('First', ))
+    
+    logging.info('Main-Process : before creating Process')
+    
+    ## 프로세스
+    p.start()
+    
+    logging.info('Main-Process : During Process')
+    
+    ## 즉시 종료
+    # logging.info('Main-Process : Terminated Process')
+    # p.terminate()
+    ############ 
+    
+    logging.info('Main-Process : Joined Process')
+    p.join()
+    
+    ## 프로세스 상태 확인
+    print(f'Process p is alive : {p.is_alive()}')
+    
+
+## 메인 영역
+
+if __name__ == "__main__":
+    main()
