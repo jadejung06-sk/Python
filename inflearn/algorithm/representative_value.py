@@ -6,7 +6,7 @@ n명의 학생들의 평균과 가장 가까운 학생이 몇 번째 학생인�
 import time
 import sys
 start_time = time.time()
-# sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt.txt", "rt")
+sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt.txt", "rt")
 T = int(input())
 a = list(map(int, input().split()))
 meanVal = round(sum(a) / T)
