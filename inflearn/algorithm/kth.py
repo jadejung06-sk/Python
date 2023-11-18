@@ -1,6 +1,5 @@
 '''
-
-
+s번째에서 e번째의 수를 나열해서, k 번째 큰 수 출력 
 '''
 import time
 import sys
