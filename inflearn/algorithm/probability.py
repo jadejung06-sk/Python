@@ -7,19 +7,42 @@ import time
 import sys
 start_time = time.time()
 sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt.txt", "rt")
+##### My method 
 ns, ms = list(map(int, input().split()))
-values = []
+# values = []
 valDict = { key:0 for key in range(1, 41) }
 for n in range(1, ns+1):
     for m in range(1, ms+1):
-        values.append(n + m)
+        # values.append(n + m)
         valDict[n + m] += 1
 maxVal = max(valDict.values())
 answers = ''
 for key, val in valDict.items():
     if maxVal == val:
+        # print(key, end = ' ')
         answers += f'{key} '
 print(answers[:-1])
 print(f'Time : {time.time() - start_time } seconds')
+
+
+##### method
+# import time
+# import sys
+# start_time = time.time()
+# sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt.txt", "rt")
+# n, m = map(int, input().split())
+# cnt = [0] * (n+m+3)
+# max = -2147000000
+# for i in range(1, n + 1):
+#     for j in range(1, m + 1):
+#         cnt[i + j] += 1
+# for i in range(n+m+1):
+#     if cnt[i] > max:
+#         max = cnt[i]
+# for i in range(n+m+1):
+#     if cnt[i] == max :
+#         print(i, end = ' ')
+
+
 
 
