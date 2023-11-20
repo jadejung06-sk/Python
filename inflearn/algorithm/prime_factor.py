@@ -6,7 +6,7 @@
 import time
 import sys
 start_time = time.time()
-# sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt.txt", "rt")
+sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt.txt", "rt")
 n = int(input())
 ch = [0] * (n+1)
 cnt = 0 
