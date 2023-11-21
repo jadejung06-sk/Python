@@ -11,13 +11,20 @@ sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt", "rt")
 n = int(input())
 a = list(map(str, input().split()))
 
-for i in a:
-    target = int(i[::-1])
+def reverse(x:str):
+    x = int(x[::-1])
+    return x
+
+def isPrime(x:int):
     cnt = 0
-    ch = [0] * (target+1)
-    for t in range(2, target+1):
-        if ch[t] == 0:
-            for j in range(t+1, target+1, t):
-                ch[j] += 1
-    if ch[-1] == 0:
+    for i in range(2, x+1):
+        if x % i == 0:
+            cnt += 1
+    if cnt == 1:
+        return True
+    else:
+        return False
+for i in a:
+    target = reverse(i)
+    if isPrime(target):
         print(target, end = ' ')
