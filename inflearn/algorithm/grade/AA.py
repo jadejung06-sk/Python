@@ -1,40 +1,42 @@
 '''
-숫자를 뒤집은 뒤에, 소수를 출력
-예를 들어, 32면 23, 910이면 19로 숫자화, 첫 자리부터 연속된 0은 무시
-def reverse(x)와 def isPrime(x) 작성하시오.
-5 19 71 79 991
+3개의 주사위를 던져서, 
+같은 눈 3개면 10000 + (눈수) * 1000
+같은 눈 2개면 1000 + (눈수) * 100
+다른 눈이면, (가장 큰 눈) * 100
+가장 큰 상금을 출력하시오.
 '''
 import time
 import sys
 start_time = time.time()
 # sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt", "rt")
 n = int(input())
-a = list(map(str, input().split()))
 
-def reverse(x:str):
-    x = int(x[::-1])
-    return x
 
-def isPrime(x:int):
-    cnt = 0
-    for i in range(2, x+1):
-        if x % i == 0:
-            cnt += 1
-    if cnt == 1:
-        return True
-    else:
-        return False
-    
-# def isPrime(x:int):
-#     if x == 1:
-#         return False
-#     for i in range(2, x//2+1):
-#         if x % i == 0:
-#             return False
-#     else:
-#         return True
-    
-for i in a:
-    target = reverse(i)
-    if isPrime(target):
-        print(target, end = ' ')
+def get_prize(values):
+    prize = 0
+    maxVal = -2147000000
+    dice = {i:0 for i in range(1, 7)}
+    for value in values:
+        dice[value] +=1
+    for idx, val in dice.items():
+        if val == 3:
+            prize = 10000 + idx * 1000
+            return prize
+            break
+        elif val == 2:
+            prize = 1000 + idx * 100
+            return prize
+            break
+        elif val == 1:
+            if maxVal < idx:
+                maxVal = idx
+    prize = maxVal * 100        
+    return prize    
+
+maxPrize = -2147000000
+for _ in range(n):
+    a = list(map(int, input().split()))
+    prize = get_prize(a)
+    if maxPrize < prize:
+        maxPrize = prize
+print(maxPrize)
