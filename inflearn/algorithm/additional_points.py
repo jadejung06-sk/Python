@@ -6,7 +6,7 @@ import time
 import sys
 ###### My method
 # start_time = time.time()
-# sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt", "rt")
+sys.stdin = open("D:/2022/Python/inflearn/algorithm/grade/input.txt", "rt")
 n = int(input())
 a = list(map(int, input().split()))
 # print(n, a )
