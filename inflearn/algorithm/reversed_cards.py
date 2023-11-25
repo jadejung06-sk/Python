@@ -24,7 +24,7 @@
     
 ##### Solution
 import sys
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 a = list(range(21))
 for _ in range(10):
     s, e = map(int, input().split())
