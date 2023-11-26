@@ -9,7 +9,7 @@ start_idx = 0
 end_idx = start_idx +1
 cnt = 0
 while n >= end_idx:
-    print(a[start_idx:end_idx])
+    # print(a[start_idx:end_idx])
     if sum(a[start_idx:end_idx]) > m :        
         start_idx += 1
     elif sum(a[start_idx:end_idx]) == m :
@@ -18,5 +18,3 @@ while n >= end_idx:
     else:
         end_idx += 1
 print(cnt)
-
-         
