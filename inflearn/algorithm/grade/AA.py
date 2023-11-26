@@ -1,22 +1,39 @@
 '''
-n개의 순열이 존재하고, n을 앞에서 부터 더해가면서, m이 되는 경우의 수를 구하라.
+5 * 5 격자판의 행의 합, 열의 합, 대각선의 합 중 가장 큰 합을 출력하라.
 '''
 import sys
-sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
-n, m = map(int, input().split())
-a = list(map(int, input().split()))
-start_idx = 0
-end_idx = start_idx +1
-cnt = 0
-while n >= end_idx:
-    print(a[start_idx:end_idx])
-    if sum(a[start_idx:end_idx]) > m :        
-        start_idx += 1
-    elif sum(a[start_idx:end_idx]) == m :
-        cnt += 1        
-        start_idx += 1
-    else:
-        end_idx += 1
-print(cnt)
+# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+n = int(input())
+questions = []
+maxVal = -247000000
+for _ in range(n):
+    a = list(map(int, input().split()))
+    questions.append(a)
+for question in questions:
+    if maxVal < sum(question):
+        maxVal = sum(question)
 
-         
+for i in range(len(questions)):
+    colx = 0
+    for j in range(len(questions)):
+        colx += questions[j][i]
+    if maxVal < colx:
+        maxVal = colx
+
+for i in range(len(questions)):
+    digonalx = 0
+    for j in range(i+1, len(questions)):
+        if i == j:
+            digonalx += questions[i][j]
+            if maxVal < digonalx:
+                maxVal = digonalx
+   
+for i in range(len(questions)):
+    digonaly = 0
+    for j in range(i+1, len(questions)):
+        if (i + j + 1) == len(questions):
+            digonaly += questions[j][j]
+            if maxVal < digonaly:
+                maxVal = digonaly
+
+print(maxVal)
