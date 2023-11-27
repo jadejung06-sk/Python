@@ -3,7 +3,7 @@
 '''
 
 import sys
-# sys.stdin = open(r'inflearn/algorithm/grade/input.txt', 'r')
+sys.stdin = open(r'inflearn/algorithm/grade/input.txt', 'r')
 n = int(input())
 a = [list(map(int, input().split())) for _ in range(n) ]
 p1 = ((n-1)//2 )
@@ -14,7 +14,6 @@ for vals in a:
     p1 -= 1
     p2 += 1
     if p1 == 0:
-
         break
 for vals in a[(n-1)//2:]:
     tot += sum(vals[p1:p2])
