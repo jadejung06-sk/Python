@@ -23,3 +23,26 @@ for x in a:
             break
     
 ##### cols
+for i in range(9):
+    checkDict = { i:0 for i in range(1, 10)}
+    for j in range(9):
+        checkDict[a[j][i]] += 1
+        if checkDict[val] > 1:
+            print(res)
+            break
+
+
+###### digonal
+di = [-1, -1, -1, 0, 1, 1, 1, 0]
+dj = [-1, 0, 1, 1, 1, 0, -1, -1]
+centers = [1, 4, 7]
+for i in range(9):
+    checkDict = { i:0 for i in range(1, 10)}
+    for j in range(9):
+        if i in centers and j in centers:
+            # print(i, j)
+            for idx in range(8):
+                print('i', i, 'j', j)
+                print(a[i + di[idx]][j + dj[idx]])
+                
+print('YES')
