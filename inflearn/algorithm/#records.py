@@ -10,6 +10,7 @@ a = list(map(int, input().split()))
 lt = 1
 rt = sum(a)
 res = 0
+maxx = max(a)
 
 def Count(capacity):
     cnt = 1
@@ -26,7 +27,7 @@ while lt <= rt:
     cnt = 0
     total = 0
     mid = (lt + rt) // 2
-    if Count(mid) <= m:            
+    if mid >= maxx and Count(mid) <= m:            
         res = mid
         rt = mid - 1   
     else:
