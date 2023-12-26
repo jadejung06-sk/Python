@@ -44,7 +44,7 @@ get the number of maximum meetings
     
 ##### Solution
 import sys
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 n = int(input())
 meeting = []
 for i in range(n):
