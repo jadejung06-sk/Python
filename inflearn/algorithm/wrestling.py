@@ -3,7 +3,7 @@ Greedy
 comparsion for heights and weights
 '''
 import sys
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 n = int(input())
 people = [tuple(map(int, input().split())) for _ in range(n)]
 people.sort()
