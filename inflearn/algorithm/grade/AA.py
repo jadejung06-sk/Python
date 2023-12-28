@@ -1,15 +1,25 @@
 import sys
 # sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
-n = int(input())
-target_list = list(map(int, input().split()))
-m = int(input())
-times = 0
-while times < m:
-    times += 1
-    maxIdx = target_list.index(max(target_list))
-    minIdx = target_list.index(min(target_list))
-    target_list[maxIdx] -= 1
-    target_list[minIdx] += 1
-print(max(target_list) - min(target_list))
-
-##### Solution
+n, m = map(int, input().split())
+a = list(map(int, input().split()))
+a.sort(reverse=True)
+# print(a) # ascending
+total = 0
+cnt = 0
+while len(a) != 0:
+    if len(a) != 1:
+        for val in a:
+            total = a[0] + a[- 1]
+            if total > m:
+                a.pop(0)
+                cnt += 1
+            else:
+                a.pop()
+                a.pop(0)
+                cnt += 1
+            # print(val, a)
+    else:
+        cnt += 1
+        break
+print(cnt)
+        
