@@ -1,25 +1,48 @@
+'''
+Select a single number on the Right or the Left.
+The outputs are the largest number of numbers and Right / Left.
+'''
 import sys
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
-n, m = map(int, input().split())
+from collections import deque
+
+# sys.stdin = open(r"D:/2022/Python/inflearn/algorithm/grade/input.txt", 'r')
+n = int(input())
 a = list(map(int, input().split()))
-a.sort(reverse=True)
-# print(a) # ascending
-total = 0
+a = deque(a)
+
 cnt = 0
-while len(a) != 0:
-    if len(a) != 1:
-        for val in a:
-            total = a[0] + a[- 1]
-            if total > m:
-                a.pop(0)
-                cnt += 1
-            else:
-                a.pop()
-                a.pop(0)
-                cnt += 1
-            # print(val, a)
+last_num = -1
+maxNum = -1
+answer = ''
+for _ in range(n):
+    if _ == 0:
+        if a[0] >= a[-1]:
+            last_num = a[-1]
+            answer += 'R'
+            cnt += 1
+            a.pop()
+        else:
+            last_num = a[0]
+            answer += 'L'
+            cnt += 1
+            a.popleft()     
     else:
-        cnt += 1
-        break
+        if a[0] >= a[-1]:
+            last_num = a[0]
+            if last_num < maxNum:
+                break
+            maxNum = last_num
+            answer += 'L'
+            cnt += 1
+            a.popleft()
+        else:
+            last_num = a[-1]
+            if last_num < maxNum:
+                break
+            maxNum = last_num
+            answer += 'R'
+            cnt += 1
+            a.pop()
 print(cnt)
+print(answer)
         
