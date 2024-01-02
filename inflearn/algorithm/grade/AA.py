@@ -4,45 +4,31 @@ The outputs are the largest number of numbers and Right / Left.
 '''
 import sys
 from collections import deque
-
 # sys.stdin = open(r"D:/2022/Python/inflearn/algorithm/grade/input.txt", 'r')
 n = int(input())
 a = list(map(int, input().split()))
 a = deque(a)
-
-cnt = 0
-last_num = -1
-maxNum = -1
-answer = ''
-for _ in range(n):
-    if _ == 0:
-        if a[0] >= a[-1]:
-            last_num = a[-1]
-            answer += 'R'
-            cnt += 1
-            a.pop()
-        else:
-            last_num = a[0]
-            answer += 'L'
-            cnt += 1
-            a.popleft()     
+last = 0
+lt = 0
+rt = n - 1
+res = ""
+tmp = []
+while lt <= rt:
+    if a[lt] > last:
+        tmp.append((a[lt], 'L'))
+    if a[rt] > last:
+        tmp.append((a[rt], 'R'))
+    tmp.sort()
+    if len(tmp) == 0:
+        break
     else:
-        if a[0] >= a[-1]:
-            last_num = a[0]
-            if last_num < maxNum:
-                break
-            maxNum = last_num
-            answer += 'L'
-            cnt += 1
-            a.popleft()
+        res += tmp[0][1]
+        last = tmp[0][0]
+        if tmp[0][1] == 'L':
+            lt += 1
         else:
-            last_num = a[-1]
-            if last_num < maxNum:
-                break
-            maxNum = last_num
-            answer += 'R'
-            cnt += 1
-            a.pop()
-print(cnt)
-print(answer)
-        
+            rt -= 1
+    tmp.clear()
+print(len(res))
+print(res)
+            
