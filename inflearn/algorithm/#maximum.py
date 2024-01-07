@@ -1,5 +1,5 @@
 import sys
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 num, m = map(int, input().split())
 num = list(map(int, str(num)))
 stack = []
