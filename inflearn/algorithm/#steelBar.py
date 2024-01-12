@@ -1,7 +1,7 @@
 '''stack'''
 
 import sys
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 bar = input()
 bars = [i for i in bar]
 stack = []
