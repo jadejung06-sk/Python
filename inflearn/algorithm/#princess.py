@@ -2,7 +2,7 @@
 
 import sys
 from collections import deque
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 n, k = map(int, input().split())
 dq = list(range(1, n + 1))
 dq = deque(dq)
