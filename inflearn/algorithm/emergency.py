@@ -2,15 +2,12 @@
 from collections import deque
 import sys
 
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 n, m = map(int, input().split())
 a = list(map(int, input().split()))
 dq = [ (val, 1) if idx == m else (val, 0) for idx, val in enumerate(a) ]
-# print(dq)
 dq = deque(dq)
 # print(dq, max(dq)[0], dq.popleft()[0])
-# print(max(dq)) 90
-# print(dq.popleft()) # 60
 cnt = 0
 target = dq[m]
 while dq:
