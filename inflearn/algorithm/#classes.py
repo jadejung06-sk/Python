@@ -1,7 +1,7 @@
 '''queue'''
 import sys
 from collections import deque
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 # classes = input()
 # class_old = deque(classes)
 
