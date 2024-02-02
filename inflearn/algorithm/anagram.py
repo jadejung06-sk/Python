@@ -1,6 +1,6 @@
 import sys
 from collections import defaultdict
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 a1 = defaultdict(int)
 a2 = defaultdict(int)
 
