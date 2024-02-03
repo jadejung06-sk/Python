@@ -9,7 +9,7 @@
 # if ord(text) == 8544:
 #     print(text.replace(text, text1))
 import sys 
-# sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
+sys.stdin = open(r'D:\2022\Python\inflearn\algorithm\grade\input.txt', 'r')
 a = input()
 b = input()
 str1 = [0] * 52
