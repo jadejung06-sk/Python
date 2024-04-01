@@ -22,3 +22,5 @@ from temp_02
 group by d_day
 having count(*) = 5
 order by d_day
+
+
